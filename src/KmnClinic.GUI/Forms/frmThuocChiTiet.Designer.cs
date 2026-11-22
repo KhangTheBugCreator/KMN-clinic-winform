@@ -92,11 +92,11 @@ partial class frmThuocChiTiet
         txtMa.Anchor = AnchorStyles.Left | AnchorStyles.Right; txtMa.Name = "txtMa"; txtMa.ReadOnly = true;
         txtTen.Anchor = AnchorStyles.Left | AnchorStyles.Right; txtTen.MaxLength = 100; txtTen.Name = "txtTen";
         txtNsx.Anchor = AnchorStyles.Left | AnchorStyles.Right; txtNsx.MaxLength = 100; txtNsx.Name = "txtNsx";
-        numHamLuong.Anchor = AnchorStyles.Left; numHamLuong.DecimalPlaces = 2; numHamLuong.Maximum = 100000; numHamLuong.Name = "numHamLuong"; numHamLuong.Size = new Size(160, 30);
-        cboDvt.Anchor = AnchorStyles.Left; cboDvt.Name = "cboDvt"; cboDvt.Size = new Size(160, 30);
+        numHamLuong.Anchor = AnchorStyles.Left | AnchorStyles.Right; numHamLuong.DecimalPlaces = 2; numHamLuong.Maximum = 100000; numHamLuong.Name = "numHamLuong"; numHamLuong.Size = new Size(160, 30);
+        cboDvt.Anchor = AnchorStyles.Left | AnchorStyles.Right; cboDvt.Name = "cboDvt"; cboDvt.Size = new Size(160, 30);
         cboDvt.Items.AddRange(new object[] { "Viên", "Chai", "Gói", "Ống", "Tuýp", "Lọ", "Hộp" });
-        numDonGia.Anchor = AnchorStyles.Left; numDonGia.Increment = 500; numDonGia.Maximum = 100000000; numDonGia.Name = "numDonGia"; numDonGia.Size = new Size(160, 30); numDonGia.ThousandsSeparator = true;
-        numTon.Anchor = AnchorStyles.Left; numTon.Maximum = 1000000; numTon.Name = "numTon"; numTon.Size = new Size(160, 30); numTon.ThousandsSeparator = true;
+        numDonGia.Anchor = AnchorStyles.Left | AnchorStyles.Right; numDonGia.Increment = 500; numDonGia.Maximum = 100000000; numDonGia.Name = "numDonGia"; numDonGia.Size = new Size(160, 30); numDonGia.ThousandsSeparator = true;
+        numTon.Anchor = AnchorStyles.Left | AnchorStyles.Right; numTon.Maximum = 1000000; numTon.Name = "numTon"; numTon.Size = new Size(160, 30); numTon.ThousandsSeparator = true;
         chkXacNhanTon.Anchor = AnchorStyles.Left; chkXacNhanTon.AutoSize = true; chkXacNhanTon.ForeColor = Color.Red;
         chkXacNhanTon.Name = "chkXacNhanTon"; chkXacNhanTon.Text = "Tôi xác nhận sửa trực tiếp số lượng tồn (kiểm kho)";
         chkXacNhanTon.CheckedChanged += chkXacNhanTon_CheckedChanged;

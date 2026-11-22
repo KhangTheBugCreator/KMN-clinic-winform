@@ -194,6 +194,7 @@ partial class frmKhamBenh
         pnlDuoi.Dock = DockStyle.Fill;
         pnlDuoi.Margin = new Padding(0);
         pnlDuoi.Name = "pnlDuoi";
+        pnlDuoi.Size = new Size(720, 60);
         lblTong.AutoSize = true; lblTong.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         lblTong.Location = new Point(0, 18); lblTong.Name = "lblTong";
         btnLuuNhap.Anchor = AnchorStyles.Top | AnchorStyles.Right; btnLuuNhap.Location = new Point(420, 12); btnLuuNhap.Name = "btnLuuNhap"; btnLuuNhap.Size = new Size(120, 30);
         btnLuuNhap.Text = "Lưu nháp"; btnLuuNhap.Click += btnLuuNhap_Click;

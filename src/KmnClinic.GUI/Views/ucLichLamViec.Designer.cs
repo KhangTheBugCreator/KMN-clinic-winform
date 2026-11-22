@@ -19,14 +19,12 @@ partial class ucLichLamViec
         btnSau = new Button();
         btnHomNay = new Button();
         cboKhoa = new ComboBox();
-        flpNut = new FlowLayoutPanel();
         btnXepLich = new Button();
         khung = new Panel();
         dgvLich = new DataGridView();
         lblGhiChu = new Label();
         pnlCongCu.SuspendLayout();
         flpLoc.SuspendLayout();
-        flpNut.SuspendLayout();
         khung.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)dgvLich).BeginInit();
         SuspendLayout();
@@ -34,7 +32,6 @@ partial class ucLichLamViec
         // pnlCongCu
         //
         pnlCongCu.Controls.Add(flpLoc);
-        pnlCongCu.Controls.Add(flpNut);
         pnlCongCu.Dock = DockStyle.Top;
         pnlCongCu.Name = "pnlCongCu";
         pnlCongCu.Padding = new Padding(0, 0, 0, 12);
@@ -47,6 +44,7 @@ partial class ucLichLamViec
         flpLoc.Controls.Add(btnSau);
         flpLoc.Controls.Add(btnHomNay);
         flpLoc.Controls.Add(cboKhoa);
+        flpLoc.Controls.Add(btnXepLich);
         flpLoc.Dock = DockStyle.Fill;
         flpLoc.Name = "flpLoc";
         flpLoc.WrapContents = false;
@@ -57,15 +55,7 @@ partial class ucLichLamViec
         btnHomNay.Margin = new Padding(8, 0, 16, 0); btnHomNay.Name = "btnHomNay"; btnHomNay.Size = new Size(100, 30); btnHomNay.Text = "Tuần này"; btnHomNay.Click += btnHomNay_Click;
         cboKhoa.DropDownStyle = ComboBoxStyle.DropDownList; cboKhoa.Margin = new Padding(0, 4, 0, 0); cboKhoa.Name = "cboKhoa"; cboKhoa.Size = new Size(200, 30);
         cboKhoa.SelectedIndexChanged += cboKhoa_SelectedIndexChanged;
-        //
-        // flpNut
-        //
-        flpNut.Controls.Add(btnXepLich);
-        flpNut.Dock = DockStyle.Right;
-        flpNut.FlowDirection = FlowDirection.RightToLeft;
-        flpNut.Name = "flpNut";
-        flpNut.Size = new Size(240, 44);
-        btnXepLich.Margin = new Padding(0); btnXepLich.Name = "btnXepLich"; btnXepLich.Size = new Size(200, 30); btnXepLich.Text = "+ Xếp lịch hàng loạt";
+        btnXepLich.Margin = new Padding(8, 2, 0, 0); btnXepLich.Name = "btnXepLich"; btnXepLich.Size = new Size(200, 30); btnXepLich.Text = "+ Xếp lịch hàng loạt";
         btnXepLich.Click += btnXepLich_Click;
         //
         // khung
@@ -89,7 +79,6 @@ partial class ucLichLamViec
         Size = new Size(1000, 600);
         pnlCongCu.ResumeLayout(false);
         flpLoc.ResumeLayout(false);
-        flpNut.ResumeLayout(false);
         khung.ResumeLayout(false);
         ((System.ComponentModel.ISupportInitialize)dgvLich).EndInit();
         ResumeLayout(false);
@@ -102,7 +91,6 @@ partial class ucLichLamViec
     private Button btnSau;
     private Button btnHomNay;
     private ComboBox cboKhoa;
-    private FlowLayoutPanel flpNut;
     private Button btnXepLich;
     private Panel khung;
     private DataGridView dgvLich;

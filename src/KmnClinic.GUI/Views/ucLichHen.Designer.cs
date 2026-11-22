@@ -18,7 +18,6 @@ partial class ucLichHen
         chkMoiNgay = new CheckBox();
         cboTrangThai = new ComboBox();
         txtTim = new TextBox();
-        flpNut = new FlowLayoutPanel();
         btnDatLich = new Button();
         btnHuy = new Button();
         btnXacNhan = new Button();
@@ -35,7 +34,6 @@ partial class ucLichHen
         lblDem = new Label();
         pnlCongCu.SuspendLayout();
         flpLoc.SuspendLayout();
-        flpNut.SuspendLayout();
         khung.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)dgvLichHen).BeginInit();
         SuspendLayout();
@@ -43,7 +41,6 @@ partial class ucLichHen
         // pnlCongCu
         //
         pnlCongCu.Controls.Add(flpLoc);
-        pnlCongCu.Controls.Add(flpNut);
         pnlCongCu.Dock = DockStyle.Top;
         pnlCongCu.Name = "pnlCongCu";
         pnlCongCu.Padding = new Padding(0, 0, 0, 12);
@@ -55,6 +52,9 @@ partial class ucLichHen
         flpLoc.Controls.Add(chkMoiNgay);
         flpLoc.Controls.Add(cboTrangThai);
         flpLoc.Controls.Add(txtTim);
+        flpLoc.Controls.Add(btnXacNhan);
+        flpLoc.Controls.Add(btnHuy);
+        flpLoc.Controls.Add(btnDatLich);
         flpLoc.Dock = DockStyle.Fill;
         flpLoc.Name = "flpLoc";
         flpLoc.WrapContents = false;
@@ -67,20 +67,9 @@ partial class ucLichHen
         cboTrangThai.SelectedIndexChanged += BoLoc_Changed;
         txtTim.Margin = new Padding(0, 4, 0, 0); txtTim.Name = "txtTim"; txtTim.PlaceholderText = "Tên hoặc SĐT khách..."; txtTim.Size = new Size(220, 30);
         txtTim.TextChanged += BoLoc_Changed;
-        //
-        // flpNut
-        //
-        flpNut.Controls.Add(btnDatLich);
-        flpNut.Controls.Add(btnHuy);
-        flpNut.Controls.Add(btnXacNhan);
-        flpNut.Dock = DockStyle.Right;
-        flpNut.FlowDirection = FlowDirection.RightToLeft;
-        flpNut.Name = "flpNut";
-        flpNut.Size = new Size(420, 44);
-        flpNut.WrapContents = false;
-        btnDatLich.Margin = new Padding(8, 0, 0, 0); btnDatLich.Name = "btnDatLich"; btnDatLich.Size = new Size(150, 30); btnDatLich.Text = "+ Đặt lịch hộ"; btnDatLich.Click += btnDatLich_Click;
-        btnHuy.Margin = new Padding(8, 0, 0, 0); btnHuy.Name = "btnHuy"; btnHuy.Size = new Size(110, 30); btnHuy.Text = "Hủy lịch"; btnHuy.Click += btnHuy_Click;
-        btnXacNhan.Margin = new Padding(0); btnXacNhan.Name = "btnXacNhan"; btnXacNhan.Size = new Size(120, 30); btnXacNhan.Text = "Xác nhận"; btnXacNhan.Click += btnXacNhan_Click;
+        btnDatLich.Margin = new Padding(8, 2, 0, 0); btnDatLich.Name = "btnDatLich"; btnDatLich.Size = new Size(150, 30); btnDatLich.Text = "+ Đặt lịch hộ"; btnDatLich.Click += btnDatLich_Click;
+        btnHuy.Margin = new Padding(8, 2, 0, 0); btnHuy.Name = "btnHuy"; btnHuy.Size = new Size(110, 30); btnHuy.Text = "Hủy lịch"; btnHuy.Click += btnHuy_Click;
+        btnXacNhan.Margin = new Padding(8, 2, 0, 0); btnXacNhan.Name = "btnXacNhan"; btnXacNhan.Size = new Size(120, 30); btnXacNhan.Text = "Xác nhận"; btnXacNhan.Click += btnXacNhan_Click;
         //
         // khung
         //
@@ -115,7 +104,6 @@ partial class ucLichHen
         pnlCongCu.ResumeLayout(false);
         flpLoc.ResumeLayout(false);
         flpLoc.PerformLayout();
-        flpNut.ResumeLayout(false);
         khung.ResumeLayout(false);
         ((System.ComponentModel.ISupportInitialize)dgvLichHen).EndInit();
         ResumeLayout(false);
@@ -127,7 +115,6 @@ partial class ucLichHen
     private CheckBox chkMoiNgay;
     private ComboBox cboTrangThai;
     private TextBox txtTim;
-    private FlowLayoutPanel flpNut;
     private Button btnDatLich;
     private Button btnHuy;
     private Button btnXacNhan;

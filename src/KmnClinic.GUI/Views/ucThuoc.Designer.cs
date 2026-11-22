@@ -16,7 +16,6 @@ partial class ucThuoc
         flpLoc = new FlowLayoutPanel();
         txtTim = new TextBox();
         chkSapHet = new CheckBox();
-        flpNut = new FlowLayoutPanel();
         btnSua = new Button();
         btnThem = new Button();
         khung = new Panel();
@@ -31,7 +30,6 @@ partial class ucThuoc
         lblDem = new Label();
         pnlCongCu.SuspendLayout();
         flpLoc.SuspendLayout();
-        flpNut.SuspendLayout();
         khung.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)dgvThuoc).BeginInit();
         SuspendLayout();
@@ -39,7 +37,6 @@ partial class ucThuoc
         // pnlCongCu
         //
         pnlCongCu.Controls.Add(flpLoc);
-        pnlCongCu.Controls.Add(flpNut);
         pnlCongCu.Dock = DockStyle.Top;
         pnlCongCu.Name = "pnlCongCu";
         pnlCongCu.Padding = new Padding(0, 0, 0, 12);
@@ -49,6 +46,8 @@ partial class ucThuoc
         //
         flpLoc.Controls.Add(txtTim);
         flpLoc.Controls.Add(chkSapHet);
+        flpLoc.Controls.Add(btnThem);
+        flpLoc.Controls.Add(btnSua);
         flpLoc.Dock = DockStyle.Fill;
         flpLoc.Name = "flpLoc";
         flpLoc.WrapContents = false;
@@ -69,19 +68,9 @@ partial class ucThuoc
         chkSapHet.Text = "Chỉ thuốc sắp hết (tồn dưới 20)";
         chkSapHet.CheckedChanged += BoLoc_Changed;
         //
-        // flpNut
-        //
-        flpNut.Controls.Add(btnSua);
-        flpNut.Controls.Add(btnThem);
-        flpNut.Dock = DockStyle.Right;
-        flpNut.FlowDirection = FlowDirection.RightToLeft;
-        flpNut.Name = "flpNut";
-        flpNut.Size = new Size(300, 44);
-        flpNut.WrapContents = false;
-        //
         // btnSua
         //
-        btnSua.Margin = new Padding(8, 0, 0, 0);
+        btnSua.Margin = new Padding(8, 2, 0, 0);
         btnSua.Name = "btnSua";
         btnSua.Size = new Size(110, 30);
         btnSua.Text = "Sửa";
@@ -89,7 +78,7 @@ partial class ucThuoc
         //
         // btnThem
         //
-        btnThem.Margin = new Padding(0);
+        btnThem.Margin = new Padding(8, 2, 0, 0);
         btnThem.Name = "btnThem";
         btnThem.Size = new Size(140, 30);
         btnThem.Text = "+ Thêm thuốc";
@@ -140,7 +129,6 @@ partial class ucThuoc
         pnlCongCu.ResumeLayout(false);
         flpLoc.ResumeLayout(false);
         flpLoc.PerformLayout();
-        flpNut.ResumeLayout(false);
         khung.ResumeLayout(false);
         ((System.ComponentModel.ISupportInitialize)dgvThuoc).EndInit();
         ResumeLayout(false);
@@ -150,7 +138,6 @@ partial class ucThuoc
     private FlowLayoutPanel flpLoc;
     private TextBox txtTim;
     private CheckBox chkSapHet;
-    private FlowLayoutPanel flpNut;
     private Button btnThem;
     private Button btnSua;
     private Panel khung;

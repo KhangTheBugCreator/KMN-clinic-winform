@@ -94,6 +94,7 @@ partial class ucTiepNhan
         khungVangLai.Dock = DockStyle.Fill;
         khungVangLai.Margin = new Padding(8, 0, 0, 8);
         khungVangLai.Name = "khungVangLai";
+        khungVangLai.Size = new Size(412, 312);
         lblVangLai.AutoSize = true; lblVangLai.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         lblVangLai.Location = new Point(16, 16); lblVangLai.Name = "lblVangLai"; lblVangLai.Text = "Khách vãng lai";
         txtSdt.Location = new Point(16, 52); txtSdt.MaxLength = 10; txtSdt.Name = "txtSdt"; txtSdt.PlaceholderText = "Số điện thoại"; txtSdt.Size = new Size(200, 30);
         btnTim.Location = new Point(224, 50); btnTim.Name = "btnTim"; btnTim.Size = new Size(90, 34); btnTim.Text = "Tìm"; btnTim.Click += btnTim_Click;
