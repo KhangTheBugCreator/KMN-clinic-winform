@@ -1,0 +1,94 @@
+namespace KmnClinic.DTO;
+
+/// <summary>Bảng Lich_lam_viec, kèm tên để hiển thị.</summary>
+public class LichLamViecDTO
+{
+    public string MaLichLamViec { get; set; } = "";
+    public DateTime NgayLamViec { get; set; }
+    public string MaNv { get; set; } = "";
+    public string TenBacSi { get; set; } = "";
+    public string MaPhong { get; set; } = "";
+    public string TenPhong { get; set; } = "";
+    public string MaCa { get; set; } = "";
+    public string TenCa { get; set; } = "";
+    public string TenKhoa { get; set; } = "";
+}
+
+/// <summary>Bảng Lich_hen, kèm tên để hiển thị.</summary>
+public class LichHenDTO
+{
+    public string MaLichHen { get; set; } = "";
+    public DateTime NgayGioDat { get; set; }
+    public DateTime NgayKham { get; set; }
+    public string TenCa { get; set; } = "";
+    public string TenKhachHang { get; set; } = "";
+    public string SdtKhachHang { get; set; } = "";
+    public string TenBacSi { get; set; } = "";
+    public string TenKhoa { get; set; } = "";
+    public string? TrieuChungBanDau { get; set; }
+    public string TrangThai { get; set; } = "";
+    public string? LeTanXacNhan { get; set; }
+}
+
+/// <summary>Bảng Ho_so_kham, kèm tên để hiển thị.</summary>
+public class HoSoKhamDTO
+{
+    public string MaHoSo { get; set; } = "";
+    public DateTime NgayGioKham { get; set; }
+    public string MaKh { get; set; } = "";
+    public string TenKhachHang { get; set; } = "";
+    public string GioiTinh { get; set; } = "";
+    public int Tuoi { get; set; }
+    public string TenBacSi { get; set; } = "";
+    public string? TrieuChung { get; set; }
+    public string? ChanDoanBenh { get; set; }
+    public string? LoiDan { get; set; }
+    public decimal TienCongKham { get; set; }
+    public string? MaLichHen { get; set; }
+    public string Nguon => MaLichHen is null ? "Vãng lai" : "Có hẹn";
+    public string TrangThai { get; set; } = "";
+}
+
+/// <summary>Bảng Chi_tiet_don_thuoc, kèm tên thuốc.</summary>
+public class ChiTietDonThuocDTO
+{
+    public string MaThuoc { get; set; } = "";
+    public string TenThuoc { get; set; } = "";
+    public string DonViTinh { get; set; } = "";
+    public int SoLuongThuoc { get; set; }
+    public string? LieuDung { get; set; }
+    public decimal DonGiaThuoc { get; set; }
+    public decimal ThanhTien => SoLuongThuoc * DonGiaThuoc;
+}
+
+/// <summary>Bảng Hoa_don, kèm thông tin hồ sơ.</summary>
+public class HoaDonDTO
+{
+    public string MaHoaDon { get; set; } = "";
+    public string MaHoSo { get; set; } = "";
+    public DateTime NgayKham { get; set; }
+    public string TenKhachHang { get; set; } = "";
+    public string SdtKhachHang { get; set; } = "";
+    public string TenBacSi { get; set; } = "";
+    public decimal TienCongKham { get; set; }
+    public decimal TongTien { get; set; }
+    public string TrangThaiThanhToan { get; set; } = "";
+    public DateTime? NgayGioThanhToan { get; set; }
+    public string? ThuNgan { get; set; }
+}
+
+/// <summary>Các giá trị trạng thái dùng trong CSDL (RB14, RB15, CHECK của Hoa_don).</summary>
+public static class TrangThai
+{
+    public const string DaDat = "Đã đặt";
+    public const string DaXacNhan = "Đã xác nhận";
+    public const string DaKham = "Đã khám";
+    public const string DaHuy = "Đã hủy";
+    public const string ChuaThanhToan = "Chưa thanh toán";
+    public const string DaThanhToan = "Đã thanh toán";
+
+    // Trạng thái hồ sơ suy ra (không phải cột trong CSDL), giống bản web.
+    public const string ChoKham = "Chờ khám";
+    public const string DangKham = "Đang khám";
+    public const string HoanTat = "Hoàn tất";
+}
