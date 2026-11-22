@@ -14,18 +14,18 @@ partial class frmKhamBenh
     {
         tlpNen = new TableLayoutPanel();
         pnlTrai = new Panel();
-        khungLanTruoc = new KmnClinic.GUI.Controls.KhungTrang();
+        khungLanTruoc = new Panel();
         dgvLanTruoc = new DataGridView();
         colLtNgay = new DataGridViewTextBoxColumn();
         colLtChanDoan = new DataGridViewTextBoxColumn();
         colLtBacSi = new DataGridViewTextBoxColumn();
         lblLanTruoc = new Label();
-        khungBenhNhan = new KmnClinic.GUI.Controls.KhungTrang();
+        khungBenhNhan = new Panel();
         lblTrieuChung = new Label();
         lblTrieuChungTieuDe = new Label();
         lblThongTin = new Label();
         lblTen = new Label();
-        khungKham = new KmnClinic.GUI.Controls.KhungTrang();
+        khungKham = new Panel();
         tlpKham = new TableLayoutPanel();
         lblChanDoan = new Label();
         txtChanDoan = new TextBox();
@@ -95,12 +95,10 @@ partial class frmKhamBenh
         khungBenhNhan.Dock = DockStyle.Top;
         khungBenhNhan.Name = "khungBenhNhan";
         khungBenhNhan.Size = new Size(340, 230);
-        lblTen.Dock = DockStyle.Top; lblTen.Font = new Font("Segoe UI Semibold", 15F); lblTen.ForeColor = Color.FromArgb(23, 54, 111);
-        lblTen.Name = "lblTen"; lblTen.Size = new Size(300, 36);
-        lblThongTin.Dock = DockStyle.Top; lblThongTin.ForeColor = Color.FromArgb(107, 118, 134); lblThongTin.Name = "lblThongTin"; lblThongTin.Size = new Size(300, 66);
-        lblTrieuChungTieuDe.Dock = DockStyle.Top; lblTrieuChungTieuDe.Font = new Font("Segoe UI Semibold", 10F); lblTrieuChungTieuDe.ForeColor = Color.FromArgb(43, 52, 69);
-        lblTrieuChungTieuDe.Name = "lblTrieuChungTieuDe"; lblTrieuChungTieuDe.Size = new Size(300, 26); lblTrieuChungTieuDe.Text = "Triệu chứng lễ tân ghi nhận";
-        lblTrieuChung.Dock = DockStyle.Fill; lblTrieuChung.ForeColor = Color.FromArgb(43, 52, 69); lblTrieuChung.Name = "lblTrieuChung";
+        lblTen.Dock = DockStyle.Top; lblTen.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         lblTen.Name = "lblTen"; lblTen.Size = new Size(300, 36);
+        lblThongTin.Dock = DockStyle.Top; lblThongTin.Name = "lblThongTin"; lblThongTin.Size = new Size(300, 66);
+        lblTrieuChungTieuDe.Dock = DockStyle.Top; lblTrieuChungTieuDe.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         lblTrieuChungTieuDe.Name = "lblTrieuChungTieuDe"; lblTrieuChungTieuDe.Size = new Size(300, 26); lblTrieuChungTieuDe.Text = "Triệu chứng lễ tân ghi nhận";
+        lblTrieuChung.Dock = DockStyle.Fill; lblTrieuChung.Name = "lblTrieuChung";
         //
         // khungLanTruoc
         //
@@ -108,8 +106,7 @@ partial class frmKhamBenh
         khungLanTruoc.Controls.Add(lblLanTruoc);
         khungLanTruoc.Dock = DockStyle.Fill;
         khungLanTruoc.Name = "khungLanTruoc";
-        lblLanTruoc.Dock = DockStyle.Top; lblLanTruoc.Font = new Font("Segoe UI Semibold", 11.5F); lblLanTruoc.ForeColor = Color.FromArgb(23, 54, 111);
-        lblLanTruoc.Name = "lblLanTruoc"; lblLanTruoc.Padding = new Padding(0, 12, 0, 0); lblLanTruoc.Size = new Size(300, 44); lblLanTruoc.Text = "Các lần khám trước";
+        lblLanTruoc.Dock = DockStyle.Top; lblLanTruoc.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         lblLanTruoc.Name = "lblLanTruoc"; lblLanTruoc.Padding = new Padding(0, 12, 0, 0); lblLanTruoc.Size = new Size(300, 44); lblLanTruoc.Text = "Các lần khám trước";
         dgvLanTruoc.Columns.AddRange(new DataGridViewColumn[] { colLtNgay, colLtChanDoan, colLtBacSi });
         dgvLanTruoc.Dock = DockStyle.Fill; dgvLanTruoc.Name = "dgvLanTruoc";
         colLtNgay.HeaderText = "Ngày"; colLtNgay.Name = "colLtNgay"; colLtNgay.FillWeight = 70;
@@ -149,10 +146,10 @@ partial class frmKhamBenh
         tlpKham.RowStyles.Add(new RowStyle(SizeType.Absolute, 52F));
         tlpKham.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
         tlpKham.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
-        lblChanDoan.AutoSize = true; lblChanDoan.Font = new Font("Segoe UI Semibold", 10F); lblChanDoan.Margin = new Padding(0, 8, 0, 0); lblChanDoan.Text = "Chẩn đoán *";
-        lblLoiDan.AutoSize = true; lblLoiDan.Font = new Font("Segoe UI Semibold", 10F); lblLoiDan.Margin = new Padding(0, 8, 0, 0); lblLoiDan.Text = "Lời dặn";
-        lblTienCong.Anchor = AnchorStyles.Left; lblTienCong.AutoSize = true; lblTienCong.Font = new Font("Segoe UI Semibold", 10F); lblTienCong.Text = "Tiền công khám";
-        lblKeThuoc.Anchor = AnchorStyles.Left; lblKeThuoc.AutoSize = true; lblKeThuoc.Font = new Font("Segoe UI Semibold", 10F); lblKeThuoc.Text = "Kê thuốc";
+        lblChanDoan.AutoSize = true; lblChanDoan.Font = new Font("Segoe UI", 9F, FontStyle.Bold); lblChanDoan.Margin = new Padding(0, 8, 0, 0); lblChanDoan.Text = "Chẩn đoán *";
+        lblLoiDan.AutoSize = true; lblLoiDan.Font = new Font("Segoe UI", 9F, FontStyle.Bold); lblLoiDan.Margin = new Padding(0, 8, 0, 0); lblLoiDan.Text = "Lời dặn";
+        lblTienCong.Anchor = AnchorStyles.Left; lblTienCong.AutoSize = true; lblTienCong.Font = new Font("Segoe UI", 9F, FontStyle.Bold); lblTienCong.Text = "Tiền công khám";
+        lblKeThuoc.Anchor = AnchorStyles.Left; lblKeThuoc.AutoSize = true; lblKeThuoc.Font = new Font("Segoe UI", 9F, FontStyle.Bold); lblKeThuoc.Text = "Kê thuốc";
         txtChanDoan.Dock = DockStyle.Fill; txtChanDoan.Margin = new Padding(0, 4, 0, 4); txtChanDoan.Multiline = true; txtChanDoan.Name = "txtChanDoan";
         txtLoiDan.Dock = DockStyle.Fill; txtLoiDan.Margin = new Padding(0, 4, 0, 4); txtLoiDan.Multiline = true; txtLoiDan.Name = "txtLoiDan";
         numTienCong.Anchor = AnchorStyles.Left; numTienCong.Increment = 10000; numTienCong.Maximum = 10000000; numTienCong.Name = "numTienCong";
@@ -187,7 +184,7 @@ partial class frmKhamBenh
         colDonGia.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
         colThanhTien.DataPropertyName = "ThanhTien"; colThanhTien.HeaderText = "Thành tiền"; colThanhTien.Name = "colThanhTien"; colThanhTien.FillWeight = 75; colThanhTien.DefaultCellStyle.Format = "#,0";
         colThanhTien.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-        colXoa.FlatStyle = FlatStyle.Flat; colXoa.HeaderText = ""; colXoa.Name = "colXoa"; colXoa.Text = "Xóa"; colXoa.UseColumnTextForButtonValue = true; colXoa.FillWeight = 40;
+        colXoa.HeaderText = ""; colXoa.Name = "colXoa"; colXoa.Text = "Xóa"; colXoa.UseColumnTextForButtonValue = true; colXoa.FillWeight = 40;
         //
         // pnlDuoi
         //
@@ -197,18 +194,16 @@ partial class frmKhamBenh
         pnlDuoi.Dock = DockStyle.Fill;
         pnlDuoi.Margin = new Padding(0);
         pnlDuoi.Name = "pnlDuoi";
-        lblTong.AutoSize = true; lblTong.Font = new Font("Segoe UI Semibold", 12F); lblTong.ForeColor = Color.FromArgb(23, 54, 111);
-        lblTong.Location = new Point(0, 18); lblTong.Name = "lblTong";
-        btnLuuNhap.Anchor = AnchorStyles.Top | AnchorStyles.Right; btnLuuNhap.Location = new Point(420, 12); btnLuuNhap.Name = "btnLuuNhap"; btnLuuNhap.Size = new Size(120, 40);
+        lblTong.AutoSize = true; lblTong.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         lblTong.Location = new Point(0, 18); lblTong.Name = "lblTong";
+        btnLuuNhap.Anchor = AnchorStyles.Top | AnchorStyles.Right; btnLuuNhap.Location = new Point(420, 12); btnLuuNhap.Name = "btnLuuNhap"; btnLuuNhap.Size = new Size(120, 30);
         btnLuuNhap.Text = "Lưu nháp"; btnLuuNhap.Click += btnLuuNhap_Click;
-        btnHoanTat.Anchor = AnchorStyles.Top | AnchorStyles.Right; btnHoanTat.Location = new Point(550, 12); btnHoanTat.Name = "btnHoanTat"; btnHoanTat.Size = new Size(170, 40);
+        btnHoanTat.Anchor = AnchorStyles.Top | AnchorStyles.Right; btnHoanTat.Location = new Point(550, 12); btnHoanTat.Name = "btnHoanTat"; btnHoanTat.Size = new Size(170, 30);
         btnHoanTat.Text = "Hoàn tất khám"; btnHoanTat.Click += btnHoanTat_Click;
         //
         // frmKhamBenh
         //
         AutoScaleDimensions = new SizeF(96F, 96F);
         AutoScaleMode = AutoScaleMode.Dpi;
-        BackColor = Color.FromArgb(245, 249, 254);
         ClientSize = new Size(1200, 760);
         Controls.Add(tlpNen);
         MinimizeBox = false;
@@ -237,18 +232,18 @@ partial class frmKhamBenh
 
     private TableLayoutPanel tlpNen;
     private Panel pnlTrai;
-    private KmnClinic.GUI.Controls.KhungTrang khungBenhNhan;
+    private Panel khungBenhNhan;
     private Label lblTen;
     private Label lblThongTin;
     private Label lblTrieuChungTieuDe;
     private Label lblTrieuChung;
-    private KmnClinic.GUI.Controls.KhungTrang khungLanTruoc;
+    private Panel khungLanTruoc;
     private Label lblLanTruoc;
     private DataGridView dgvLanTruoc;
     private DataGridViewTextBoxColumn colLtNgay;
     private DataGridViewTextBoxColumn colLtChanDoan;
     private DataGridViewTextBoxColumn colLtBacSi;
-    private KmnClinic.GUI.Controls.KhungTrang khungKham;
+    private Panel khungKham;
     private TableLayoutPanel tlpKham;
     private Label lblChanDoan;
     private TextBox txtChanDoan;

@@ -24,9 +24,7 @@ public partial class ucLichLamViec : UserControl
         dgvLich.RowTemplate.Height = 58;
         dgvLich.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
         dgvLich.CellFormatting += dgvLich_CellFormatting;
-        foreach (var b in new[] { btnTruoc, btnSau, btnHomNay }) GiaoDien.Nut(b, GiaoDien.KieuNut.Phu);
-        GiaoDien.Nut(btnXepLich);
-
+        foreach (var b in new[] { btnTruoc, btnSau, btnHomNay })
         cboKhoa.Items.Add("Tất cả khoa");
         foreach (var k in Gia.Khoa) cboKhoa.Items.Add(k.TenKhoa);
         cboKhoa.SelectedIndex = 0;
@@ -76,11 +74,10 @@ public partial class ucLichLamViec : UserControl
     {
         if (e.RowIndex < 0 || e.ColumnIndex < 1) return;
         var ngay = (DateTime)dgvLich.Columns[e.ColumnIndex].Tag!;
-        if (ngay == Gia.HomNay) e.CellStyle!.BackColor = Mau.Sky;
+        if (ngay == Gia.HomNay) e.CellStyle!.BackColor = Color.LightYellow;
         if (!_laQuanTri && e.Value is string s && s.Length > 0)
         {
-            e.CellStyle!.BackColor = Mau.GreenSoft;
-            e.CellStyle.Font = GiaoDien.ChuDam;
+            e.CellStyle!.BackColor = Color.PaleGreen;
         }
     }
 

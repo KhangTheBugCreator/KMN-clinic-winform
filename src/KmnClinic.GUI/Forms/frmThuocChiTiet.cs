@@ -15,8 +15,6 @@ public partial class frmThuocChiTiet : Form
     {
         InitializeComponent();
         _thuoc = thuoc;
-        GiaoDien.Nut(btnLuu);
-        GiaoDien.Nut(btnHuy, GiaoDien.KieuNut.Phu);
         if (thuoc is null)
         {
             Text = "Thêm thuốc";

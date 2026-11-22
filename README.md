@@ -5,7 +5,7 @@ với website (repo `kmn-clinic`). Không đổi schema: 11 bảng, CHECK, UNIQU
 
 ## Tình trạng
 
-**Giai đoạn 2 – Khung giao diện (dữ liệu giả).** Chạy được, chưa nối CSDL. Dùng để duyệt bố cục và chụp ảnh cho Chương 3.
+**Giai đoạn 2 – Khung giao diện (dữ liệu giả).** Giao diện kiểu WinForms cổ điển: menu trên cùng, thanh trạng thái, control mặc định. Chạy được, chưa nối CSDL. Dùng để duyệt bố cục và chụp ảnh cho Chương 3.
 Các module W0–W9 (nối CSDL qua BUS/DAL) làm tiếp theo kế hoạch.
 
 ## Chạy trên Windows
@@ -40,8 +40,8 @@ src/KmnClinic.DTO/        lớp dữ liệu dùng chung (KhoaDTO, ThuocDTO, Lich
 src/KmnClinic.GUI/        Windows Forms
   Forms/                  frmDangNhap, frmChinh, frmThuocChiTiet, frmDatLichHo, frmKhamBenh, frmThuTien
   Views/                  các UserControl hiện trong form chính (uc...)
-  Controls/               control tự vẽ: TheThongKe, KhungTrang, BieuDoCot
-  Theme/                  màu KMN Clinic (giống theme.css của web), hàm định dạng chung
+  Controls/               TheThongKe (ô số liệu), BieuDoCot (biểu đồ cột vẽ bằng GDI+)
+  Theme/                  hàm dùng chung (cấu hình lưới, định dạng tiền)
   DuLieuGia/              dữ liệu giả của Giai đoạn 2 (sẽ bỏ khi nối CSDL)
 ```
 

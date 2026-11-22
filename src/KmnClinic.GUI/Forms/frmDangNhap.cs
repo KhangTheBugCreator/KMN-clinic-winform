@@ -1,5 +1,4 @@
 using KmnClinic.GUI.DuLieuGia;
-using KmnClinic.GUI.Theme;
 
 namespace KmnClinic.GUI.Forms;
 
@@ -12,8 +11,6 @@ public partial class frmDangNhap : Form
     public frmDangNhap()
     {
         InitializeComponent();
-        GiaoDien.Nut(btnDangNhap);
-        picLogo.Image = GiaoDien.Logo();
     }
 
     private void chkHienMatKhau_CheckedChanged(object? sender, EventArgs e)

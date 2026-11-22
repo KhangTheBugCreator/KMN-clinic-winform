@@ -5,7 +5,6 @@
     <UseWindowsForms>true</UseWindowsForms>
     <RootNamespace>KmnClinic.GUI</RootNamespace>
     <AssemblyName>KmnClinic</AssemblyName>
-    <ApplicationDefaultFont>Segoe UI, 10pt</ApplicationDefaultFont>
     <ApplicationHighDpiMode>SystemAware</ApplicationHighDpiMode>
     <ApplicationVisualStyles>true</ApplicationVisualStyles>
   </PropertyGroup>

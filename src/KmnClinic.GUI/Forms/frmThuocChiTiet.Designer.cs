@@ -97,7 +97,7 @@ partial class frmThuocChiTiet
         cboDvt.Items.AddRange(new object[] { "Viên", "Chai", "Gói", "Ống", "Tuýp", "Lọ", "Hộp" });
         numDonGia.Anchor = AnchorStyles.Left; numDonGia.Increment = 500; numDonGia.Maximum = 100000000; numDonGia.Name = "numDonGia"; numDonGia.Size = new Size(160, 30); numDonGia.ThousandsSeparator = true;
         numTon.Anchor = AnchorStyles.Left; numTon.Maximum = 1000000; numTon.Name = "numTon"; numTon.Size = new Size(160, 30); numTon.ThousandsSeparator = true;
-        chkXacNhanTon.Anchor = AnchorStyles.Left; chkXacNhanTon.AutoSize = true; chkXacNhanTon.ForeColor = Color.FromArgb(229, 83, 75);
+        chkXacNhanTon.Anchor = AnchorStyles.Left; chkXacNhanTon.AutoSize = true; chkXacNhanTon.ForeColor = Color.Red;
         chkXacNhanTon.Name = "chkXacNhanTon"; chkXacNhanTon.Text = "Tôi xác nhận sửa trực tiếp số lượng tồn (kiểm kho)";
         chkXacNhanTon.CheckedChanged += chkXacNhanTon_CheckedChanged;
         txtMoTa.Dock = DockStyle.Fill; txtMoTa.MaxLength = 500; txtMoTa.Multiline = true; txtMoTa.Name = "txtMoTa"; txtMoTa.ScrollBars = ScrollBars.Vertical;
@@ -111,16 +111,15 @@ partial class frmThuocChiTiet
         pnlNut.Name = "pnlNut";
         pnlNut.Padding = new Padding(24, 8, 24, 16);
         pnlNut.Size = new Size(560, 64);
-        btnHuy.DialogResult = DialogResult.Cancel; btnHuy.Name = "btnHuy"; btnHuy.Size = new Size(100, 38); btnHuy.Text = "Hủy";
-        btnLuu.Name = "btnLuu"; btnLuu.Size = new Size(120, 38); btnLuu.Text = "Lưu"; btnLuu.Click += btnLuu_Click;
+        btnHuy.DialogResult = DialogResult.Cancel; btnHuy.Name = "btnHuy"; btnHuy.Size = new Size(100, 30); btnHuy.Text = "Hủy";
+        btnLuu.Name = "btnLuu"; btnLuu.Size = new Size(120, 30); btnLuu.Text = "Lưu"; btnLuu.Click += btnLuu_Click;
         //
         // frmThuocChiTiet
         //
         AcceptButton = btnLuu;
         AutoScaleDimensions = new SizeF(96F, 96F);
         AutoScaleMode = AutoScaleMode.Dpi;
-        BackColor = Color.White;
-        CancelButton = btnHuy;
+                CancelButton = btnHuy;
         ClientSize = new Size(560, 560);
         Controls.Add(tlp);
         Controls.Add(pnlNut);

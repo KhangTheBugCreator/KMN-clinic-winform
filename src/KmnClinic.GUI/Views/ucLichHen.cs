@@ -17,10 +17,6 @@ public partial class ucLichHen : UserControl
     {
         InitializeComponent();
         GiaoDien.Luoi(dgvLichHen);
-        GiaoDien.BadgeTrangThai(dgvLichHen, "colTrangThai");
-        GiaoDien.Nut(btnDatLich);
-        GiaoDien.Nut(btnXacNhan, GiaoDien.KieuNut.ThanhCong);
-        GiaoDien.Nut(btnHuy, GiaoDien.KieuNut.Phu);
         dtpNgay.Value = Gia.HomNay;
         cboTrangThai.SelectedIndex = 0;
         NapLai();

@@ -19,9 +19,6 @@ public partial class frmThuTien : Form
         InitializeComponent();
         _hd = hd;
         GiaoDien.Luoi(dgvChiTiet);
-        GiaoDien.Nut(btnXacNhan, GiaoDien.KieuNut.ThanhCong);
-        GiaoDien.Nut(btnXemIn, GiaoDien.KieuNut.Phu);
-        GiaoDien.Nut(btnDong, GiaoDien.KieuNut.Phu);
 
         // Dữ liệu giả: tổng tiền tính lại từ đơn thuốc mẫu cho khớp bảng chi tiết
         _hd.TongTien = _hd.TienCongKham + _thuoc.Sum(t => t.ThanhTien);
@@ -38,7 +35,7 @@ public partial class frmThuTien : Form
     private void numKhachDua_ValueChanged(object? sender, EventArgs e)
     {
         var con = numKhachDua.Value - _hd.TongTien;
-        lblTraLai.ForeColor = con >= 0 ? Mau.Green : Mau.Red;
+        lblTraLai.ForeColor = con >= 0 ? Color.DarkGreen : Color.Red;
         lblTraLai.Text = con >= 0 ? $"Trả lại khách: {GiaoDien.Tien(con)}" : $"Còn thiếu: {GiaoDien.Tien(-con)}";
     }
 
@@ -71,9 +68,9 @@ public partial class frmThuTien : Form
         using var fTieuDe = new Font("Segoe UI", 18, FontStyle.Bold);
         using var fDam = new Font("Segoe UI", 10, FontStyle.Bold);
         using var fThuong = new Font("Segoe UI", 10);
-        using var navy = new SolidBrush(Mau.Navy);
-        using var xam = new SolidBrush(Mau.Muted);
-        using var vien = new Pen(Mau.Border);
+        var navy = Brushes.Black;
+        var xam = Brushes.DimGray;
+        var vien = Pens.Gray;
         var phaiCanh = new StringFormat { Alignment = StringAlignment.Far };
 
         if (GiaoDien.Logo() is { } logo) { g.DrawImage(logo, trai, y, 180, 60); }

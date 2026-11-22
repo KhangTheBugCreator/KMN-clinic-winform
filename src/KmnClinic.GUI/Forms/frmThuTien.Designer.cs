@@ -30,9 +30,8 @@ partial class frmThuTien
         ((System.ComponentModel.ISupportInitialize)numKhachDua).BeginInit();
         SuspendLayout();
         //
-        lblTieuDe.AutoSize = true; lblTieuDe.Font = new Font("Segoe UI Semibold", 15F); lblTieuDe.ForeColor = Color.FromArgb(23, 54, 111);
-        lblTieuDe.Location = new Point(24, 18); lblTieuDe.Name = "lblTieuDe";
-        lblThongTin.ForeColor = Color.FromArgb(107, 118, 134); lblThongTin.Location = new Point(24, 58); lblThongTin.Name = "lblThongTin"; lblThongTin.Size = new Size(712, 50);
+        lblTieuDe.AutoSize = true; lblTieuDe.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         lblTieuDe.Location = new Point(24, 18); lblTieuDe.Name = "lblTieuDe";
+        lblThongTin.Location = new Point(24, 58); lblThongTin.Name = "lblThongTin"; lblThongTin.Size = new Size(712, 50);
         //
         dgvChiTiet.Columns.AddRange(new DataGridViewColumn[] { colNoiDung, colSoLuong, colDonGia, colThanhTien });
         dgvChiTiet.Location = new Point(24, 116); dgvChiTiet.Name = "dgvChiTiet"; dgvChiTiet.Size = new Size(712, 250);
@@ -41,22 +40,19 @@ partial class frmThuTien
         colDonGia.HeaderText = "Đơn giá"; colDonGia.Name = "colDonGia"; colDonGia.FillWeight = 80; colDonGia.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
         colThanhTien.HeaderText = "Thành tiền"; colThanhTien.Name = "colThanhTien"; colThanhTien.FillWeight = 90; colThanhTien.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
         //
-        lblTong.Font = new Font("Segoe UI Semibold", 16F); lblTong.ForeColor = Color.FromArgb(23, 54, 111);
-        lblTong.Location = new Point(336, 378); lblTong.Name = "lblTong"; lblTong.Size = new Size(400, 40); lblTong.TextAlign = ContentAlignment.MiddleRight;
+        lblTong.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         lblTong.Location = new Point(336, 378); lblTong.Name = "lblTong"; lblTong.Size = new Size(400, 40); lblTong.TextAlign = ContentAlignment.MiddleRight;
         lblKhachDua.AutoSize = true; lblKhachDua.Location = new Point(24, 438); lblKhachDua.Name = "lblKhachDua"; lblKhachDua.Text = "Khách đưa";
         numKhachDua.Increment = 10000; numKhachDua.Location = new Point(124, 434); numKhachDua.Maximum = 100000000; numKhachDua.Name = "numKhachDua";
         numKhachDua.Size = new Size(170, 30); numKhachDua.ThousandsSeparator = true; numKhachDua.ValueChanged += numKhachDua_ValueChanged;
-        lblTraLai.AutoSize = true; lblTraLai.Font = new Font("Segoe UI Semibold", 10F); lblTraLai.ForeColor = Color.FromArgb(76, 175, 106);
-        lblTraLai.Location = new Point(310, 438); lblTraLai.Name = "lblTraLai";
+        lblTraLai.AutoSize = true; lblTraLai.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         lblTraLai.Location = new Point(310, 438); lblTraLai.Name = "lblTraLai";
         //
-        btnXemIn.Location = new Point(24, 496); btnXemIn.Name = "btnXemIn"; btnXemIn.Size = new Size(170, 40); btnXemIn.Text = "Xem trước bản in"; btnXemIn.Click += btnXemIn_Click;
-        btnDong.DialogResult = DialogResult.Cancel; btnDong.Location = new Point(436, 496); btnDong.Name = "btnDong"; btnDong.Size = new Size(100, 40); btnDong.Text = "Đóng";
-        btnXacNhan.Location = new Point(546, 496); btnXacNhan.Name = "btnXacNhan"; btnXacNhan.Size = new Size(190, 40); btnXacNhan.Text = "Xác nhận đã thu"; btnXacNhan.Click += btnXacNhan_Click;
+        btnXemIn.Location = new Point(24, 496); btnXemIn.Name = "btnXemIn"; btnXemIn.Size = new Size(170, 30); btnXemIn.Text = "Xem trước bản in"; btnXemIn.Click += btnXemIn_Click;
+        btnDong.DialogResult = DialogResult.Cancel; btnDong.Location = new Point(436, 496); btnDong.Name = "btnDong"; btnDong.Size = new Size(100, 30); btnDong.Text = "Đóng";
+        btnXacNhan.Location = new Point(546, 496); btnXacNhan.Name = "btnXacNhan"; btnXacNhan.Size = new Size(190, 30); btnXacNhan.Text = "Xác nhận đã thu"; btnXacNhan.Click += btnXacNhan_Click;
         //
         AutoScaleDimensions = new SizeF(96F, 96F);
         AutoScaleMode = AutoScaleMode.Dpi;
-        BackColor = Color.White;
-        CancelButton = btnDong;
+                CancelButton = btnDong;
         ClientSize = new Size(760, 560);
         Controls.AddRange(new Control[] { lblTieuDe, lblThongTin, dgvChiTiet, lblTong, lblKhachDua, numKhachDua, lblTraLai, btnXemIn, btnDong, btnXacNhan });
         FormBorderStyle = FormBorderStyle.FixedDialog;

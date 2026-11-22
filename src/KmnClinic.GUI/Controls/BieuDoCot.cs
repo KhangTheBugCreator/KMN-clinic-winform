@@ -1,11 +1,9 @@
-using System.Drawing.Drawing2D;
-using KmnClinic.GUI.Theme;
 
 namespace KmnClinic.GUI.Controls;
 
 /// <summary>
 /// Biểu đồ cột đơn giản tự vẽ bằng GDI+ (không cần thư viện ngoài):
-/// trục Y có vạch chia tròn số, cột bo góc màu thương hiệu, nhãn trục X, giá trị khi rê chuột.
+/// trục Y có vạch chia tròn số, cột, nhãn trục X, giá trị khi rê chuột.
 /// </summary>
 public class BieuDoCot : Control
 {
@@ -16,8 +14,7 @@ public class BieuDoCot : Control
     public BieuDoCot()
     {
         SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw | ControlStyles.UserPaint, true);
-        BackColor = Color.White;
-        Font = GiaoDien.ChuNho;
+        BackColor = SystemColors.Window;
     }
 
     public void DatDuLieu(string[] nhan, double[] giaTri)
@@ -40,18 +37,17 @@ public class BieuDoCot : Control
     protected override void OnPaint(PaintEventArgs e)
     {
         var g = e.Graphics;
-        g.SmoothingMode = SmoothingMode.AntiAlias;
         if (_giaTri.Length == 0) return;
         var v = VungVe;
         var buoc = BuocChia(_giaTri.Max());
         var tran = Math.Ceiling(_giaTri.Max() / buoc) * buoc;
 
-        using var luoi = new Pen(Mau.Border);
+        using var luoi = new Pen(Color.Gainsboro);
         for (double m = 0; m <= tran + 1e-9; m += buoc)
         {
             var y = v.Bottom - (int)(m / tran * v.Height);
             g.DrawLine(luoi, v.Left, y, v.Right, y);
-            TextRenderer.DrawText(g, m.ToString("0.#"), Font, new Rectangle(0, y - 10, v.Left - 8, 20), Mau.Muted, TextFormatFlags.Right | TextFormatFlags.VerticalCenter);
+            TextRenderer.DrawText(g, m.ToString("0.#"), Font, new Rectangle(0, y - 10, v.Left - 8, 20), SystemColors.GrayText, TextFormatFlags.Right | TextFormatFlags.VerticalCenter);
         }
 
         var o = (float)v.Width / _giaTri.Length;
@@ -61,17 +57,11 @@ public class BieuDoCot : Control
             var cao = (float)(_giaTri[i] / tran * v.Height);
             var x = v.Left + i * o + (o - rong) / 2;
             var r = Rectangle.Round(new RectangleF(x, v.Bottom - cao, rong, cao));
-            using (var path = GiaoDien.VienBo(r with { Height = r.Height + 4 }, Math.Min(4, r.Width / 2)))
-            using (var to = new SolidBrush(i == _dangRe ? Mau.Navy : Mau.Blue))
-            {
-                g.SetClip(new Rectangle(v.Left, v.Top, v.Width, v.Height + 1));
-                g.FillPath(to, path);
-                g.ResetClip();
-            }
+            g.FillRectangle(i == _dangRe ? Brushes.Navy : Brushes.SteelBlue, r);
             if (i < _nhan.Length && (o >= 34 || i % 2 == 0))
-                TextRenderer.DrawText(g, _nhan[i], Font, new Rectangle((int)(v.Left + i * o) - 10, v.Bottom + 6, (int)o + 20, 20), Mau.Muted, TextFormatFlags.HorizontalCenter);
+                TextRenderer.DrawText(g, _nhan[i], Font, new Rectangle((int)(v.Left + i * o) - 10, v.Bottom + 6, (int)o + 20, 20), SystemColors.GrayText, TextFormatFlags.HorizontalCenter);
             if (i == _dangRe)
-                TextRenderer.DrawText(g, _giaTri[i].ToString("0.#"), GiaoDien.ChuDam, new Rectangle((int)x - 20, r.Top - 22, (int)rong + 40, 20), Mau.Navy, TextFormatFlags.HorizontalCenter);
+                TextRenderer.DrawText(g, _giaTri[i].ToString("0.#"), Font, new Rectangle((int)x - 20, r.Top - 22, (int)rong + 40, 20), SystemColors.ControlText, TextFormatFlags.HorizontalCenter);
         }
     }
 

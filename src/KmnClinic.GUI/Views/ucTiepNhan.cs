@@ -20,11 +20,6 @@ public partial class ucTiepNhan : UserControl
         InitializeComponent();
         GiaoDien.Luoi(dgvHen);
         GiaoDien.Luoi(dgvHoSo);
-        GiaoDien.BadgeTrangThai(dgvHen, "colHenTrangThai");
-        GiaoDien.BadgeTrangThai(dgvHoSo, "colHsTrangThai");
-        GiaoDien.Nut(btnTiepNhanHen);
-        GiaoDien.Nut(btnTiepNhanVangLai);
-        GiaoDien.Nut(btnTim, GiaoDien.KieuNut.Phu);
         cboBacSi.Items.AddRange(["Nguyễn Văn Hùng · Nội tổng quát · Phòng 101", "Phạm Thị Hồng Nhung · Nhi · Phòng 201",
             "Lâm Thị Kiều Oanh · Tai Mũi Họng · Phòng 301", "Quách Thị Minh Thư · Da liễu · Phòng 401"]);
         cboBacSi.SelectedIndex = 0;
@@ -64,7 +59,7 @@ public partial class ucTiepNhan : UserControl
         _khach = Gia.KhachHang.FirstOrDefault(k => k.SdtKh == txtSdt.Text.Trim());
         txtHoTen.Enabled = _khach is null;
         txtHoTen.Text = _khach?.HoTenKh ?? "";
-        lblKhach.ForeColor = _khach is null ? Mau.Orange : Mau.Green;
+        lblKhach.ForeColor = _khach is null ? Color.Red : Color.DarkGreen;
         lblKhach.Text = _khach is null ? "Khách mới: nhập họ tên bên dưới." : $"Đã có: {_khach.MaKh} – {_khach.HoTenKh}";
     }
 

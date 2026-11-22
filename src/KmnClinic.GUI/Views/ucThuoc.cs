@@ -14,8 +14,6 @@ public partial class ucThuoc : UserControl
     {
         InitializeComponent();
         GiaoDien.Luoi(dgvThuoc);
-        GiaoDien.Nut(btnThem);
-        GiaoDien.Nut(btnSua, GiaoDien.KieuNut.Phu);
         NapLai();
     }
 
@@ -62,8 +60,7 @@ public partial class ucThuoc : UserControl
         if (col == "colDonGia" && e.Value is decimal gia) { e.Value = GiaoDien.Tien(gia); e.FormattingApplied = true; }
         if (col == "colTon" && e.Value is int ton && ton < NguongSapHet)
         {
-            e.CellStyle!.ForeColor = Mau.Red;
-            e.CellStyle.Font = GiaoDien.ChuDam;
+            e.CellStyle!.ForeColor = Color.Red;
         }
     }
 }

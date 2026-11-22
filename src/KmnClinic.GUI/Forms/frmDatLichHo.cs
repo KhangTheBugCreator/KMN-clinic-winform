@@ -25,9 +25,6 @@ public partial class frmDatLichHo : Form
     public frmDatLichHo()
     {
         InitializeComponent();
-        GiaoDien.Nut(btnDat);
-        GiaoDien.Nut(btnTim, GiaoDien.KieuNut.Phu);
-        GiaoDien.Nut(btnDong, GiaoDien.KieuNut.Phu);
         cboKhoa.Items.AddRange(Gia.Khoa.ToArray());
         cboKhoa.SelectedIndex = 0;
         cboGioiTinh.SelectedIndex = 0;
@@ -44,14 +41,14 @@ public partial class frmDatLichHo : Form
         txtHoTen.Enabled = cboGioiTinh.Enabled = dtpNgaySinh.Enabled = moi;
         if (_khach is null)
         {
-            lblKetQua.ForeColor = Mau.Orange;
+            lblKetQua.ForeColor = Color.Red;
             lblKetQua.Text = "Chưa có khách với SĐT này. Điền họ tên, giới tính, ngày sinh để tạo khách mới khi đặt lịch.";
             txtHoTen.Clear();
             txtHoTen.Focus();
         }
         else
         {
-            lblKetQua.ForeColor = Mau.Green;
+            lblKetQua.ForeColor = Color.DarkGreen;
             lblKetQua.Text = $"Đã có: {_khach.MaKh} – {_khach.HoTenKh}\r\n{_khach.DiaChiKh}";
             txtHoTen.Text = _khach.HoTenKh;
             cboGioiTinh.Text = _khach.GioiTinhKh;
@@ -87,15 +84,6 @@ public partial class frmDatLichHo : Form
             lstCa.Items.Add(new SuatTrong(ca.TenCa, ca.KhungGio, $"Phòng {phong}01", 8));
         }
         if (lstCa.Items.Count > 0) lstCa.SelectedIndex = 0;
-    }
-
-    private void lstCa_DrawItem(object? sender, DrawItemEventArgs e)
-    {
-        e.DrawBackground();
-        if (e.Index < 0) return;
-        var chon = (e.State & DrawItemState.Selected) != 0;
-        TextRenderer.DrawText(e.Graphics, lstCa.Items[e.Index].ToString(), e.Font, e.Bounds with { X = e.Bounds.X + 8 },
-            chon ? Color.White : Mau.Text, TextFormatFlags.VerticalCenter | TextFormatFlags.Left);
     }
 
     private void CapNhatTomTat()

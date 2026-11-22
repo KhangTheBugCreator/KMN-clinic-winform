@@ -22,7 +22,7 @@ partial class ucLichHen
         btnDatLich = new Button();
         btnHuy = new Button();
         btnXacNhan = new Button();
-        khung = new KmnClinic.GUI.Controls.KhungTrang();
+        khung = new Panel();
         dgvLichHen = new DataGridView();
         colMa = new DataGridViewTextBoxColumn();
         colNgayKham = new DataGridViewTextBoxColumn();
@@ -78,9 +78,9 @@ partial class ucLichHen
         flpNut.Name = "flpNut";
         flpNut.Size = new Size(420, 44);
         flpNut.WrapContents = false;
-        btnDatLich.Margin = new Padding(8, 0, 0, 0); btnDatLich.Name = "btnDatLich"; btnDatLich.Size = new Size(150, 38); btnDatLich.Text = "+ Đặt lịch hộ"; btnDatLich.Click += btnDatLich_Click;
-        btnHuy.Margin = new Padding(8, 0, 0, 0); btnHuy.Name = "btnHuy"; btnHuy.Size = new Size(110, 38); btnHuy.Text = "Hủy lịch"; btnHuy.Click += btnHuy_Click;
-        btnXacNhan.Margin = new Padding(0); btnXacNhan.Name = "btnXacNhan"; btnXacNhan.Size = new Size(120, 38); btnXacNhan.Text = "Xác nhận"; btnXacNhan.Click += btnXacNhan_Click;
+        btnDatLich.Margin = new Padding(8, 0, 0, 0); btnDatLich.Name = "btnDatLich"; btnDatLich.Size = new Size(150, 30); btnDatLich.Text = "+ Đặt lịch hộ"; btnDatLich.Click += btnDatLich_Click;
+        btnHuy.Margin = new Padding(8, 0, 0, 0); btnHuy.Name = "btnHuy"; btnHuy.Size = new Size(110, 30); btnHuy.Text = "Hủy lịch"; btnHuy.Click += btnHuy_Click;
+        btnXacNhan.Margin = new Padding(0); btnXacNhan.Name = "btnXacNhan"; btnXacNhan.Size = new Size(120, 30); btnXacNhan.Text = "Xác nhận"; btnXacNhan.Click += btnXacNhan_Click;
         //
         // khung
         //
@@ -101,14 +101,13 @@ partial class ucLichHen
         colBacSi.DataPropertyName = "TenBacSi"; colBacSi.HeaderText = "Bác sĩ"; colBacSi.Name = "colBacSi"; colBacSi.FillWeight = 120;
         colTrieuChung.DataPropertyName = "TrieuChungBanDau"; colTrieuChung.HeaderText = "Triệu chứng ban đầu"; colTrieuChung.Name = "colTrieuChung"; colTrieuChung.FillWeight = 140;
         colTrangThai.DataPropertyName = "TrangThai"; colTrangThai.HeaderText = "Trạng thái"; colTrangThai.Name = "colTrangThai"; colTrangThai.FillWeight = 90;
-        lblDem.Dock = DockStyle.Bottom; lblDem.ForeColor = Color.FromArgb(107, 118, 134); lblDem.Name = "lblDem";
+        lblDem.Dock = DockStyle.Bottom; lblDem.Name = "lblDem";
         lblDem.Size = new Size(900, 30); lblDem.TextAlign = ContentAlignment.BottomLeft;
         //
         // ucLichHen
         //
         AutoScaleDimensions = new SizeF(96F, 96F);
         AutoScaleMode = AutoScaleMode.Dpi;
-        BackColor = Color.FromArgb(245, 249, 254);
         Controls.Add(khung);
         Controls.Add(pnlCongCu);
         Name = "ucLichHen";
@@ -132,7 +131,7 @@ partial class ucLichHen
     private Button btnDatLich;
     private Button btnHuy;
     private Button btnXacNhan;
-    private KmnClinic.GUI.Controls.KhungTrang khung;
+    private Panel khung;
     private DataGridView dgvLichHen;
     private DataGridViewTextBoxColumn colMa;
     private DataGridViewTextBoxColumn colNgayKham;

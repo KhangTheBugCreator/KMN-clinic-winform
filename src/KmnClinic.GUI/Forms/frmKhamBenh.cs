@@ -22,10 +22,6 @@ public partial class frmKhamBenh : Form
         _chiXem = hs.TrangThai == TrangThai.HoanTat;
         GiaoDien.Luoi(dgvLanTruoc);
         GiaoDien.Luoi(dgvDonThuoc);
-        GiaoDien.Nut(btnThemThuoc, GiaoDien.KieuNut.Phu);
-        GiaoDien.Nut(btnLuuNhap, GiaoDien.KieuNut.Phu);
-        GiaoDien.Nut(btnHoanTat, GiaoDien.KieuNut.ThanhCong);
-        colXoa.DefaultCellStyle.ForeColor = Mau.Red;
 
         Text = $"Khám bệnh – {hs.MaHoSo} – {hs.TenKhachHang}";
         lblTen.Text = hs.TenKhachHang;

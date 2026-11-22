@@ -17,8 +17,6 @@ public partial class ucHangChoKham : UserControl
     {
         InitializeComponent();
         GiaoDien.Luoi(dgvHangCho);
-        GiaoDien.BadgeTrangThai(dgvHangCho, "colTrangThai");
-        GiaoDien.Nut(btnKham);
         NapLai();
     }
 

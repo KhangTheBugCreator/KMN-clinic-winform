@@ -19,7 +19,7 @@ partial class ucThuoc
         flpNut = new FlowLayoutPanel();
         btnSua = new Button();
         btnThem = new Button();
-        khung = new KmnClinic.GUI.Controls.KhungTrang();
+        khung = new Panel();
         dgvThuoc = new DataGridView();
         colMa = new DataGridViewTextBoxColumn();
         colTen = new DataGridViewTextBoxColumn();
@@ -64,8 +64,7 @@ partial class ucThuoc
         // chkSapHet
         //
         chkSapHet.AutoSize = true;
-        chkSapHet.ForeColor = Color.FromArgb(43, 52, 69);
-        chkSapHet.Margin = new Padding(0, 8, 0, 0);
+                chkSapHet.Margin = new Padding(0, 8, 0, 0);
         chkSapHet.Name = "chkSapHet";
         chkSapHet.Text = "Chỉ thuốc sắp hết (tồn dưới 20)";
         chkSapHet.CheckedChanged += BoLoc_Changed;
@@ -84,7 +83,7 @@ partial class ucThuoc
         //
         btnSua.Margin = new Padding(8, 0, 0, 0);
         btnSua.Name = "btnSua";
-        btnSua.Size = new Size(110, 38);
+        btnSua.Size = new Size(110, 30);
         btnSua.Text = "Sửa";
         btnSua.Click += btnSua_Click;
         //
@@ -92,7 +91,7 @@ partial class ucThuoc
         //
         btnThem.Margin = new Padding(0);
         btnThem.Name = "btnThem";
-        btnThem.Size = new Size(140, 38);
+        btnThem.Size = new Size(140, 30);
         btnThem.Text = "+ Thêm thuốc";
         btnThem.Click += btnThem_Click;
         //
@@ -126,8 +125,7 @@ partial class ucThuoc
         // lblDem
         //
         lblDem.Dock = DockStyle.Bottom;
-        lblDem.ForeColor = Color.FromArgb(107, 118, 134);
-        lblDem.Name = "lblDem";
+                lblDem.Name = "lblDem";
         lblDem.Size = new Size(900, 30);
         lblDem.TextAlign = ContentAlignment.BottomLeft;
         //
@@ -135,7 +133,6 @@ partial class ucThuoc
         //
         AutoScaleDimensions = new SizeF(96F, 96F);
         AutoScaleMode = AutoScaleMode.Dpi;
-        BackColor = Color.FromArgb(245, 249, 254);
         Controls.Add(khung);
         Controls.Add(pnlCongCu);
         Name = "ucThuoc";
@@ -156,7 +153,7 @@ partial class ucThuoc
     private FlowLayoutPanel flpNut;
     private Button btnThem;
     private Button btnSua;
-    private KmnClinic.GUI.Controls.KhungTrang khung;
+    private Panel khung;
     private DataGridView dgvThuoc;
     private DataGridViewTextBoxColumn colMa;
     private DataGridViewTextBoxColumn colTen;

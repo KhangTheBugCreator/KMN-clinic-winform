@@ -14,8 +14,6 @@ public partial class ucHoaDonChoThu : UserControl
     {
         InitializeComponent();
         GiaoDien.Luoi(dgvHoaDon);
-        GiaoDien.BadgeTrangThai(dgvHoaDon, "colTrangThai");
-        GiaoDien.Nut(btnThu);
         NapLai();
     }
 

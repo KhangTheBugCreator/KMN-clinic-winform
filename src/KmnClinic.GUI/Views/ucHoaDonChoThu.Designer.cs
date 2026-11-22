@@ -16,7 +16,7 @@ partial class ucHoaDonChoThu
         theChoThu = new KmnClinic.GUI.Controls.TheThongKe();
         theTienCho = new KmnClinic.GUI.Controls.TheThongKe();
         theDaThu = new KmnClinic.GUI.Controls.TheThongKe();
-        khung = new KmnClinic.GUI.Controls.KhungTrang();
+        khung = new Panel();
         dgvHoaDon = new DataGridView();
         colMa = new DataGridViewTextBoxColumn();
         colHoSo = new DataGridViewTextBoxColumn();
@@ -41,12 +41,10 @@ partial class ucHoaDonChoThu
         flpThe.Controls.Add(theDaThu);
         flpThe.Dock = DockStyle.Top;
         flpThe.Name = "flpThe";
-        flpThe.Size = new Size(1000, 128);
+        flpThe.Size = new Size(1000, 90);
+        flpThe.Padding = new Padding(0, 0, 0, 8);
         flpThe.WrapContents = false;
-        theChoThu.Name = "theChoThu"; theChoThu.TieuDe = "Hóa đơn chờ thu"; theChoThu.MauNhan = Color.FromArgb(229, 83, 75);
-        theTienCho.Name = "theTienCho"; theTienCho.TieuDe = "Tổng tiền chờ thu"; theTienCho.MauNhan = Color.FromArgb(242, 163, 58);
-        theDaThu.Name = "theDaThu"; theDaThu.TieuDe = "Đã thu hôm nay"; theDaThu.MauNhan = Color.FromArgb(76, 175, 106);
-        //
+        theChoThu.Name = "theChoThu"; theChoThu.TieuDe = "Hóa đơn chờ thu";         theTienCho.Name = "theTienCho"; theTienCho.TieuDe = "Tổng tiền chờ thu";         theDaThu.Name = "theDaThu"; theDaThu.TieuDe = "Đã thu hôm nay";         //
         // khung
         //
         khung.Controls.Add(dgvHoaDon);
@@ -58,7 +56,7 @@ partial class ucHoaDonChoThu
         pnlDau.Dock = DockStyle.Top; pnlDau.Name = "pnlDau"; pnlDau.Size = new Size(900, 52);
         txtTim.Location = new Point(0, 4); txtTim.Name = "txtTim"; txtTim.PlaceholderText = "Tìm mã hóa đơn, tên hoặc SĐT khách..."; txtTim.Size = new Size(320, 30);
         txtTim.TextChanged += txtTim_TextChanged;
-        btnThu.Anchor = AnchorStyles.Top | AnchorStyles.Right; btnThu.Location = new Point(740, 0); btnThu.Name = "btnThu"; btnThu.Size = new Size(160, 38);
+        btnThu.Anchor = AnchorStyles.Top | AnchorStyles.Right; btnThu.Location = new Point(740, 0); btnThu.Name = "btnThu"; btnThu.Size = new Size(160, 30);
         btnThu.Text = "Thu tiền"; btnThu.Click += btnThu_Click;
         dgvHoaDon.Columns.AddRange(new DataGridViewColumn[] { colMa, colHoSo, colNgay, colKhach, colBacSi, colTong, colTrangThai });
         dgvHoaDon.Dock = DockStyle.Fill; dgvHoaDon.Name = "dgvHoaDon";
@@ -76,7 +74,6 @@ partial class ucHoaDonChoThu
         //
         AutoScaleDimensions = new SizeF(96F, 96F);
         AutoScaleMode = AutoScaleMode.Dpi;
-        BackColor = Color.FromArgb(245, 249, 254);
         Controls.Add(khung);
         Controls.Add(flpThe);
         Name = "ucHoaDonChoThu";
@@ -93,7 +90,7 @@ partial class ucHoaDonChoThu
     private KmnClinic.GUI.Controls.TheThongKe theChoThu;
     private KmnClinic.GUI.Controls.TheThongKe theTienCho;
     private KmnClinic.GUI.Controls.TheThongKe theDaThu;
-    private KmnClinic.GUI.Controls.KhungTrang khung;
+    private Panel khung;
     private DataGridView dgvHoaDon;
     private DataGridViewTextBoxColumn colMa;
     private DataGridViewTextBoxColumn colHoSo;

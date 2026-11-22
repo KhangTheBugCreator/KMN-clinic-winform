@@ -13,7 +13,7 @@ partial class ucTiepNhan
     private void InitializeComponent()
     {
         tlp = new TableLayoutPanel();
-        khungHen = new KmnClinic.GUI.Controls.KhungTrang();
+        khungHen = new Panel();
         dgvHen = new DataGridView();
         colHenMa = new DataGridViewTextBoxColumn();
         colHenKhach = new DataGridViewTextBoxColumn();
@@ -23,7 +23,7 @@ partial class ucTiepNhan
         pnlHenDuoi = new Panel();
         btnTiepNhanHen = new Button();
         lblHen = new Label();
-        khungVangLai = new KmnClinic.GUI.Controls.KhungTrang();
+        khungVangLai = new Panel();
         lblVangLai = new Label();
         txtSdt = new TextBox();
         btnTim = new Button();
@@ -33,7 +33,7 @@ partial class ucTiepNhan
         txtTrieuChung = new TextBox();
         btnTiepNhanVangLai = new Button();
         lblQuyTac = new Label();
-        khungHoSo = new KmnClinic.GUI.Controls.KhungTrang();
+        khungHoSo = new Panel();
         dgvHoSo = new DataGridView();
         colHsMa = new DataGridViewTextBoxColumn();
         colHsGio = new DataGridViewTextBoxColumn();
@@ -74,8 +74,7 @@ partial class ucTiepNhan
         khungHen.Dock = DockStyle.Fill;
         khungHen.Margin = new Padding(0, 0, 8, 8);
         khungHen.Name = "khungHen";
-        lblHen.Dock = DockStyle.Top; lblHen.Font = new Font("Segoe UI Semibold", 11.5F); lblHen.ForeColor = Color.FromArgb(23, 54, 111);
-        lblHen.Name = "lblHen"; lblHen.Size = new Size(500, 32); lblHen.Text = "Khách có hẹn hôm nay";
+        lblHen.Dock = DockStyle.Top; lblHen.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         lblHen.Name = "lblHen"; lblHen.Size = new Size(500, 32); lblHen.Text = "Khách có hẹn hôm nay";
         dgvHen.Columns.AddRange(new DataGridViewColumn[] { colHenMa, colHenKhach, colHenCa, colHenBacSi, colHenTrangThai });
         dgvHen.Dock = DockStyle.Fill; dgvHen.Name = "dgvHen";
         dgvHen.SelectionChanged += dgvHen_SelectionChanged;
@@ -87,7 +86,7 @@ partial class ucTiepNhan
         pnlHenDuoi.Controls.Add(btnTiepNhanHen);
         pnlHenDuoi.Dock = DockStyle.Bottom; pnlHenDuoi.Name = "pnlHenDuoi"; pnlHenDuoi.Size = new Size(500, 52);
         btnTiepNhanHen.Anchor = AnchorStyles.Bottom | AnchorStyles.Right; btnTiepNhanHen.Location = new Point(270, 12); btnTiepNhanHen.Name = "btnTiepNhanHen";
-        btnTiepNhanHen.Size = new Size(230, 38); btnTiepNhanHen.Text = "Tiếp nhận và tạo hồ sơ"; btnTiepNhanHen.Click += btnTiepNhanHen_Click;
+        btnTiepNhanHen.Size = new Size(230, 30); btnTiepNhanHen.Text = "Tiếp nhận và tạo hồ sơ"; btnTiepNhanHen.Click += btnTiepNhanHen_Click;
         //
         // khungVangLai
         //
@@ -95,21 +94,19 @@ partial class ucTiepNhan
         khungVangLai.Dock = DockStyle.Fill;
         khungVangLai.Margin = new Padding(8, 0, 0, 8);
         khungVangLai.Name = "khungVangLai";
-        lblVangLai.AutoSize = true; lblVangLai.Font = new Font("Segoe UI Semibold", 11.5F); lblVangLai.ForeColor = Color.FromArgb(23, 54, 111);
-        lblVangLai.Location = new Point(16, 16); lblVangLai.Name = "lblVangLai"; lblVangLai.Text = "Khách vãng lai";
+        lblVangLai.AutoSize = true; lblVangLai.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         lblVangLai.Location = new Point(16, 16); lblVangLai.Name = "lblVangLai"; lblVangLai.Text = "Khách vãng lai";
         txtSdt.Location = new Point(16, 52); txtSdt.MaxLength = 10; txtSdt.Name = "txtSdt"; txtSdt.PlaceholderText = "Số điện thoại"; txtSdt.Size = new Size(200, 30);
         btnTim.Location = new Point(224, 50); btnTim.Name = "btnTim"; btnTim.Size = new Size(90, 34); btnTim.Text = "Tìm"; btnTim.Click += btnTim_Click;
-        lblKhach.ForeColor = Color.FromArgb(107, 118, 134); lblKhach.Location = new Point(16, 88); lblKhach.Name = "lblKhach"; lblKhach.Size = new Size(380, 22);
+        lblKhach.Location = new Point(16, 88); lblKhach.Name = "lblKhach"; lblKhach.Size = new Size(380, 22);
         txtHoTen.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right; txtHoTen.Location = new Point(16, 114); txtHoTen.Name = "txtHoTen";
         txtHoTen.PlaceholderText = "Họ tên (khách mới)"; txtHoTen.Size = new Size(380, 30);
         cboBacSi.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right; cboBacSi.DropDownStyle = ComboBoxStyle.DropDownList;
         cboBacSi.Location = new Point(16, 154); cboBacSi.Name = "cboBacSi"; cboBacSi.Size = new Size(380, 30);
         txtTrieuChung.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right; txtTrieuChung.Location = new Point(16, 194);
         txtTrieuChung.Multiline = true; txtTrieuChung.Name = "txtTrieuChung"; txtTrieuChung.PlaceholderText = "Triệu chứng"; txtTrieuChung.Size = new Size(380, 60);
-        lblQuyTac.Anchor = AnchorStyles.Bottom | AnchorStyles.Left; lblQuyTac.Font = new Font("Segoe UI", 8.5F); lblQuyTac.ForeColor = Color.FromArgb(107, 118, 134);
-        lblQuyTac.Location = new Point(16, 262); lblQuyTac.Name = "lblQuyTac"; lblQuyTac.Size = new Size(200, 40); lblQuyTac.Text = "Chỉ bác sĩ đang có ca trực (cho sớm 30 phút, RB41).";
+        lblQuyTac.Anchor = AnchorStyles.Bottom | AnchorStyles.Left; lblQuyTac.Font = new Font("Segoe UI", 8.5F);         lblQuyTac.Location = new Point(16, 262); lblQuyTac.Name = "lblQuyTac"; lblQuyTac.Size = new Size(200, 40); lblQuyTac.Text = "Chỉ bác sĩ đang có ca trực (cho sớm 30 phút, RB41).";
         btnTiepNhanVangLai.Anchor = AnchorStyles.Bottom | AnchorStyles.Right; btnTiepNhanVangLai.Location = new Point(226, 262); btnTiepNhanVangLai.Name = "btnTiepNhanVangLai";
-        btnTiepNhanVangLai.Size = new Size(170, 38); btnTiepNhanVangLai.Text = "Tiếp nhận"; btnTiepNhanVangLai.Click += btnTiepNhanVangLai_Click;
+        btnTiepNhanVangLai.Size = new Size(170, 30); btnTiepNhanVangLai.Text = "Tiếp nhận"; btnTiepNhanVangLai.Click += btnTiepNhanVangLai_Click;
         //
         // khungHoSo
         //
@@ -118,8 +115,7 @@ partial class ucTiepNhan
         khungHoSo.Dock = DockStyle.Fill;
         khungHoSo.Margin = new Padding(0, 8, 0, 0);
         khungHoSo.Name = "khungHoSo";
-        lblHoSo.Dock = DockStyle.Top; lblHoSo.Font = new Font("Segoe UI Semibold", 11.5F); lblHoSo.ForeColor = Color.FromArgb(23, 54, 111);
-        lblHoSo.Name = "lblHoSo"; lblHoSo.Size = new Size(500, 32); lblHoSo.Text = "Hồ sơ khám đã tạo hôm nay";
+        lblHoSo.Dock = DockStyle.Top; lblHoSo.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         lblHoSo.Name = "lblHoSo"; lblHoSo.Size = new Size(500, 32); lblHoSo.Text = "Hồ sơ khám đã tạo hôm nay";
         dgvHoSo.Columns.AddRange(new DataGridViewColumn[] { colHsMa, colHsGio, colHsKhach, colHsNguon, colHsBacSi, colHsTrangThai });
         dgvHoSo.Dock = DockStyle.Fill; dgvHoSo.Name = "dgvHoSo";
         colHsMa.DataPropertyName = "MaHoSo"; colHsMa.HeaderText = "Mã hồ sơ"; colHsMa.Name = "colHsMa"; colHsMa.FillWeight = 70;
@@ -134,7 +130,6 @@ partial class ucTiepNhan
         //
         AutoScaleDimensions = new SizeF(96F, 96F);
         AutoScaleMode = AutoScaleMode.Dpi;
-        BackColor = Color.FromArgb(245, 249, 254);
         Controls.Add(tlp);
         Name = "ucTiepNhan";
         Size = new Size(1100, 680);
@@ -150,7 +145,7 @@ partial class ucTiepNhan
     }
 
     private TableLayoutPanel tlp;
-    private KmnClinic.GUI.Controls.KhungTrang khungHen;
+    private Panel khungHen;
     private DataGridView dgvHen;
     private DataGridViewTextBoxColumn colHenMa;
     private DataGridViewTextBoxColumn colHenKhach;
@@ -160,7 +155,7 @@ partial class ucTiepNhan
     private Panel pnlHenDuoi;
     private Button btnTiepNhanHen;
     private Label lblHen;
-    private KmnClinic.GUI.Controls.KhungTrang khungVangLai;
+    private Panel khungVangLai;
     private Label lblVangLai;
     private TextBox txtSdt;
     private Button btnTim;
@@ -170,7 +165,7 @@ partial class ucTiepNhan
     private TextBox txtTrieuChung;
     private Button btnTiepNhanVangLai;
     private Label lblQuyTac;
-    private KmnClinic.GUI.Controls.KhungTrang khungHoSo;
+    private Panel khungHoSo;
     private DataGridView dgvHoSo;
     private DataGridViewTextBoxColumn colHsMa;
     private DataGridViewTextBoxColumn colHsGio;

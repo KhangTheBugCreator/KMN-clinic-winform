@@ -18,10 +18,10 @@ partial class ucTongQuanQuanTri
         theLichHen = new KmnClinic.GUI.Controls.TheThongKe();
         theThuoc = new KmnClinic.GUI.Controls.TheThongKe();
         tlpDuoi = new TableLayoutPanel();
-        khungBieuDo = new KmnClinic.GUI.Controls.KhungTrang();
+        khungBieuDo = new Panel();
         bieuDo = new KmnClinic.GUI.Controls.BieuDoCot();
         lblBieuDo = new Label();
-        khungThuoc = new KmnClinic.GUI.Controls.KhungTrang();
+        khungThuoc = new Panel();
         dgvSapHet = new DataGridView();
         colTenThuoc = new DataGridViewTextBoxColumn();
         colTon = new DataGridViewTextBoxColumn();
@@ -41,16 +41,13 @@ partial class ucTongQuanQuanTri
         flpThe.Controls.Add(theThuoc);
         flpThe.Dock = DockStyle.Top;
         flpThe.Name = "flpThe";
-        flpThe.Size = new Size(1000, 128);
+        flpThe.Size = new Size(1000, 90);
+        flpThe.Padding = new Padding(0, 0, 0, 8);
         flpThe.WrapContents = false;
         //
         // các thẻ số liệu
         //
-        theDoanhThu.Name = "theDoanhThu"; theDoanhThu.TieuDe = "Doanh thu hôm nay"; theDoanhThu.MauNhan = Color.FromArgb(76, 175, 106);
-        theLuotKham.Name = "theLuotKham"; theLuotKham.TieuDe = "Lượt khám hôm nay"; theLuotKham.MauNhan = Color.FromArgb(31, 111, 209);
-        theLichHen.Name = "theLichHen"; theLichHen.TieuDe = "Lịch hẹn chờ xác nhận"; theLichHen.MauNhan = Color.FromArgb(242, 163, 58);
-        theThuoc.Name = "theThuoc"; theThuoc.TieuDe = "Thuốc sắp hết"; theThuoc.MauNhan = Color.FromArgb(229, 83, 75);
-        //
+        theDoanhThu.Name = "theDoanhThu"; theDoanhThu.TieuDe = "Doanh thu hôm nay";         theLuotKham.Name = "theLuotKham"; theLuotKham.TieuDe = "Lượt khám hôm nay";         theLichHen.Name = "theLichHen"; theLichHen.TieuDe = "Lịch hẹn chờ xác nhận";         theThuoc.Name = "theThuoc"; theThuoc.TieuDe = "Thuốc sắp hết";         //
         // tlpDuoi
         //
         tlpDuoi.ColumnCount = 2;
@@ -72,8 +69,7 @@ partial class ucTongQuanQuanTri
         khungBieuDo.Name = "khungBieuDo";
         bieuDo.Dock = DockStyle.Fill;
         bieuDo.Name = "bieuDo";
-        lblBieuDo.Dock = DockStyle.Top; lblBieuDo.Font = new Font("Segoe UI Semibold", 11.5F); lblBieuDo.ForeColor = Color.FromArgb(23, 54, 111);
-        lblBieuDo.Name = "lblBieuDo"; lblBieuDo.Size = new Size(500, 32); lblBieuDo.Text = "Doanh thu 14 ngày gần nhất (triệu đồng)";
+        lblBieuDo.Dock = DockStyle.Top; lblBieuDo.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         lblBieuDo.Name = "lblBieuDo"; lblBieuDo.Size = new Size(500, 32); lblBieuDo.Text = "Doanh thu 14 ngày gần nhất (triệu đồng)";
         //
         // khungThuoc
         //
@@ -88,14 +84,12 @@ partial class ucTongQuanQuanTri
         colTenThuoc.DataPropertyName = "TenThuoc"; colTenThuoc.HeaderText = "Thuốc"; colTenThuoc.Name = "colTenThuoc"; colTenThuoc.FillWeight = 180;
         colTon.DataPropertyName = "SoLuongTon"; colTon.HeaderText = "Tồn"; colTon.Name = "colTon"; colTon.FillWeight = 60;
         colTon.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-        lblSapHet.Dock = DockStyle.Top; lblSapHet.Font = new Font("Segoe UI Semibold", 11.5F); lblSapHet.ForeColor = Color.FromArgb(23, 54, 111);
-        lblSapHet.Name = "lblSapHet"; lblSapHet.Size = new Size(300, 32); lblSapHet.Text = "Thuốc cần nhập thêm";
+        lblSapHet.Dock = DockStyle.Top; lblSapHet.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         lblSapHet.Name = "lblSapHet"; lblSapHet.Size = new Size(300, 32); lblSapHet.Text = "Thuốc cần nhập thêm";
         //
         // ucTongQuanQuanTri
         //
         AutoScaleDimensions = new SizeF(96F, 96F);
         AutoScaleMode = AutoScaleMode.Dpi;
-        BackColor = Color.FromArgb(245, 249, 254);
         Controls.Add(tlpDuoi);
         Controls.Add(flpThe);
         Name = "ucTongQuanQuanTri";
@@ -114,10 +108,10 @@ partial class ucTongQuanQuanTri
     private KmnClinic.GUI.Controls.TheThongKe theLichHen;
     private KmnClinic.GUI.Controls.TheThongKe theThuoc;
     private TableLayoutPanel tlpDuoi;
-    private KmnClinic.GUI.Controls.KhungTrang khungBieuDo;
+    private Panel khungBieuDo;
     private KmnClinic.GUI.Controls.BieuDoCot bieuDo;
     private Label lblBieuDo;
-    private KmnClinic.GUI.Controls.KhungTrang khungThuoc;
+    private Panel khungThuoc;
     private DataGridView dgvSapHet;
     private DataGridViewTextBoxColumn colTenThuoc;
     private DataGridViewTextBoxColumn colTon;

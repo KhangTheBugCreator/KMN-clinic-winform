@@ -16,7 +16,7 @@ partial class ucHangChoKham
         theCho = new KmnClinic.GUI.Controls.TheThongKe();
         theDang = new KmnClinic.GUI.Controls.TheThongKe();
         theXong = new KmnClinic.GUI.Controls.TheThongKe();
-        khung = new KmnClinic.GUI.Controls.KhungTrang();
+        khung = new Panel();
         dgvHangCho = new DataGridView();
         colMa = new DataGridViewTextBoxColumn();
         colGio = new DataGridViewTextBoxColumn();
@@ -41,12 +41,10 @@ partial class ucHangChoKham
         flpThe.Controls.Add(theXong);
         flpThe.Dock = DockStyle.Top;
         flpThe.Name = "flpThe";
-        flpThe.Size = new Size(1000, 128);
+        flpThe.Size = new Size(1000, 90);
+        flpThe.Padding = new Padding(0, 0, 0, 8);
         flpThe.WrapContents = false;
-        theCho.Name = "theCho"; theCho.TieuDe = "Đang chờ khám"; theCho.MauNhan = Color.FromArgb(242, 163, 58);
-        theDang.Name = "theDang"; theDang.TieuDe = "Đang khám"; theDang.MauNhan = Color.FromArgb(31, 111, 209);
-        theXong.Name = "theXong"; theXong.TieuDe = "Đã hoàn tất hôm nay"; theXong.MauNhan = Color.FromArgb(76, 175, 106);
-        //
+        theCho.Name = "theCho"; theCho.TieuDe = "Đang chờ khám";         theDang.Name = "theDang"; theDang.TieuDe = "Đang khám";         theXong.Name = "theXong"; theXong.TieuDe = "Đã hoàn tất hôm nay";         //
         // khung
         //
         khung.Controls.Add(dgvHangCho);
@@ -56,9 +54,8 @@ partial class ucHangChoKham
         pnlDau.Controls.Add(lblTieuDe);
         pnlDau.Controls.Add(btnKham);
         pnlDau.Dock = DockStyle.Top; pnlDau.Name = "pnlDau"; pnlDau.Size = new Size(900, 52);
-        lblTieuDe.AutoSize = true; lblTieuDe.Font = new Font("Segoe UI Semibold", 11.5F); lblTieuDe.ForeColor = Color.FromArgb(23, 54, 111);
-        lblTieuDe.Location = new Point(0, 6); lblTieuDe.Name = "lblTieuDe"; lblTieuDe.Text = "Hàng chờ hôm nay (theo thứ tự tiếp nhận)";
-        btnKham.Anchor = AnchorStyles.Top | AnchorStyles.Right; btnKham.Location = new Point(740, 0); btnKham.Name = "btnKham"; btnKham.Size = new Size(160, 38);
+        lblTieuDe.AutoSize = true; lblTieuDe.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         lblTieuDe.Location = new Point(0, 6); lblTieuDe.Name = "lblTieuDe"; lblTieuDe.Text = "Hàng chờ hôm nay (theo thứ tự tiếp nhận)";
+        btnKham.Anchor = AnchorStyles.Top | AnchorStyles.Right; btnKham.Location = new Point(740, 0); btnKham.Name = "btnKham"; btnKham.Size = new Size(160, 30);
         btnKham.Text = "Khám bệnh"; btnKham.Click += btnKham_Click;
         dgvHangCho.Columns.AddRange(new DataGridViewColumn[] { colMa, colGio, colKhach, colTuoi, colNguon, colTrieuChung, colTrangThai });
         dgvHangCho.Dock = DockStyle.Fill; dgvHangCho.Name = "dgvHangCho";
@@ -76,7 +73,6 @@ partial class ucHangChoKham
         //
         AutoScaleDimensions = new SizeF(96F, 96F);
         AutoScaleMode = AutoScaleMode.Dpi;
-        BackColor = Color.FromArgb(245, 249, 254);
         Controls.Add(khung);
         Controls.Add(flpThe);
         Name = "ucHangChoKham";
@@ -93,7 +89,7 @@ partial class ucHangChoKham
     private KmnClinic.GUI.Controls.TheThongKe theCho;
     private KmnClinic.GUI.Controls.TheThongKe theDang;
     private KmnClinic.GUI.Controls.TheThongKe theXong;
-    private KmnClinic.GUI.Controls.KhungTrang khung;
+    private Panel khung;
     private DataGridView dgvHangCho;
     private DataGridViewTextBoxColumn colMa;
     private DataGridViewTextBoxColumn colGio;
