@@ -3,7 +3,7 @@ using KmnClinic.DTO;
 
 namespace KmnClinic.BUS;
 
-/// <summary>Đăng nhập và đổi mật khẩu (RB35–RB37). Quản lý nhân viên thêm ở W2.</summary>
+/// <summary>Đăng nhập, đổi mật khẩu (RB35–RB37) và quản lý nhân viên (W2, chỉ Quản trị viên).</summary>
 public class NhanVienBUS
 {
     public const int DoDaiMatKhauToiThieu = 8;
@@ -52,5 +52,100 @@ public class NhanVienBUS
         if (!MatKhau.KiemTra(matKhauCu, daLuu)) throw new LoiNghiepVu("Mật khẩu hiện tại không đúng.");
 
         _dal.CapNhatMatKhau(nv.MaNv, MatKhau.Bam(matKhauMoi));
+    }
+
+    // ------------------------------------------------------------ quản lý nhân viên (W2)
+
+    public List<NhanVienDTO> DanhSach(string? tuKhoa = null, string? chucVu = null, string? maKhoa = null)
+    {
+        PhanQuyen.YeuCau(ChucVu.QuanTriVien);
+        return _dal.DanhSach(tuKhoa, chucVu, maKhoa);
+    }
+
+    /// <summary>Thêm nhân viên; mật khẩu bắt buộc (tối thiểu 8 ký tự), lưu dạng băm. Trả về mã mới.</summary>
+    public string Them(NhanVienDTO nv, string matKhau)
+    {
+        PhanQuyen.YeuCau(ChucVu.QuanTriVien);
+        var hopLe = ChuanHoa(nv);
+        KiemTraMatKhauMoi(matKhau);
+        return KiemTra.Ghi(() => _dal.Them(hopLe, MatKhau.Bam(matKhau)));
+    }
+
+    /// <summary>
+    /// Sửa nhân viên. matKhauMoi rỗng = giữ mật khẩu cũ; có nhập thì đặt lại mật khẩu (khi nhân viên quên).
+    /// Nhân viên đã có lịch làm việc, lịch hẹn, hồ sơ hoặc hóa đơn thì không đổi chức vụ/khoa.
+    /// </summary>
+    public void Sua(NhanVienDTO nv, string? matKhauMoi)
+    {
+        PhanQuyen.YeuCau(ChucVu.QuanTriVien);
+        var hopLe = ChuanHoa(nv);
+        hopLe.MaNv = nv.MaNv;
+        string? bam = null;
+        if (!string.IsNullOrEmpty(matKhauMoi))
+        {
+            KiemTraMatKhauMoi(matKhauMoi);
+            bam = MatKhau.Bam(matKhauMoi);
+        }
+        var kq = KiemTra.Ghi(() => _dal.Sua(hopLe, bam, PhienDangNhap.NhanVien!.MaNv));
+        switch (kq.TrangThai)
+        {
+            case TrangThaiGhi.KhongTimThay:
+                throw new LoiNghiepVu("Không tìm thấy nhân viên.");
+            case TrangThaiGhi.DangDuocDung:
+                throw new LoiNghiepVu($"Không thể đổi chức vụ hoặc khoa: nhân viên đã có {kq.SoLuongDangDung} dữ liệu lịch làm việc, lịch hẹn, hồ sơ hoặc hóa đơn theo chức vụ hiện tại.");
+            case TrangThaiGhi.TuThaoTacChinhMinh:
+                throw new LoiNghiepVu("Bạn không thể tự đổi chức vụ của mình khi đang ở vai trò quản trị viên.");
+            case TrangThaiGhi.HetQuanTriVien:
+                throw new LoiNghiepVu("Phòng khám phải còn ít nhất một quản trị viên.");
+        }
+    }
+
+    public void Xoa(string maNv)
+    {
+        PhanQuyen.YeuCau(ChucVu.QuanTriVien);
+        var kq = KiemTra.Ghi(() => _dal.Xoa(maNv, PhienDangNhap.NhanVien!.MaNv));
+        switch (kq.TrangThai)
+        {
+            case TrangThaiGhi.KhongTimThay:
+                throw new LoiNghiepVu("Không tìm thấy nhân viên.");
+            case TrangThaiGhi.TuThaoTacChinhMinh:
+                throw new LoiNghiepVu("Bạn không thể tự xóa chính mình.");
+            case TrangThaiGhi.DangDuocDung:
+                throw new LoiNghiepVu($"Không thể xóa: nhân viên đã có {kq.SoLuongDangDung} dữ liệu lịch làm việc, lịch hẹn, hồ sơ hoặc hóa đơn cần giữ lại.");
+            case TrangThaiGhi.HetQuanTriVien:
+                throw new LoiNghiepVu("Phòng khám phải còn ít nhất một quản trị viên.");
+        }
+    }
+
+    /// <summary>Kiểm tra dữ liệu nhập. RB5: chức vụ hợp lệ. RB6: chỉ Bác sĩ có khoa (CK_Nhan_vien_khoa).</summary>
+    private static NhanVienDTO ChuanHoa(NhanVienDTO nv)
+    {
+        var chucVu = (nv.ChucVu ?? "").Trim();
+        if (chucVu.Length == 0) throw new LoiNghiepVu("Vui lòng chọn chức vụ.");
+        if (!ChucVu.TatCa.Contains(chucVu)) throw new LoiNghiepVu("Chức vụ chỉ nhận Quản trị viên, Lễ tân, Bác sĩ hoặc Thu ngân.");
+
+        string? maKhoa = null;
+        if (chucVu == ChucVu.BacSi)
+        {
+            if (string.IsNullOrWhiteSpace(nv.MaKhoa)) throw new LoiNghiepVu("Bác sĩ phải thuộc một khoa (RB6).");
+            maKhoa = nv.MaKhoa.Trim();
+        }
+
+        return new NhanVienDTO
+        {
+            HoTenNv = KiemTra.BatBuoc(nv.HoTenNv, "họ tên", 50),
+            NgaySinhNv = KiemTra.NgaySinh(nv.NgaySinhNv),
+            SdtNv = KiemTra.SoDienThoai(nv.SdtNv),
+            ChucVu = chucVu,
+            MaKhoa = maKhoa,
+            DuongDanAnh = KiemTra.DuongDanAnh(nv.DuongDanAnh),
+        };
+    }
+
+    private static void KiemTraMatKhauMoi(string? matKhau)
+    {
+        if (string.IsNullOrEmpty(matKhau) || matKhau.Length < DoDaiMatKhauToiThieu)
+            throw new LoiNghiepVu($"Mật khẩu tối thiểu {DoDaiMatKhauToiThieu} ký tự.");
+        if (matKhau.Length > 100) throw new LoiNghiepVu("Mật khẩu tối đa 100 ký tự.");
     }
 }

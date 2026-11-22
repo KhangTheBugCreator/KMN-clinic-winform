@@ -33,8 +33,8 @@ public partial class frmChinh : Form
             new("&Danh mục", "Phòng làm việc", () => new ucPhong()),
             new("&Danh mục", "Ca làm việc", () => new ucCa()),
             new("&Danh mục", "Thuốc", () => new ucThuoc()),
-            new("&Nhân sự", "Nhân viên", () => new ucChuaLam("Nhân viên", "W2")),
-            new("&Nhân sự", "Khách hàng", () => new ucChuaLam("Khách hàng", "W2")),
+            new("&Nhân sự", "Nhân viên", () => new ucNhanVien()),
+            new("&Nhân sự", "Khách hàng", () => new ucKhachHang()),
             new("&Nhân sự", "Lịch làm việc", () => new ucLichLamViec(true)),
             new("&Tra cứu", "Lịch hẹn", () => new ucChuaLam("Tra cứu lịch hẹn", "W9")),
             new("&Tra cứu", "Hồ sơ khám", () => new ucChuaLam("Tra cứu hồ sơ khám", "W9")),
@@ -46,7 +46,7 @@ public partial class frmChinh : Form
         [
             new("&Lễ tân", "Lịch hẹn", () => new ucLichHen()),
             new("&Lễ tân", "Tiếp nhận khách", () => new ucTiepNhan()),
-            new("&Lễ tân", "Khách hàng", () => new ucChuaLam("Khách hàng", "W2")),
+            new("&Lễ tân", "Khách hàng", () => new ucKhachHang()),
         ],
         ChucVu.BacSi =>
         [
