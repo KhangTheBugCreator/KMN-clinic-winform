@@ -18,12 +18,14 @@ public partial class frmKhachHangChiTiet : Form
         InitializeComponent();
         _kh = kh;
         dtpNgaySinh.MaxDate = DateTime.Today;
+        cboGioiTinh.Items.AddRange(KhachHangBUS.GioiTinh); // Nam, Nữ, Khác (Khác lưu NULL)
         if (kh is null)
         {
             Text = "Thêm khách hàng";
             txtMa.Text = "(tự sinh)";
             dtpNgaySinh.Value = DateTime.Today.AddYears(-30);
             txtSdt.Text = sdtGoiY;
+            cboGioiTinh.SelectedIndex = 0;
         }
         else
         {
@@ -31,8 +33,7 @@ public partial class frmKhachHangChiTiet : Form
             txtMa.Text = kh.MaKh;
             txtHoTen.Text = kh.HoTenKh;
             if (kh.NgaySinhKh is { } ns) dtpNgaySinh.Value = ns;
-            rdoNam.Checked = kh.GioiTinhKh == "Nam";
-            rdoNu.Checked = kh.GioiTinhKh == "Nữ";
+            cboGioiTinh.SelectedItem = kh.GioiTinhHienThi;
             txtSdt.Text = kh.SdtKh;
             txtDiaChi.Text = kh.DiaChiKh;
         }
@@ -46,7 +47,7 @@ public partial class frmKhachHangChiTiet : Form
             MaKh = _kh?.MaKh ?? "",
             HoTenKh = txtHoTen.Text,
             NgaySinhKh = dtpNgaySinh.Value.Date,
-            GioiTinhKh = rdoNam.Checked ? "Nam" : rdoNu.Checked ? "Nữ" : null,
+            GioiTinhKh = cboGioiTinh.SelectedItem as string,
             SdtKh = txtSdt.Text,
             DiaChiKh = txtDiaChi.Text,
         };

@@ -22,7 +22,8 @@ Mở SSMS, kết nối vào SQL Server trên máy, rồi chạy lần lượt (F
 1. `database/cau-truc-phongkham.sql` – tạo CSDL `PHONGKHAM`, 11 bảng, ràng buộc, trigger.
 2. `database/du-lieu-mau-day-du.sql` – dữ liệu mẫu.
 
-Nếu đã có CSDL `PHONGKHAM` từ website thì bỏ qua bước này, hai bản dùng chung được.
+Nếu đã có CSDL `PHONGKHAM` (tạo trước 22/11/2026) thì không cần tạo lại, chỉ chạy thêm
+`database/sua-gioi-tinh-cho-phep-null.sql` một lần: cho phép giới tính khách để trống (NULL) khi chọn "Khác".
 
 ### 2. Sửa chuỗi kết nối
 

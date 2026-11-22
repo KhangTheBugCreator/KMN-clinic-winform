@@ -19,8 +19,7 @@ partial class frmKhachHangChiTiet
         lblNgaySinh = new Label();
         dtpNgaySinh = new DateTimePicker();
         lblGioiTinh = new Label();
-        rdoNam = new RadioButton();
-        rdoNu = new RadioButton();
+        cboGioiTinh = new ComboBox();
         lblSdt = new Label();
         txtSdt = new TextBox();
         lblDiaChi = new Label();
@@ -84,21 +83,13 @@ partial class frmKhachHangChiTiet
         lblGioiTinh.Name = "lblGioiTinh";
         lblGioiTinh.Text = "Giới tính:";
         //
-        // rdoNam
+        // cboGioiTinh
         //
-        rdoNam.Location = new Point(130, 112);
-        rdoNam.Name = "rdoNam";
-        rdoNam.Size = new Size(60, 23);
-        rdoNam.TabIndex = 3;
-        rdoNam.Text = "Nam";
-        //
-        // rdoNu
-        //
-        rdoNu.Location = new Point(200, 112);
-        rdoNu.Name = "rdoNu";
-        rdoNu.Size = new Size(60, 23);
-        rdoNu.TabIndex = 4;
-        rdoNu.Text = "Nữ";
+        cboGioiTinh.DropDownStyle = ComboBoxStyle.DropDownList;
+        cboGioiTinh.Location = new Point(130, 112);
+        cboGioiTinh.Name = "cboGioiTinh";
+        cboGioiTinh.Size = new Size(100, 23);
+        cboGioiTinh.TabIndex = 3;
         //
         // lblSdt
         //
@@ -162,7 +153,7 @@ partial class frmKhachHangChiTiet
         AutoScaleMode = AutoScaleMode.Font;
         CancelButton = btnHuy;
         ClientSize = new Size(460, 278);
-        Controls.AddRange(new Control[] { lblMa, txtMa, lblHoTen, txtHoTen, lblNgaySinh, dtpNgaySinh, lblGioiTinh, rdoNam, rdoNu, lblSdt, txtSdt, lblDiaChi, txtDiaChi, lblLoi, btnLuu, btnHuy });
+        Controls.AddRange(new Control[] { lblMa, txtMa, lblHoTen, txtHoTen, lblNgaySinh, dtpNgaySinh, lblGioiTinh, cboGioiTinh, lblSdt, txtSdt, lblDiaChi, txtDiaChi, lblLoi, btnLuu, btnHuy });
         FormBorderStyle = FormBorderStyle.FixedDialog;
         MaximizeBox = false;
         MinimizeBox = false;
@@ -181,8 +172,7 @@ partial class frmKhachHangChiTiet
     private Label lblNgaySinh;
     private DateTimePicker dtpNgaySinh;
     private Label lblGioiTinh;
-    private RadioButton rdoNam;
-    private RadioButton rdoNu;
+    private ComboBox cboGioiTinh;
     private Label lblSdt;
     private TextBox txtSdt;
     private Label lblDiaChi;

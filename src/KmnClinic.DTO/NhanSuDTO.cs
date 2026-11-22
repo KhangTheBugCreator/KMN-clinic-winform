@@ -22,7 +22,10 @@ public class KhachHangDTO
     public string MaKh { get; set; } = "";
     public string HoTenKh { get; set; } = "";
     public DateTime? NgaySinhKh { get; set; }
+    /// <summary>"Nam", "Nữ" hoặc null (= giới tính khác).</summary>
     public string? GioiTinhKh { get; set; }
+    /// <summary>Giới tính để hiển thị: null hiện là "Khác".</summary>
+    public string GioiTinhHienThi => GioiTinhKh ?? "Khác";
     public string SdtKh { get; set; } = "";
     public string? DiaChiKh { get; set; }
     /// <summary>Số lịch hẹn và hồ sơ khám của khách (có thì không xóa được).</summary>

@@ -6,7 +6,10 @@ namespace KmnClinic.BUS;
 /// <summary>Khách hàng: Quản trị viên và Lễ tân xem, thêm, sửa; chỉ Quản trị viên xóa.</summary>
 public class KhachHangBUS
 {
-    public static readonly string[] GioiTinh = ["Nam", "Nữ"];
+    public const string GioiTinhKhac = "Khác";
+
+    /// <summary>Lựa chọn giới tính trên giao diện. "Khác" được lưu NULL trong CSDL.</summary>
+    public static readonly string[] GioiTinh = ["Nam", "Nữ", GioiTinhKhac];
 
     private readonly KhachHangDAL _dal = new();
 
@@ -54,15 +57,16 @@ public class KhachHangBUS
 
     private static KhachHangDTO ChuanHoa(KhachHangDTO kh)
     {
+        // Nam / Nữ lưu nguyên; "Khác" hoặc bỏ trống lưu NULL
         var gt = (kh.GioiTinhKh ?? "").Trim();
-        if (gt.Length == 0) throw new LoiNghiepVu("Vui lòng chọn giới tính.");
-        if (!GioiTinh.Contains(gt)) throw new LoiNghiepVu("Giới tính chỉ nhận Nam hoặc Nữ.");
+        if (gt.Length > 0 && !GioiTinh.Contains(gt)) throw new LoiNghiepVu("Giới tính chỉ nhận Nam, Nữ hoặc Khác.");
+        string? gioiTinhLuu = gt is "Nam" or "Nữ" ? gt : null;
         if (kh.NgaySinhKh is null) throw new LoiNghiepVu("Vui lòng nhập ngày sinh.");
         return new KhachHangDTO
         {
             HoTenKh = KiemTra.BatBuoc(kh.HoTenKh, "họ tên", 50),
             NgaySinhKh = KiemTra.NgaySinh(kh.NgaySinhKh),
-            GioiTinhKh = gt,
+            GioiTinhKh = gioiTinhLuu,
             SdtKh = KiemTra.SoDienThoai(kh.SdtKh),
             DiaChiKh = KiemTra.TuyChon(kh.DiaChiKh, "địa chỉ", 100),
         };

@@ -110,7 +110,7 @@ partial class ucKhachHang
         colTen.DataPropertyName = "HoTenKh"; colTen.HeaderText = "Họ tên"; colTen.Name = "colTen"; colTen.FillWeight = 150;
         colNgaySinh.DataPropertyName = "NgaySinhKh"; colNgaySinh.HeaderText = "Ngày sinh"; colNgaySinh.Name = "colNgaySinh"; colNgaySinh.FillWeight = 75;
         colNgaySinh.DefaultCellStyle.Format = "dd/MM/yyyy";
-        colGioiTinh.DataPropertyName = "GioiTinhKh"; colGioiTinh.HeaderText = "Giới tính"; colGioiTinh.Name = "colGioiTinh"; colGioiTinh.FillWeight = 55;
+        colGioiTinh.DataPropertyName = "GioiTinhHienThi"; colGioiTinh.HeaderText = "Giới tính"; colGioiTinh.Name = "colGioiTinh"; colGioiTinh.FillWeight = 55;
         colSdt.DataPropertyName = "SdtKh"; colSdt.HeaderText = "Số điện thoại"; colSdt.Name = "colSdt"; colSdt.FillWeight = 85;
         colDiaChi.DataPropertyName = "DiaChiKh"; colDiaChi.HeaderText = "Địa chỉ"; colDiaChi.Name = "colDiaChi"; colDiaChi.FillWeight = 220;
         colSoHen.DataPropertyName = "SoLichHen"; colSoHen.HeaderText = "Lịch hẹn"; colSoHen.Name = "colSoHen"; colSoHen.FillWeight = 55;

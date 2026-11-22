@@ -172,12 +172,31 @@ public class NhanSuTests : IDisposable
     [Fact]
     public void KhachHang_DuLieuSai()
     {
-        var a = KhMau(); a.GioiTinhKh = null;
-        Loi("Vui lòng chọn giới tính.", () => _kh.Them(a));
+        var a = KhMau(); a.GioiTinhKh = "Không rõ";
+        Loi("Giới tính chỉ nhận Nam, Nữ hoặc Khác.", () => _kh.Them(a));
         var b = KhMau(); b.NgaySinhKh = null;
         Loi("Vui lòng nhập ngày sinh.", () => _kh.Them(b));
         var c = KhMau(); c.SdtKh = _kh.DanhSach().First().SdtKh;
         Loi("Số điện thoại khách hàng đã được sử dụng.", () => _kh.Them(c));
+    }
+
+    [Fact]
+    public void KhachHang_GioiTinhKhac_LuuNull_VaLocDuoc()
+    {
+        var kh = KhMau();
+        kh.GioiTinhKh = KhachHangBUS.GioiTinhKhac;
+        var ma = _db.Xoa("Khach_hang", "ma_kh", _kh.Them(kh));
+        Assert.Equal(DBNull.Value, _db.GiaTri($"SELECT gioi_tinh_kh FROM Khach_hang WHERE ma_kh = '{ma}'"));
+
+        var luu = _kh.DanhSach(ma).Single();
+        Assert.Null(luu.GioiTinhKh);
+        Assert.Equal("Khác", luu.GioiTinhHienThi);
+        Assert.Contains(_kh.DanhSach(gioiTinh: "Khác"), k => k.MaKh == ma);
+        Assert.DoesNotContain(_kh.DanhSach(gioiTinh: "Nữ"), k => k.MaKh == ma);
+
+        luu.GioiTinhKh = "Nữ"; // sửa lại thành Nữ
+        _kh.Sua(luu);
+        Assert.Equal("Nữ", _kh.DanhSach(ma).Single().GioiTinhKh);
     }
 
     [Fact]
