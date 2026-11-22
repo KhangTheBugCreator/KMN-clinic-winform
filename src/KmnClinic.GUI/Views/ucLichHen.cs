@@ -1,41 +1,48 @@
 using KmnClinic.BUS;
 using KmnClinic.DTO;
-using KmnClinic.GUI.DuLieuGia;
 using KmnClinic.GUI.Forms;
 using KmnClinic.GUI.Theme;
 
 namespace KmnClinic.GUI.Views;
 
 /// <summary>
-/// Lễ tân quản lý lịch hẹn: xác nhận (Đã đặt → Đã xác nhận), hủy (từ Đã đặt / Đã xác nhận, RB14–RB15), đặt lịch hộ khách gọi điện.
-/// Module W4 (đặt lịch hộ) và W5 (xác nhận, hủy) thay dữ liệu giả bằng LichHenBUS.
+/// Lễ tân quản lý lịch hẹn: xác nhận lịch khách tự đặt trên web (Đã đặt → Đã xác nhận), hủy (từ Đã đặt / Đã xác nhận, RB15),
+/// đặt lịch hộ khách gọi điện (lịch đặt hộ được xác nhận luôn).
 /// </summary>
 public partial class ucLichHen : UserControl
 {
-    private readonly List<LichHenDTO> _ds = Gia.LichHen();
+    private readonly LichHenBUS _bus = new();
+    private bool _dangNap = true;
 
     public ucLichHen()
     {
         InitializeComponent();
         GiaoDien.Luoi(dgvLichHen);
-        dtpNgay.Value = Gia.HomNay;
+        dtpNgay.Value = DateTime.Today;
         cboTrangThai.SelectedIndex = 0;
+    }
+
+    protected override void OnLoad(EventArgs e)
+    {
+        base.OnLoad(e);
+        if (DesignMode) return;
+        _dangNap = false;
         NapLai();
     }
 
     private LichHenDTO? DangChon => dgvLichHen.CurrentRow?.DataBoundItem as LichHenDTO;
 
-    private void NapLai()
+    private void NapLai(string? chonMa = null)
     {
+        if (_dangNap) return;
+        chonMa ??= DangChon?.MaLichHen;
         dtpNgay.Enabled = !chkMoiNgay.Checked;
-        var tk = txtTim.Text.Trim();
-        var ds = _ds.Where(l =>
-                (chkMoiNgay.Checked || l.NgayKham.Date == dtpNgay.Value.Date)
-                && (cboTrangThai.SelectedIndex <= 0 || l.TrangThai == cboTrangThai.Text)
-                && (tk.Length == 0 || l.TenKhachHang.Contains(tk, StringComparison.OrdinalIgnoreCase) || l.SdtKhachHang.Contains(tk)))
-            .OrderBy(l => l.NgayKham).ThenBy(l => l.TenCa).ToList();
+        List<LichHenDTO> ds = [];
+        if (!ThongBaoLoi.Chay(this, () => ds = _bus.DanhSach(chkMoiNgay.Checked ? null : dtpNgay.Value.Date,
+                cboTrangThai.SelectedIndex > 0 ? cboTrangThai.Text : null, txtTim.Text))) return;
         dgvLichHen.DataSource = ds;
-        lblDem.Text = $"{ds.Count} lịch hẹn · {ds.Count(l => l.TrangThai == TrangThai.DaDat)} chờ xác nhận";
+        GiaoDien.ChonDong(dgvLichHen, chonMa is null ? null : o => ((LichHenDTO)o).MaLichHen == chonMa);
+        lblDem.Text = $"{ds.Count} lịch hẹn · {ds.Count(l => l.TrangThai == TrangThai.DaDat)} chờ xác nhận (khách tự đặt trên web)";
         dgvLichHen_SelectionChanged(null, EventArgs.Empty);
     }
 
@@ -51,28 +58,27 @@ public partial class ucLichHen : UserControl
     private void btnXacNhan_Click(object? sender, EventArgs e)
     {
         if (DangChon is not { } lh) return;
-        lh.TrangThai = TrangThai.DaXacNhan;
-        lh.LeTanXacNhan = PhienDangNhap.NhanVien?.HoTenNv; // RB: ghi lễ tân xác nhận (câu hỏi truy vết 1)
-        NapLai();
+        if (ThongBaoLoi.Chay(this, () => _bus.XacNhan(lh.MaLichHen))) NapLai(lh.MaLichHen);
     }
 
     private void btnHuy_Click(object? sender, EventArgs e)
     {
         if (DangChon is not { } lh) return;
-        if (MessageBox.Show($"Hủy lịch hẹn {lh.MaLichHen} của {lh.TenKhachHang}?", "Hủy lịch hẹn",
+        if (MessageBox.Show(this, $"Hủy lịch hẹn {lh.MaLichHen} của {lh.TenKhachHang} ({lh.NgayKham:dd/MM/yyyy}, {lh.CaKham})?", "Hủy lịch hẹn",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
-        lh.TrangThai = TrangThai.DaHuy;
-        NapLai();
+        if (ThongBaoLoi.Chay(this, () => _bus.Huy(lh.MaLichHen))) NapLai(lh.MaLichHen);
     }
 
     private void btnDatLich_Click(object? sender, EventArgs e)
     {
         using var f = new frmDatLichHo();
-        if (f.ShowDialog(this) == DialogResult.OK && f.LichHenMoi is { } moi)
-        {
-            _ds.Add(moi);
-            chkMoiNgay.Checked = true;
-            NapLai();
-        }
+        if (f.ShowDialog(this) != DialogResult.OK || f.LichHenMoi is not { } moi) return;
+        _dangNap = true;
+        chkMoiNgay.Checked = false;
+        dtpNgay.Value = moi.NgayKham;
+        cboTrangThai.SelectedIndex = 0;
+        txtTim.Clear();
+        _dangNap = false;
+        NapLai(moi.MaLichHen);
     }
 }
