@@ -59,7 +59,7 @@ public partial class frmDatLichHo : Form
         // Đổi số điện thoại sau khi tìm thì bỏ khách đã chọn, phải tìm lại.
         if (_khach is null || txtSdt.Text.Trim() == _khach.SdtKh) return;
         _khach = null;
-        txtHoTen.Enabled = cboGioiTinh.Enabled = dtpNgaySinh.Enabled = true;
+        txtHoTen.Enabled = cboGioiTinh.Enabled = dtpNgaySinh.Enabled = txtDiaChi.Enabled = true;
         lblKetQua.ForeColor = SystemColors.ControlText;
         lblKetQua.Text = "Số điện thoại đã đổi, bấm Tìm khách lại.";
         CapNhatTomTat();
@@ -70,12 +70,13 @@ public partial class frmDatLichHo : Form
         KhachHangDTO? kh = null;
         if (!ThongBaoLoi.Chay(this, () => kh = _khachBus.TimTheoSdt(txtSdt.Text))) return;
         _khach = kh;
-        txtHoTen.Enabled = cboGioiTinh.Enabled = dtpNgaySinh.Enabled = kh is null;
+        txtHoTen.Enabled = cboGioiTinh.Enabled = dtpNgaySinh.Enabled = txtDiaChi.Enabled = kh is null;
         if (kh is null)
         {
             lblKetQua.ForeColor = Color.DarkRed;
-            lblKetQua.Text = "Chưa có khách với SĐT này. Điền họ tên, giới tính, ngày sinh; khách mới được lưu cùng lịch hẹn.";
+            lblKetQua.Text = "Chưa có khách với SĐT này. Điền họ tên, giới tính, ngày sinh, địa chỉ; khách mới được lưu cùng lịch hẹn.";
             txtHoTen.Clear();
+            txtDiaChi.Clear();
             txtHoTen.Focus();
         }
         else
@@ -83,6 +84,7 @@ public partial class frmDatLichHo : Form
             lblKetQua.ForeColor = Color.DarkGreen;
             lblKetQua.Text = $"Đã có: {kh.MaKh} – {kh.HoTenKh}\r\n{kh.DiaChiKh}";
             txtHoTen.Text = kh.HoTenKh;
+            txtDiaChi.Text = kh.DiaChiKh;
             cboGioiTinh.Text = kh.GioiTinhHienThi;
             if (kh.NgaySinhKh is { } ns) dtpNgaySinh.Value = ns;
         }
@@ -137,7 +139,7 @@ public partial class frmDatLichHo : Form
         var khachMoi = _khach is null
             ? new KhachHangDTO
             {
-                HoTenKh = txtHoTen.Text, SdtKh = txtSdt.Text, GioiTinhKh = cboGioiTinh.Text, NgaySinhKh = dtpNgaySinh.Value.Date,
+                HoTenKh = txtHoTen.Text, SdtKh = txtSdt.Text, GioiTinhKh = cboGioiTinh.Text, NgaySinhKh = dtpNgaySinh.Value.Date, DiaChiKh = txtDiaChi.Text,
             }
             : null;
         try

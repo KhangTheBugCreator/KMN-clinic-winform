@@ -54,11 +54,13 @@ public class LichHenTests : IDisposable
     public void DatHo_KhachMoi_ThemCungLuc()
     {
         var k = KhachMoi("ZTest Khách mới");
+        k.DiaChiKh = "  12 Lê Lợi, Vĩnh Long ";
         var (ma, maKh) = _bus.DatHo(null, k, _lichChieu, null);
         _db.Xoa("Khach_hang", "ma_kh", maKh);
         GhiNhan(ma);
         Assert.Equal(k.SdtKh, _db.GiaTri($"SELECT sdt_kh FROM Khach_hang WHERE ma_kh = '{maKh}'"));
         Assert.Equal(DBNull.Value, _db.GiaTri($"SELECT gioi_tinh_kh FROM Khach_hang WHERE ma_kh = '{maKh}'")); // Khác = NULL
+        Assert.Equal("12 Lê Lợi, Vĩnh Long", _db.GiaTri($"SELECT dia_chi_kh FROM Khach_hang WHERE ma_kh = '{maKh}'"));
     }
 
     [Fact]

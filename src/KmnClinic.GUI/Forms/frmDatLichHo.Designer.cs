@@ -21,6 +21,8 @@ partial class frmDatLichHo
         lblGioiTinh = new Label();
         cboGioiTinh = new ComboBox();
         lblNgaySinh = new Label();
+        lblDiaChi = new Label();
+        txtDiaChi = new TextBox();
         dtpNgaySinh = new DateTimePicker();
         lblBuoc4 = new Label();
         txtTrieuChung = new TextBox();
@@ -50,12 +52,14 @@ partial class frmDatLichHo
         lblNgaySinh.AutoSize = true; lblNgaySinh.Location = new Point(24, 226); lblNgaySinh.Name = "lblNgaySinh"; lblNgaySinh.Text = "Ngày sinh";
         dtpNgaySinh.CustomFormat = "dd/MM/yyyy"; dtpNgaySinh.Format = DateTimePickerFormat.Custom;
         dtpNgaySinh.Location = new Point(124, 222); dtpNgaySinh.Name = "dtpNgaySinh"; dtpNgaySinh.Size = new Size(170, 30); dtpNgaySinh.TabIndex = 4;
+        lblDiaChi.AutoSize = true; lblDiaChi.Location = new Point(24, 266); lblDiaChi.Name = "lblDiaChi"; lblDiaChi.Text = "Địa chỉ";
+        txtDiaChi.Location = new Point(124, 262); txtDiaChi.MaxLength = 100; txtDiaChi.Name = "txtDiaChi"; txtDiaChi.PlaceholderText = "Không bắt buộc"; txtDiaChi.Size = new Size(300, 30); txtDiaChi.TabIndex = 4;
         //
         // Bước 4: triệu chứng
         //
-        lblBuoc4.AutoSize = true; lblBuoc4.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         lblBuoc4.Location = new Point(24, 280); lblBuoc4.Name = "lblBuoc4"; lblBuoc4.Text = "4. Triệu chứng ban đầu";
-        txtTrieuChung.Location = new Point(24, 314); txtTrieuChung.MaxLength = 255; txtTrieuChung.Multiline = true; txtTrieuChung.Name = "txtTrieuChung";
-        txtTrieuChung.PlaceholderText = "Khách mô tả qua điện thoại (không bắt buộc)"; txtTrieuChung.Size = new Size(400, 120); txtTrieuChung.TabIndex = 9;
+        lblBuoc4.AutoSize = true; lblBuoc4.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         lblBuoc4.Location = new Point(24, 306); lblBuoc4.Name = "lblBuoc4"; lblBuoc4.Text = "4. Triệu chứng ban đầu";
+        txtTrieuChung.Location = new Point(24, 336); txtTrieuChung.MaxLength = 255; txtTrieuChung.Multiline = true; txtTrieuChung.Name = "txtTrieuChung";
+        txtTrieuChung.PlaceholderText = "Khách mô tả qua điện thoại (không bắt buộc)"; txtTrieuChung.Size = new Size(400, 98); txtTrieuChung.TabIndex = 9;
         //
         // Bước 2: khoa, bác sĩ
         //
@@ -87,7 +91,7 @@ partial class frmDatLichHo
         AutoScaleMode = AutoScaleMode.Dpi;
                 CancelButton = btnDong;
         ClientSize = new Size(888, 596);
-        Controls.AddRange(new Control[] { lblBuoc1, txtSdt, btnTim, lblKetQua, lblHoTen, txtHoTen, lblGioiTinh, cboGioiTinh, lblNgaySinh, dtpNgaySinh,
+        Controls.AddRange(new Control[] { lblBuoc1, txtSdt, btnTim, lblKetQua, lblHoTen, txtHoTen, lblGioiTinh, cboGioiTinh, lblNgaySinh, dtpNgaySinh, lblDiaChi, txtDiaChi,
             lblBuoc4, txtTrieuChung, lblBuoc2, cboKhoa, cboBacSi, lblBuoc3, dtpNgayKham, lstCa, lblTomTat, btnDat, btnDong });
         FormBorderStyle = FormBorderStyle.FixedDialog;
         MaximizeBox = false;
@@ -109,6 +113,8 @@ partial class frmDatLichHo
     private Label lblGioiTinh;
     private ComboBox cboGioiTinh;
     private Label lblNgaySinh;
+    private Label lblDiaChi;
+    private TextBox txtDiaChi;
     private DateTimePicker dtpNgaySinh;
     private Label lblBuoc4;
     private TextBox txtTrieuChung;
