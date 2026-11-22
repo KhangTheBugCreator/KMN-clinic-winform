@@ -111,6 +111,8 @@ public static class DbHelper
         return r.IsDBNull(i) ? null : r.GetString(i);
     }
 
+    public static string? ChuoiHoacNull(SqlDataReader r, int i) => r.IsDBNull(i) ? null : r.GetString(i);
+
     public static DateTime? NgayHoacNull(this SqlDataReader r, string cot)
     {
         var i = r.GetOrdinal(cot);

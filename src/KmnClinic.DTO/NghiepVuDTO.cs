@@ -36,6 +36,43 @@ public class LichHenDTO
     public string? TrieuChungBanDau { get; set; }
     public string TrangThai { get; set; } = "";
     public string? LeTanXacNhan { get; set; }
+    public string MaKh { get; set; } = "";
+    public string MaLichLamViec { get; set; } = "";
+    public string MaBacSi { get; set; } = "";
+    public string TenPhong { get; set; } = "";
+    public TimeSpan GioBatDau { get; set; }
+    public TimeSpan GioKetThuc { get; set; }
+    /// <summary>Hồ sơ khám tạo từ lịch hẹn này (khi đã tiếp nhận).</summary>
+    public string? MaHoSo { get; set; }
+    public string CaKham => $"{TenCa} {GioBatDau:hh\\:mm}–{GioKetThuc:hh\\:mm}";
+}
+
+/// <summary>Bác sĩ đang trực lúc này (cho nhận khách vãng lai, RB41), kèm số hồ sơ chưa xong trong ngày.</summary>
+public class BacSiDangTrucDTO
+{
+    public string MaNv { get; set; } = "";
+    public string HoTenNv { get; set; } = "";
+    public string TenKhoa { get; set; } = "";
+    public string TenPhong { get; set; } = "";
+    public string TenCa { get; set; } = "";
+    public TimeSpan GioBatDau { get; set; }
+    public TimeSpan GioKetThuc { get; set; }
+    public int SoDangCho { get; set; }
+    public string CaTruc => $"{TenCa} {GioBatDau:hh\\:mm}–{GioKetThuc:hh\\:mm}";
+    public override string ToString() => $"{HoTenNv} · {TenKhoa} · {TenPhong} · {SoDangCho} đang chờ";
+}
+
+/// <summary>Số liệu trong ngày cho lễ tân.</summary>
+public class TongQuanLeTanDTO
+{
+    /// <summary>Lịch "Đã đặt" (khách tự đặt trên web) chưa hết ca, cần gọi xác nhận.</summary>
+    public int ChoXacNhan { get; set; }
+    public int HenHomNay { get; set; }
+    /// <summary>Hẹn hôm nay đã xác nhận, chưa tiếp nhận.</summary>
+    public int ChoTiepNhan { get; set; }
+    public int HoSoHomNay { get; set; }
+    public int VangLaiHomNay { get; set; }
+    public int BacSiDangTruc { get; set; }
 }
 
 /// <summary>Bảng Ho_so_kham, kèm tên để hiển thị.</summary>
@@ -55,6 +92,10 @@ public class HoSoKhamDTO
     public string? MaLichHen { get; set; }
     public string Nguon => MaLichHen is null ? "Vãng lai" : "Có hẹn";
     public string TrangThai { get; set; } = "";
+    public string MaBacSi { get; set; } = "";
+    public string TenKhoa { get; set; } = "";
+    public string SdtKhachHang { get; set; } = "";
+    public string? TenLeTan { get; set; }
 }
 
 /// <summary>Bảng Chi_tiet_don_thuoc, kèm tên thuốc.</summary>

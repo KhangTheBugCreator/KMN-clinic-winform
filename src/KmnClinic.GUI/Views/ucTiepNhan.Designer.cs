@@ -22,6 +22,7 @@ partial class ucTiepNhan
         colHenTrangThai = new DataGridViewTextBoxColumn();
         pnlHenDuoi = new Panel();
         btnTiepNhanHen = new Button();
+        btnLamMoi = new Button();
         lblHen = new Label();
         khungVangLai = new Panel();
         lblVangLai = new Label();
@@ -80,10 +81,12 @@ partial class ucTiepNhan
         dgvHen.SelectionChanged += dgvHen_SelectionChanged;
         colHenMa.DataPropertyName = "MaLichHen"; colHenMa.HeaderText = "Mã"; colHenMa.Name = "colHenMa"; colHenMa.FillWeight = 60;
         colHenKhach.DataPropertyName = "TenKhachHang"; colHenKhach.HeaderText = "Khách hàng"; colHenKhach.Name = "colHenKhach"; colHenKhach.FillWeight = 130;
-        colHenCa.DataPropertyName = "TenCa"; colHenCa.HeaderText = "Ca"; colHenCa.Name = "colHenCa"; colHenCa.FillWeight = 65;
+        colHenCa.DataPropertyName = "CaKham"; colHenCa.HeaderText = "Ca"; colHenCa.Name = "colHenCa"; colHenCa.FillWeight = 65;
         colHenBacSi.DataPropertyName = "TenBacSi"; colHenBacSi.HeaderText = "Bác sĩ"; colHenBacSi.Name = "colHenBacSi"; colHenBacSi.FillWeight = 130;
         colHenTrangThai.DataPropertyName = "TrangThai"; colHenTrangThai.HeaderText = "Trạng thái"; colHenTrangThai.Name = "colHenTrangThai"; colHenTrangThai.FillWeight = 95;
         pnlHenDuoi.Controls.Add(btnTiepNhanHen);
+        pnlHenDuoi.Controls.Add(btnLamMoi);
+        btnLamMoi.Location = new Point(0, 12); btnLamMoi.Name = "btnLamMoi"; btnLamMoi.Size = new Size(100, 30); btnLamMoi.Text = "Làm mới"; btnLamMoi.Click += btnLamMoi_Click;
         pnlHenDuoi.Dock = DockStyle.Bottom; pnlHenDuoi.Name = "pnlHenDuoi"; pnlHenDuoi.Size = new Size(500, 52);
         btnTiepNhanHen.Anchor = AnchorStyles.Bottom | AnchorStyles.Right; btnTiepNhanHen.Location = new Point(270, 12); btnTiepNhanHen.Name = "btnTiepNhanHen";
         btnTiepNhanHen.Size = new Size(230, 30); btnTiepNhanHen.Text = "Tiếp nhận và tạo hồ sơ"; btnTiepNhanHen.Click += btnTiepNhanHen_Click;
@@ -100,7 +103,7 @@ partial class ucTiepNhan
         btnTim.Location = new Point(224, 50); btnTim.Name = "btnTim"; btnTim.Size = new Size(90, 34); btnTim.Text = "Tìm"; btnTim.Click += btnTim_Click;
         lblKhach.Location = new Point(16, 88); lblKhach.Name = "lblKhach"; lblKhach.Size = new Size(380, 22);
         txtHoTen.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right; txtHoTen.Location = new Point(16, 114); txtHoTen.Name = "txtHoTen";
-        txtHoTen.PlaceholderText = "Họ tên (khách mới)"; txtHoTen.Size = new Size(380, 30);
+        txtHoTen.PlaceholderText = "Họ tên khách"; txtHoTen.ReadOnly = true; txtHoTen.Size = new Size(380, 30);
         cboBacSi.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right; cboBacSi.DropDownStyle = ComboBoxStyle.DropDownList;
         cboBacSi.Location = new Point(16, 154); cboBacSi.Name = "cboBacSi"; cboBacSi.Size = new Size(380, 30);
         txtTrieuChung.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right; txtTrieuChung.Location = new Point(16, 194);
@@ -155,6 +158,7 @@ partial class ucTiepNhan
     private DataGridViewTextBoxColumn colHenTrangThai;
     private Panel pnlHenDuoi;
     private Button btnTiepNhanHen;
+    private Button btnLamMoi;
     private Label lblHen;
     private Panel khungVangLai;
     private Label lblVangLai;

@@ -44,6 +44,7 @@ public partial class frmChinh : Form
         ],
         ChucVu.LeTan =>
         [
+            new("&Lễ tân", "Tổng quan hôm nay", () => new ucTongQuanLeTan()),
             new("&Lễ tân", "Lịch hẹn", () => new ucLichHen()),
             new("&Lễ tân", "Tiếp nhận khách", () => new ucTiepNhan()),
             new("&Lễ tân", "Khách hàng", () => new ucKhachHang()),

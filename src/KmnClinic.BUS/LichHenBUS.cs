@@ -4,8 +4,8 @@ using KmnClinic.DTO;
 namespace KmnClinic.BUS;
 
 /// <summary>
-/// Lịch hẹn. W4: lễ tân đặt lịch hộ khách gọi điện hoặc đến quầy (quyết định C2: khách không dùng app).
-/// Lịch lễ tân đặt hộ được xác nhận luôn, ghi tên lễ tân (truy vết).
+/// Lịch hẹn. W4: lễ tân đặt lịch hộ khách gọi điện hoặc đến quầy (quyết định C2: khách không dùng app);
+/// lịch đặt hộ được xác nhận luôn, ghi tên lễ tân (truy vết). W5: xem, xác nhận lịch khách tự đặt trên web, hủy.
 /// </summary>
 public class LichHenBUS
 {
@@ -14,6 +14,46 @@ public class LichHenBUS
 
     /// <summary>Giờ hiện tại; test có thể thay để thử RB16.</summary>
     public Func<DateTime> BayGio { get; set; } = () => DateTime.Now;
+
+    public static readonly string[] CacTrangThai = [TrangThai.DaDat, TrangThai.DaXacNhan, TrangThai.DaKham, TrangThai.DaHuy];
+
+    /// <summary>Danh sách lịch hẹn; ngay null = mọi ngày, trangThai null = mọi trạng thái.</summary>
+    public List<LichHenDTO> DanhSach(DateTime? ngay, string? trangThai, string? tuKhoa)
+    {
+        PhanQuyen.YeuCau(ChucVu.LeTan);
+        if (!string.IsNullOrWhiteSpace(trangThai) && !CacTrangThai.Contains(trangThai)) throw new LoiNghiepVu("Trạng thái lịch hẹn không hợp lệ.");
+        return _dal.DanhSach(ngay, trangThai, tuKhoa);
+    }
+
+    /// <summary>Xác nhận lịch "Đã đặt" (khách tự đặt trên web), ghi lễ tân đang đăng nhập.</summary>
+    public void XacNhan(string maLichHen)
+    {
+        PhanQuyen.YeuCau(ChucVu.LeTan);
+        var kq = KiemTra.Ghi(() => _dal.XacNhan(maLichHen, PhienDangNhap.NhanVien!.MaNv, BayGio()));
+        BaoLoi(kq, "xác nhận được lịch Đã đặt", "Ca khám của lịch hẹn này đã kết thúc, không xác nhận được nữa.");
+    }
+
+    public void Huy(string maLichHen)
+    {
+        PhanQuyen.YeuCau(ChucVu.LeTan);
+        var kq = KiemTra.Ghi(() => _dal.Huy(maLichHen));
+        if (kq.Loi == LoiLichHen.SaiTrangThai)
+            throw new LoiNghiepVu(kq.TrangThai == TrangThai.DaHuy ? "Lịch hẹn này đã được hủy trước đó." : "Lịch hẹn đã được tiếp nhận khám, không hủy được.");
+        BaoLoi(kq, "", "");
+    }
+
+    internal static void BaoLoi(KetQuaLichHen kq, string chiDuoc, string caKetThuc)
+    {
+        switch (kq.Loi)
+        {
+            case LoiLichHen.Khong: return;
+            case LoiLichHen.KhongTimThay: throw new LoiNghiepVu("Không tìm thấy lịch hẹn.");
+            case LoiLichHen.SaiTrangThai: throw new LoiNghiepVu($"Lịch hẹn đang ở trạng thái {kq.TrangThai}, chỉ {chiDuoc}.");
+            case LoiLichHen.CaDaKetThuc: throw new LoiNghiepVu(caKetThuc);
+            case LoiLichHen.KhacNgay:
+                throw new LoiNghiepVu($"Chỉ tiếp nhận đúng ngày hẹn ({kq.Ngay:dd/MM/yyyy}). Khách đến khác ngày thì tiếp nhận như khách vãng lai.");
+        }
+    }
 
     /// <summary>Các ca còn đặt được trong ngày (ca chưa bắt đầu), lọc theo khoa và bác sĩ (null = tất cả).</summary>
     public List<LichLamViecDTO> CaConDat(DateTime ngay, string? maKhoa, string? maNv)

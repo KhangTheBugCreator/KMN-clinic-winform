@@ -84,7 +84,7 @@ partial class ucLichHen
         colMa.DataPropertyName = "MaLichHen"; colMa.HeaderText = "Mã"; colMa.Name = "colMa"; colMa.FillWeight = 60;
         colNgayKham.DataPropertyName = "NgayKham"; colNgayKham.HeaderText = "Ngày khám"; colNgayKham.Name = "colNgayKham"; colNgayKham.FillWeight = 75;
         colNgayKham.DefaultCellStyle.Format = "dd/MM/yyyy";
-        colCa.DataPropertyName = "TenCa"; colCa.HeaderText = "Ca"; colCa.Name = "colCa"; colCa.FillWeight = 60;
+        colCa.DataPropertyName = "CaKham"; colCa.HeaderText = "Ca"; colCa.Name = "colCa"; colCa.FillWeight = 60;
         colKhach.DataPropertyName = "TenKhachHang"; colKhach.HeaderText = "Khách hàng"; colKhach.Name = "colKhach"; colKhach.FillWeight = 120;
         colSdt.DataPropertyName = "SdtKhachHang"; colSdt.HeaderText = "SĐT"; colSdt.Name = "colSdt"; colSdt.FillWeight = 80;
         colBacSi.DataPropertyName = "TenBacSi"; colBacSi.HeaderText = "Bác sĩ"; colBacSi.Name = "colBacSi"; colBacSi.FillWeight = 120;
