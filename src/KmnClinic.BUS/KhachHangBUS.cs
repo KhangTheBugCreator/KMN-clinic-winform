@@ -55,7 +55,8 @@ public class KhachHangBUS
         }
     }
 
-    private static KhachHangDTO ChuanHoa(KhachHangDTO kh)
+    /// <summary>Kiểm tra và chuẩn hóa thông tin khách (dùng lại khi lễ tân đặt lịch hộ khách mới).</summary>
+    internal static KhachHangDTO ChuanHoa(KhachHangDTO kh)
     {
         // Nam / Nữ lưu nguyên; "Khác" hoặc bỏ trống lưu NULL
         var gt = (kh.GioiTinhKh ?? "").Trim();

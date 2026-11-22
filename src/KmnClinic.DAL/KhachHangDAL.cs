@@ -45,7 +45,10 @@ ORDER BY kh.ma_kh DESC")
     }
 
     /// <summary>Thêm khách. mat_khau_kh để NULL: khách không có tài khoản (RB37).</summary>
-    public string Them(KhachHangDTO kh) => DbHelper.TrongGiaoDich((conn, tx) =>
+    public string Them(KhachHangDTO kh) => DbHelper.TrongGiaoDich((conn, tx) => Chen(conn, tx, kh));
+
+    /// <summary>Thêm khách trong transaction có sẵn (lễ tân đặt lịch hộ khách mới: thêm khách và lịch hẹn cùng lúc).</summary>
+    internal static string Chen(SqlConnection conn, SqlTransaction tx, KhachHangDTO kh)
     {
         var ma = MaSoGenerator.TaoMa(conn, tx, LoaiMa.KhachHang);
         using var cmd = GanThamSo(conn.Lenh(@"
@@ -53,7 +56,7 @@ INSERT INTO Khach_hang (ma_kh, ho_ten_kh, ngay_sinh_kh, gioi_tinh_kh, sdt_kh, di
 VALUES (@ma, @ten, @ns, @gt, @sdt, @dc, NULL)", tx), ma, kh);
         cmd.ExecuteNonQuery();
         return ma;
-    });
+    }
 
     public bool Sua(KhachHangDTO kh)
     {

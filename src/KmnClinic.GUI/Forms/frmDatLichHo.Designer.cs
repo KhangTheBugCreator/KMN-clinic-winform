@@ -39,22 +39,22 @@ partial class frmDatLichHo
         //
         lblBuoc1.AutoSize = true; lblBuoc1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         lblBuoc1.Location = new Point(24, 20); lblBuoc1.Name = "lblBuoc1"; lblBuoc1.Text = "1. Khách hàng";
         txtSdt.Location = new Point(24, 56); txtSdt.MaxLength = 10; txtSdt.Name = "txtSdt"; txtSdt.PlaceholderText = "Số điện thoại khách gọi đến"; txtSdt.Size = new Size(280, 30); txtSdt.TabIndex = 0;
-        btnTim.Location = new Point(314, 54); btnTim.Name = "btnTim"; btnTim.Size = new Size(110, 34); btnTim.TabIndex = 1; btnTim.Text = "Tìm khách"; btnTim.Click += btnTim_Click;
+        btnTim.Location = new Point(314, 54); btnTim.Name = "btnTim"; btnTim.Size = new Size(110, 34); btnTim.TabIndex = 1; btnTim.Text = "Tìm khách"; btnTim.Click += btnTim_Click; txtSdt.TextChanged += txtSdt_TextChanged;
         lblKetQua.Location = new Point(24, 94); lblKetQua.Name = "lblKetQua"; lblKetQua.Size = new Size(400, 44);
         lblKetQua.Text = "Nhập SĐT rồi bấm Tìm. Nếu chưa có, điền thông tin bên dưới để tạo khách mới.";
         lblHoTen.AutoSize = true; lblHoTen.Location = new Point(24, 146); lblHoTen.Name = "lblHoTen"; lblHoTen.Text = "Họ tên";
         txtHoTen.Location = new Point(124, 142); txtHoTen.Name = "txtHoTen"; txtHoTen.Size = new Size(300, 30); txtHoTen.TabIndex = 2;
         lblGioiTinh.AutoSize = true; lblGioiTinh.Location = new Point(24, 186); lblGioiTinh.Name = "lblGioiTinh"; lblGioiTinh.Text = "Giới tính";
-        cboGioiTinh.DropDownStyle = ComboBoxStyle.DropDownList; cboGioiTinh.Items.AddRange(new object[] { "Nam", "Nữ" });
+        cboGioiTinh.DropDownStyle = ComboBoxStyle.DropDownList; cboGioiTinh.Items.AddRange(new object[] { "Nam", "Nữ", "Khác" });
         cboGioiTinh.Location = new Point(124, 182); cboGioiTinh.Name = "cboGioiTinh"; cboGioiTinh.Size = new Size(110, 30); cboGioiTinh.TabIndex = 3;
         lblNgaySinh.AutoSize = true; lblNgaySinh.Location = new Point(24, 226); lblNgaySinh.Name = "lblNgaySinh"; lblNgaySinh.Text = "Ngày sinh";
         dtpNgaySinh.CustomFormat = "dd/MM/yyyy"; dtpNgaySinh.Format = DateTimePickerFormat.Custom;
-        dtpNgaySinh.Location = new Point(124, 222); dtpNgaySinh.Name = "dtpNgaySinh"; dtpNgaySinh.Size = new Size(150, 30); dtpNgaySinh.TabIndex = 4;
+        dtpNgaySinh.Location = new Point(124, 222); dtpNgaySinh.Name = "dtpNgaySinh"; dtpNgaySinh.Size = new Size(170, 30); dtpNgaySinh.TabIndex = 4;
         //
         // Bước 4: triệu chứng
         //
         lblBuoc4.AutoSize = true; lblBuoc4.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         lblBuoc4.Location = new Point(24, 280); lblBuoc4.Name = "lblBuoc4"; lblBuoc4.Text = "4. Triệu chứng ban đầu";
-        txtTrieuChung.Location = new Point(24, 314); txtTrieuChung.MaxLength = 500; txtTrieuChung.Multiline = true; txtTrieuChung.Name = "txtTrieuChung";
+        txtTrieuChung.Location = new Point(24, 314); txtTrieuChung.MaxLength = 255; txtTrieuChung.Multiline = true; txtTrieuChung.Name = "txtTrieuChung";
         txtTrieuChung.PlaceholderText = "Khách mô tả qua điện thoại (không bắt buộc)"; txtTrieuChung.Size = new Size(400, 120); txtTrieuChung.TabIndex = 9;
         //
         // Bước 2: khoa, bác sĩ

@@ -10,7 +10,8 @@ với website (repo `kmn-clinic`). Không đổi schema: 11 bảng, CHECK, UNIQU
 - **W1 – Danh mục:** Khoa, Phòng làm việc, Ca làm việc, Thuốc đọc/ghi CSDL thật (menu Danh mục của Quản trị viên).
 - **W2 – Nhân viên, khách hàng:** Quản trị viên quản lý nhân viên (menu Nhân sự); Quản trị viên và Lễ tân quản lý khách hàng.
 - **W3 – Lịch làm việc:** lưới tuần (phòng × ca × 7 ngày). Quản trị viên xếp một ngày hoặc hàng loạt theo các thứ (tối đa 62 ngày, một ngày trùng thì cả lô không lưu), sửa, xóa lịch chưa có lịch hẹn; chỉ xếp từ ngày mai (RB9–RB13). Bác sĩ chỉ xem ca của mình (menu Lịch → Lịch trực của tôi).
-- Các màn hình nghiệp vụ khác vẫn dùng dữ liệu giả (`DuLieuGia/`), sẽ nối CSDL lần lượt ở W4–W9.
+- **W4 – Đặt lịch hộ:** Lễ tân (Lịch hẹn → Đặt lịch hộ) tìm khách theo SĐT hoặc nhập khách mới, chọn khoa/bác sĩ, ngày và ca còn đặt được (RB16), chống đặt trùng ca (Q6). Khách mới và lịch hẹn lưu cùng một transaction; lịch đặt hộ được xác nhận luôn, ghi tên lễ tân.
+- Các màn hình nghiệp vụ khác vẫn dùng dữ liệu giả (`DuLieuGia/`), sẽ nối CSDL lần lượt ở W5–W9.
 
 ## Chạy trên Windows
 
@@ -82,11 +83,13 @@ src/KmnClinic.DAL/        ADO.NET: SqlConnection, SqlCommand có tham số, SqlT
   NhanVienDAL.cs          đăng nhập, đổi mật khẩu, quản lý nhân viên (W2)
   KhachHangDAL.cs         khách hàng (W2), không đọc/ghi mat_khau_kh
   KhoaDAL, PhongDAL, CaDAL, ThuocDAL   danh mục (W1); kiểm tra "đang được dùng" và ghi trong cùng transaction
+  LichHenDAL.cs           lịch hẹn (W4): ca còn đặt được, đặt hộ có khóa UPDLOCK
   LichLamViecDAL.cs       lịch làm việc (W3): kiểm tra RB10–RB13 có khóa rồi ghi cả lô trong một transaction
 src/KmnClinic.BUS/        quy tắc nghiệp vụ
   NhanVienBUS.cs          đăng nhập, đổi mật khẩu, quản lý nhân viên (RB5, RB6)
   KhachHangBUS.cs         khách hàng: QTV + Lễ tân thêm/sửa, chỉ QTV xóa
   KhoaBUS, PhongBUS, CaBUS, ThuocBUS   quy tắc danh mục (RB3, RB11, Q8), quyền xem/ghi theo vai trò
+  LichHenBUS.cs           đặt lịch hộ: RB16, Q6, khách mới, xác nhận luôn
   LichLamViecBUS.cs       xếp lịch từ ngày mai, hàng loạt theo thứ, câu báo trùng lịch; bác sĩ chỉ xem lịch mình
   MatKhau.cs              băm PBKDF2-SHA256 (cùng định dạng với website)
   PhienDangNhap.cs        nhân viên đang đăng nhập
