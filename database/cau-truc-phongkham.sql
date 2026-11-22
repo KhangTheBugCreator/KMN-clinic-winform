@@ -1,6 +1,8 @@
 -- Cấu trúc database PHONGKHAM, sao từ PHONGKHAM-SCRIPT.sql của đồ án (SQL Server 2025, mức tương thích 170).
 -- Khác bản gốc DUY NHẤT ở lệnh CREATE DATABASE: bỏ đường dẫn file .mdf/.ldf trên ổ C: để SQL Server tự đặt
 -- (chạy được cả trên Linux/Docker). Bảng, khóa, CHECK, UNIQUE, trigger giữ nguyên.
+-- Thay đổi theo yêu cầu (22/11/2026, bản WinForms): Khach_hang.gioi_tinh_kh cho phép NULL = giới tính "Khác".
+-- CHECK CK_Khach_hang_gioi_tinh giữ nguyên (NULL không vi phạm CHECK). CSDL đã tạo trước đó: chạy sua-gioi-tinh-cho-phep-null.sql.
 USE [master]
 GO
 /****** Object:  Database [PHONGKHAM]    Script Date: 11/11/2026 9:21:57 AM ******/
@@ -164,7 +166,7 @@ CREATE TABLE [dbo].[Khach_hang](
 	[ma_kh] [varchar](10) NOT NULL,
 	[ho_ten_kh] [nvarchar](50) NOT NULL,
 	[ngay_sinh_kh] [date] NOT NULL,
-	[gioi_tinh_kh] [nvarchar](5) NOT NULL,
+	[gioi_tinh_kh] [nvarchar](5) NULL,
 	[sdt_kh] [varchar](10) NOT NULL,
 	[dia_chi_kh] [nvarchar](100) NULL,
 	[mat_khau_kh] [varchar](255) NULL,

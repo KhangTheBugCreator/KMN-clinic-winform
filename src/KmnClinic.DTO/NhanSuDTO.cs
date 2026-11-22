@@ -11,6 +11,8 @@ public class NhanVienDTO
     public string? MaKhoa { get; set; }
     public string? TenKhoa { get; set; }
     public string? DuongDanAnh { get; set; }
+    /// <summary>Số dòng lịch làm việc, lịch hẹn, hồ sơ, hóa đơn trỏ tới nhân viên (có thì không đổi chức vụ/khoa, không xóa).</summary>
+    public int SoLienKet { get; set; }
     public override string ToString() => HoTenNv;
 }
 
@@ -20,9 +22,15 @@ public class KhachHangDTO
     public string MaKh { get; set; } = "";
     public string HoTenKh { get; set; } = "";
     public DateTime? NgaySinhKh { get; set; }
+    /// <summary>"Nam", "Nữ" hoặc null (= giới tính khác).</summary>
     public string? GioiTinhKh { get; set; }
+    /// <summary>Giới tính để hiển thị: null hiện là "Khác".</summary>
+    public string GioiTinhHienThi => GioiTinhKh ?? "Khác";
     public string SdtKh { get; set; } = "";
     public string? DiaChiKh { get; set; }
+    /// <summary>Số lịch hẹn và hồ sơ khám của khách (có thì không xóa được).</summary>
+    public int SoLichHen { get; set; }
+    public int SoHoSo { get; set; }
     public override string ToString() => $"{HoTenKh} – {SdtKh}";
 }
 
@@ -33,4 +41,6 @@ public static class ChucVu
     public const string LeTan = "Lễ tân";
     public const string BacSi = "Bác sĩ";
     public const string ThuNgan = "Thu ngân";
+
+    public static readonly string[] TatCa = [QuanTriVien, LeTan, BacSi, ThuNgan];
 }

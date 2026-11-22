@@ -8,7 +8,8 @@ với website (repo `kmn-clinic`). Không đổi schema: 11 bảng, CHECK, UNIQU
 - **Giai đoạn 2 – Khung giao diện:** xong. Giao diện kiểu WinForms cổ điển: menu trên cùng, thanh trạng thái, control mặc định.
 - **W0 – Nền tảng:** kết nối CSDL bằng ADO.NET, đăng nhập thật (mật khẩu băm PBKDF2), đổi mật khẩu, phân quyền ở tầng BUS.
 - **W1 – Danh mục:** Khoa, Phòng làm việc, Ca làm việc, Thuốc đọc/ghi CSDL thật (menu Danh mục của Quản trị viên).
-- Các màn hình nghiệp vụ khác vẫn dùng dữ liệu giả (`DuLieuGia/`), sẽ nối CSDL lần lượt ở W2–W9.
+- **W2 – Nhân viên, khách hàng:** Quản trị viên quản lý nhân viên (menu Nhân sự); Quản trị viên và Lễ tân quản lý khách hàng.
+- Các màn hình nghiệp vụ khác vẫn dùng dữ liệu giả (`DuLieuGia/`), sẽ nối CSDL lần lượt ở W3–W9.
 
 ## Chạy trên Windows
 
@@ -21,7 +22,8 @@ Mở SSMS, kết nối vào SQL Server trên máy, rồi chạy lần lượt (F
 1. `database/cau-truc-phongkham.sql` – tạo CSDL `PHONGKHAM`, 11 bảng, ràng buộc, trigger.
 2. `database/du-lieu-mau-day-du.sql` – dữ liệu mẫu.
 
-Nếu đã có CSDL `PHONGKHAM` từ website thì bỏ qua bước này, hai bản dùng chung được.
+Nếu đã có CSDL `PHONGKHAM` (tạo trước 22/11/2026) thì không cần tạo lại, chỉ chạy thêm
+`database/sua-gioi-tinh-cho-phep-null.sql` một lần: cho phép giới tính khách để trống (NULL) khi chọn "Khác".
 
 ### 2. Sửa chuỗi kết nối
 
@@ -76,10 +78,12 @@ src/KmnClinic.DTO/        lớp dữ liệu dùng chung (KhoaDTO, ThuocDTO, Lich
 src/KmnClinic.DAL/        ADO.NET: SqlConnection, SqlCommand có tham số, SqlTransaction, SqlDataAdapter
   DbHelper.cs             mở kết nối, chạy trong transaction (thử lại khi deadlock 1205), đổ DataTable
   MaSoGenerator.cs        sinh mã KH0001, NV0012... (UPDLOCK + HOLDLOCK để không trùng)
-  NhanVienDAL.cs          tìm nhân viên theo SĐT, đổi mật khẩu
+  NhanVienDAL.cs          đăng nhập, đổi mật khẩu, quản lý nhân viên (W2)
+  KhachHangDAL.cs         khách hàng (W2), không đọc/ghi mat_khau_kh
   KhoaDAL, PhongDAL, CaDAL, ThuocDAL   danh mục (W1); kiểm tra "đang được dùng" và ghi trong cùng transaction
 src/KmnClinic.BUS/        quy tắc nghiệp vụ
-  NhanVienBUS.cs          đăng nhập, đổi mật khẩu
+  NhanVienBUS.cs          đăng nhập, đổi mật khẩu, quản lý nhân viên (RB5, RB6)
+  KhachHangBUS.cs         khách hàng: QTV + Lễ tân thêm/sửa, chỉ QTV xóa
   KhoaBUS, PhongBUS, CaBUS, ThuocBUS   quy tắc danh mục (RB3, RB11, Q8), quyền xem/ghi theo vai trò
   MatKhau.cs              băm PBKDF2-SHA256 (cùng định dạng với website)
   PhienDangNhap.cs        nhân viên đang đăng nhập
@@ -88,7 +92,7 @@ src/KmnClinic.BUS/        quy tắc nghiệp vụ
   LoiNghiepVu.cs          lỗi nghiệp vụ hiện cho người dùng
 src/KmnClinic.GUI/        Windows Forms
   appsettings.json        chuỗi kết nối
-  Forms/                  frmDangNhap, frmDoiMatKhau, frmChinh, frmThuocChiTiet, frmDatLichHo, frmKhamBenh, frmThuTien
+  Forms/                  frmDangNhap, frmDoiMatKhau, frmChinh, frmNhanVienChiTiet, frmKhachHangChiTiet, frmThuocChiTiet, frmDatLichHo, frmKhamBenh, frmThuTien
   Views/                  các UserControl hiện trong form chính (ucKhoa, ucPhong, ucCa, ucThuoc...)
   Controls/               TheThongKe (ô số liệu), BieuDoCot (biểu đồ cột vẽ bằng GDI+)
   Theme/                  hàm dùng chung (cấu hình lưới, định dạng tiền)
