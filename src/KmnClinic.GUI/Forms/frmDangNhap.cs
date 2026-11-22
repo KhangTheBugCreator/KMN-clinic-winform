@@ -1,13 +1,12 @@
-using KmnClinic.GUI.DuLieuGia;
+using KmnClinic.BUS;
 
 namespace KmnClinic.GUI.Forms;
 
-/// <summary>
-/// Đăng nhập bằng số điện thoại + mật khẩu (RB35–RB39).
-/// Giai đoạn 2: kiểm tra trên danh sách tài khoản giả. Module W0 sẽ thay bằng NhanVienBUS.DangNhap (băm PBKDF2).
-/// </summary>
+/// <summary>Đăng nhập bằng số điện thoại + mật khẩu (RB35–RB39). Kiểm tra trong CSDL qua NhanVienBUS.</summary>
 public partial class frmDangNhap : Form
 {
+    private readonly NhanVienBUS _bus = new();
+
     public frmDangNhap()
     {
         InitializeComponent();
@@ -19,17 +18,27 @@ public partial class frmDangNhap : Form
     private void btnDangNhap_Click(object? sender, EventArgs e)
     {
         lblLoi.Text = "";
-        var sdt = txtSdt.Text.Trim();
-        if (sdt.Length == 0) { lblLoi.Text = "Vui lòng nhập số điện thoại."; txtSdt.Focus(); return; }
-        if (txtMatKhau.Text.Length < 8) { lblLoi.Text = "Mật khẩu tối thiểu 8 ký tự."; txtMatKhau.Focus(); return; }
-
-        var nv = Gia.NhanVien.FirstOrDefault(x => x.SdtNv == sdt);
-        if (nv is null || txtMatKhau.Text != "matkhau123")
+        Cursor = Cursors.WaitCursor;
+        try
         {
-            lblLoi.Text = "Số điện thoại hoặc mật khẩu không đúng.";
-            return;
+            _bus.DangNhap(txtSdt.Text, txtMatKhau.Text);
+            DialogResult = DialogResult.OK;
         }
-        PhienDangNhap.DangNhap(nv);
-        DialogResult = DialogResult.OK;
+        catch (LoiNghiepVu ex)
+        {
+            lblLoi.Text = ex.Message;
+            txtMatKhau.SelectAll();
+            txtMatKhau.Focus();
+        }
+        catch (Exception ex)
+        {
+            // Thường là không kết nối được SQL Server: báo rõ để kiểm tra appsettings.json
+            lblLoi.Text = "Không đăng nhập được, xem thông báo lỗi.";
+            ThongBaoLoi.Hien(ex, this);
+        }
+        finally
+        {
+            Cursor = Cursors.Default;
+        }
     }
 }

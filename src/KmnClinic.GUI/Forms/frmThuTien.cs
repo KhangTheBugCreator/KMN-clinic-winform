@@ -1,3 +1,4 @@
+using KmnClinic.BUS;
 using System.Drawing.Printing;
 using KmnClinic.DTO;
 using KmnClinic.GUI.DuLieuGia;

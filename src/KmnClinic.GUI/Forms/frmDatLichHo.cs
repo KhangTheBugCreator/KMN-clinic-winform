@@ -1,3 +1,4 @@
+using KmnClinic.BUS;
 using KmnClinic.DTO;
 using KmnClinic.GUI.DuLieuGia;
 using KmnClinic.GUI.Theme;

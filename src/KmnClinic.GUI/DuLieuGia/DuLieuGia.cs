@@ -25,15 +25,6 @@ public static class Gia
         new() { MaCa = "CA0002", TenCa = "Ca chiều", GioBatDau = new(13, 0, 0), GioKetThuc = new(17, 0, 0) },
     ];
 
-    /// <summary>Tài khoản đăng nhập thử ở Giai đoạn 2 (mật khẩu đều là matkhau123).</summary>
-    public static readonly List<NhanVienDTO> NhanVien =
-    [
-        new() { MaNv = "NV0001", HoTenNv = "Trần Minh Khang", SdtNv = "0907112233", ChucVu = ChucVu.QuanTriVien },
-        new() { MaNv = "NV0003", HoTenNv = "Nguyễn Thị Thu Trang", SdtNv = "0932145678", ChucVu = ChucVu.LeTan },
-        new() { MaNv = "NV0013", HoTenNv = "Nguyễn Văn Hùng", SdtNv = "0903126789", ChucVu = ChucVu.BacSi, MaKhoa = "K0001", TenKhoa = "Nội tổng quát" },
-        new() { MaNv = "NV0008", HoTenNv = "Bùi Văn Lộc", SdtNv = "0708671234", ChucVu = ChucVu.ThuNgan },
-    ];
-
     public static readonly List<string> BacSi =
     [
         "Nguyễn Văn Hùng", "Trần Thị Mai Phương", "Phạm Thị Hồng Nhung", "Đỗ Văn Thắng",

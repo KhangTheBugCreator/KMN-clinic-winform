@@ -10,8 +10,12 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\KmnClinic.DTO\KmnClinic.DTO.csproj" />
+    <ProjectReference Include="..\KmnClinic.BUS\KmnClinic.BUS.csproj" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\logo.png" LogicalName="KmnClinic.logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="appsettings.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>
