@@ -102,7 +102,7 @@ partial class frmDangNhap
         lblGoiY.Location = new Point(22, 212);
         lblGoiY.Name = "lblGoiY";
         lblGoiY.Size = new Size(330, 52);
-        lblGoiY.Text = "Bản dữ liệu giả, mật khẩu matkhau123. QTV 0907112233, Lễ tân 0932145678, Bác sĩ 0903126789, Thu ngân 0708671234";
+        lblGoiY.Text = "Tài khoản dữ liệu mẫu, mật khẩu matkhau123. QTV 0907112233, Lễ tân 0932145678, Bác sĩ 0903126789, Thu ngân 0708671234";
         //
         // frmDangNhap
         //

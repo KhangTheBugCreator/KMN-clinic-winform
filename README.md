@@ -5,47 +5,92 @@ với website (repo `kmn-clinic`). Không đổi schema: 11 bảng, CHECK, UNIQU
 
 ## Tình trạng
 
-**Giai đoạn 2 – Khung giao diện (dữ liệu giả).** Giao diện kiểu WinForms cổ điển: menu trên cùng, thanh trạng thái, control mặc định. Chạy được, chưa nối CSDL. Dùng để duyệt bố cục và chụp ảnh cho Chương 3.
-Các module W0–W9 (nối CSDL qua BUS/DAL) làm tiếp theo kế hoạch.
+- **Giai đoạn 2 – Khung giao diện:** xong. Giao diện kiểu WinForms cổ điển: menu trên cùng, thanh trạng thái, control mặc định.
+- **W0 – Nền tảng:** kết nối CSDL bằng ADO.NET, đăng nhập thật (mật khẩu băm PBKDF2), đổi mật khẩu, phân quyền ở tầng BUS.
+- Các màn hình nghiệp vụ vẫn dùng dữ liệu giả (`DuLieuGia/`), sẽ nối CSDL lần lượt ở W1–W9.
 
 ## Chạy trên Windows
 
-Cần: Windows 10/11, .NET 10 SDK.
+Cần: Windows 10/11, .NET 10 SDK, SQL Server (bản Developer/Express đều được) và SQL Server Management Studio (SSMS).
+
+### 1. Tạo CSDL
+
+Mở SSMS, kết nối vào SQL Server trên máy, rồi chạy lần lượt (File → Open → File…, bấm Execute):
+
+1. `database/cau-truc-phongkham.sql` – tạo CSDL `PHONGKHAM`, 11 bảng, ràng buộc, trigger.
+2. `database/du-lieu-mau-day-du.sql` – dữ liệu mẫu.
+
+Nếu đã có CSDL `PHONGKHAM` từ website thì bỏ qua bước này, hai bản dùng chung được.
+
+### 2. Sửa chuỗi kết nối
+
+Mở `src/KmnClinic.GUI/appsettings.json`, sửa `Server=` cho đúng tên SQL Server trên máy:
+
+| Bản SQL Server | Giá trị `Server` |
+| --- | --- |
+| Developer / bản đầy đủ (mặc định) | `.` |
+| Express | `.\\SQLEXPRESS` (trong JSON phải viết hai dấu `\`) |
+| LocalDB | `(localdb)\\MSSQLLocalDB` |
+
+Mặc định đăng nhập SQL Server bằng tài khoản Windows (`Trusted_Connection=True`).
+Muốn dùng tài khoản `sa` thì thay bằng `User Id=sa;Password=...`.
+File được chép cạnh `KmnClinic.exe` khi build, nên sau này có thể sửa thẳng file trong thư mục `bin`.
+
+### 3. Chạy
 
 ```powershell
 git clone https://github.com/KhangTheBugCreator/KMN-clinic-winform.git
 cd KMN-clinic-winform
-git checkout giai-doan-2-khung-giao-dien
 dotnet run --project src/KmnClinic.GUI
 ```
 
-Hoặc mở `KmnClinic.WinForms.sln` bằng Visual Studio 2026 (workload ".NET desktop development") rồi bấm F5.
+Hoặc mở `KmnClinic.WinForms.sln` bằng Visual Studio 2026 (workload ".NET desktop development"), chọn `KmnClinic.GUI` làm Startup Project rồi bấm F5.
 
-Tài khoản thử (mật khẩu đều là `matkhau123`):
+Tài khoản dữ liệu mẫu (mật khẩu đều là `matkhau123`; lần đăng nhập đầu phần mềm tự băm lại mật khẩu trong CSDL):
 
-| Vai trò | Số điện thoại | Màn hình dựng ở Giai đoạn 2 |
-| --- | --- | --- |
-| Quản trị viên | 0907112233 | Tổng quan, Thuốc (+ form thêm/sửa), Lịch làm việc |
-| Lễ tân | 0932145678 | Lịch hẹn (xác nhận, hủy), Đặt lịch hộ, Tiếp nhận (có hẹn, vãng lai) |
-| Bác sĩ | 0903126789 | Hàng chờ khám, Khám bệnh và kê đơn, Lịch trực của tôi |
-| Thu ngân | 0708671234 | Hóa đơn chờ thu, Thu tiền, Xem trước bản in hóa đơn |
+| Vai trò | Số điện thoại |
+| --- | --- |
+| Quản trị viên | 0907112233 |
+| Lễ tân | 0932145678 |
+| Bác sĩ | 0903126789 |
+| Thu ngân | 0708671234 |
 
-Các mục menu còn lại hiện trang "sẽ dựng ở module Wx".
+Đổi mật khẩu: menu **Hệ thống → Đổi mật khẩu**.
 
-## Cấu trúc
+### 4. Chạy kiểm thử
+
+Kiểm thử chạy trên CSDL thật, tự thêm rồi xóa nhân viên thử (SĐT `09999…`), không sửa dữ liệu mẫu.
+
+```powershell
+# Mặc định dùng Server=. và đăng nhập Windows. Máy khác thì đặt biến môi trường trước:
+# $env:KMN_TEST_DB = "Server=.\SQLEXPRESS;Database=PHONGKHAM;Trusted_Connection=True;TrustServerCertificate=True"
+dotnet test
+```
+
+## Cấu trúc (3 lớp: GUI → BUS → DAL, DTO dùng chung)
 
 ```
 database/                 script cấu trúc + dữ liệu mẫu (chép từ repo web)
 src/KmnClinic.DTO/        lớp dữ liệu dùng chung (KhoaDTO, ThuocDTO, LichHenDTO...)
+src/KmnClinic.DAL/        ADO.NET: SqlConnection, SqlCommand có tham số, SqlTransaction, SqlDataAdapter
+  DbHelper.cs             mở kết nối, chạy trong transaction (thử lại khi deadlock 1205), đổ DataTable
+  MaSoGenerator.cs        sinh mã KH0001, NV0012... (UPDLOCK + HOLDLOCK để không trùng)
+  NhanVienDAL.cs          tìm nhân viên theo SĐT, đổi mật khẩu
+src/KmnClinic.BUS/        quy tắc nghiệp vụ
+  NhanVienBUS.cs          đăng nhập, đổi mật khẩu
+  MatKhau.cs              băm PBKDF2-SHA256 (cùng định dạng với website)
+  PhienDangNhap.cs        nhân viên đang đăng nhập
+  PhanQuyen.cs            kiểm tra vai trò trước mỗi thao tác ghi
+  DichLoiSql.cs           đổi lỗi SQL Server (trigger, UNIQUE, CHECK) thành câu tiếng Việt
+  LoiNghiepVu.cs          lỗi nghiệp vụ hiện cho người dùng
 src/KmnClinic.GUI/        Windows Forms
-  Forms/                  frmDangNhap, frmChinh, frmThuocChiTiet, frmDatLichHo, frmKhamBenh, frmThuTien
+  appsettings.json        chuỗi kết nối
+  Forms/                  frmDangNhap, frmDoiMatKhau, frmChinh, frmThuocChiTiet, frmDatLichHo, frmKhamBenh, frmThuTien
   Views/                  các UserControl hiện trong form chính (uc...)
   Controls/               TheThongKe (ô số liệu), BieuDoCot (biểu đồ cột vẽ bằng GDI+)
   Theme/                  hàm dùng chung (cấu hình lưới, định dạng tiền)
-  DuLieuGia/              dữ liệu giả của Giai đoạn 2 (sẽ bỏ khi nối CSDL)
+  DuLieuGia/              dữ liệu giả cho các màn hình chưa nối CSDL (bỏ dần ở W1–W9)
+tests/KmnClinic.Tests/    xUnit, chạy trên CSDL thật
 ```
-
-Từ module W0 sẽ thêm `KmnClinic.DAL` (ADO.NET: SqlConnection, SqlCommand, SqlTransaction),
-`KmnClinic.BUS` (quy tắc nghiệp vụ, kiểm tra vai trò) và `KmnClinic.Tests`.
 
 Form viết theo chuẩn `*.Designer.cs` nên mở được bằng Windows Forms Designer của Visual Studio.

@@ -1,3 +1,4 @@
+using KmnClinic.BUS;
 using KmnClinic.DTO;
 using KmnClinic.GUI.Views;
 
@@ -95,7 +96,10 @@ public partial class frmChinh : Form
     }
 
     private void mnuDoiMatKhau_Click(object? sender, EventArgs e)
-        => MoTrang(new MucMenu("", "Đổi mật khẩu", () => new ucChuaLam("Đổi mật khẩu", "W0")));
+    {
+        using var f = new frmDoiMatKhau();
+        f.ShowDialog(this);
+    }
 
     private void mnuDangXuat_Click(object? sender, EventArgs e)
     {
