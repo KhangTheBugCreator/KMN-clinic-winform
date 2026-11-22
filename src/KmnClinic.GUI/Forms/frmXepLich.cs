@@ -41,6 +41,7 @@ public partial class frmXepLich : Form
         cboCa.DataSource = new CaBUS().DanhSach();
         cboCa.DisplayMember = nameof(CaDTO.TenCa);
         cboCa.ValueMember = nameof(CaDTO.MaCa);
+        cboCa.FormattingEnabled = true;
         cboCa.Format += (_, e) => { if (e.ListItem is CaDTO c) e.Value = c.ToString(); };
 
         var ngayMai = DateTime.Today.AddDays(1);

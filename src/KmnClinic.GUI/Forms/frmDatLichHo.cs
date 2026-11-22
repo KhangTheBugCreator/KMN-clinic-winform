@@ -32,6 +32,8 @@ public partial class frmDatLichHo : Form
         dtpNgayKham.MinDate = DateTime.Today;
         dtpNgayKham.MaxDate = DateTime.Today.AddYears(1);
         dtpNgayKham.Value = DateTime.Today.AddDays(1);
+        // Sự kiện Format chỉ chạy khi bật FormattingEnabled; không bật thì ListBox hiện tên lớp.
+        lstCa.FormattingEnabled = true;
         lstCa.Format += (_, e) =>
         {
             if (e.ListItem is LichLamViecDTO l)
@@ -115,8 +117,11 @@ public partial class frmDatLichHo : Form
         List<LichLamViecDTO> ds = [];
         ThongBaoLoi.Chay(this, () => ds = _bus.CaConDat(dtpNgayKham.Value.Date, maKhoa, maNv));
         lstCa.DataSource = ds;
-        lblBuoc3.Text = ds.Count == 0 ? "3. Ngày khám: không còn ca nào đặt được, chọn ngày khác" : "3. Ngày khám và ca còn đặt được";
+        var thu = ThuTiengViet(dtpNgayKham.Value);
+        lblBuoc3.Text = ds.Count == 0 ? $"3. Ngày khám ({thu}): không còn ca nào đặt được" : $"3. Ngày khám ({thu}) và ca còn đặt được";
     }
+
+    private static string ThuTiengViet(DateTime d) => d.DayOfWeek == DayOfWeek.Sunday ? "Chủ nhật" : $"Thứ {(int)d.DayOfWeek + 1}";
 
     private void CapNhatTomTat()
     {

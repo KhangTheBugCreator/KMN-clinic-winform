@@ -68,7 +68,7 @@ partial class frmDatLichHo
         // Bước 3: ngày, ca
         //
         lblBuoc3.AutoSize = true; lblBuoc3.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         lblBuoc3.Location = new Point(464, 146); lblBuoc3.Name = "lblBuoc3"; lblBuoc3.Text = "3. Ngày khám và ca còn đặt được";
-        dtpNgayKham.CustomFormat = "dddd, dd/MM/yyyy"; dtpNgayKham.Format = DateTimePickerFormat.Custom;
+        dtpNgayKham.CustomFormat = "dd/MM/yyyy"; dtpNgayKham.Format = DateTimePickerFormat.Custom;
         dtpNgayKham.Location = new Point(464, 182); dtpNgayKham.Name = "dtpNgayKham"; dtpNgayKham.Size = new Size(260, 30); dtpNgayKham.TabIndex = 7;
         dtpNgayKham.ValueChanged += LuaChon_Changed;
         lstCa.IntegralHeight = false;
