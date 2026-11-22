@@ -80,9 +80,9 @@ partial class frmXepLich
         lblCa.Anchor = AnchorStyles.Left; lblCa.AutoSize = true; lblCa.Name = "lblCa"; lblCa.Text = "Ca:";
         cboCa.Anchor = AnchorStyles.Left | AnchorStyles.Right; cboCa.DropDownStyle = ComboBoxStyle.DropDownList; cboCa.Name = "cboCa";
         lblTuNgay.Anchor = AnchorStyles.Left; lblTuNgay.AutoSize = true; lblTuNgay.Name = "lblTuNgay"; lblTuNgay.Text = "Từ ngày:";
-        dtpTuNgay.Anchor = AnchorStyles.Left; dtpTuNgay.Format = DateTimePickerFormat.Custom; dtpTuNgay.CustomFormat = "dd/MM/yyyy"; dtpTuNgay.Name = "dtpTuNgay"; dtpTuNgay.Size = new Size(130, 23);
+        dtpTuNgay.Anchor = AnchorStyles.Left; dtpTuNgay.Format = DateTimePickerFormat.Custom; dtpTuNgay.CustomFormat = "dd/MM/yyyy"; dtpTuNgay.Name = "dtpTuNgay"; dtpTuNgay.Size = new Size(170, 23);
         lblDenNgay.Anchor = AnchorStyles.Left; lblDenNgay.AutoSize = true; lblDenNgay.Name = "lblDenNgay"; lblDenNgay.Text = "Đến ngày:";
-        dtpDenNgay.Anchor = AnchorStyles.Left; dtpDenNgay.Format = DateTimePickerFormat.Custom; dtpDenNgay.CustomFormat = "dd/MM/yyyy"; dtpDenNgay.Name = "dtpDenNgay"; dtpDenNgay.Size = new Size(130, 23);
+        dtpDenNgay.Anchor = AnchorStyles.Left; dtpDenNgay.Format = DateTimePickerFormat.Custom; dtpDenNgay.CustomFormat = "dd/MM/yyyy"; dtpDenNgay.Name = "dtpDenNgay"; dtpDenNgay.Size = new Size(170, 23);
         lblThu.Anchor = AnchorStyles.Left; lblThu.AutoSize = true; lblThu.Name = "lblThu"; lblThu.Text = "Các thứ:";
         flpThu.Controls.Add(chkT2);
         flpThu.Controls.Add(chkT3);

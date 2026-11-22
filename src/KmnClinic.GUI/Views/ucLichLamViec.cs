@@ -6,8 +6,9 @@ using KmnClinic.GUI.Theme;
 namespace KmnClinic.GUI.Views;
 
 /// <summary>
-/// Lịch làm việc dạng lưới tuần: dòng = phòng × ca, cột = 7 ngày (Thứ 2 → Chủ nhật).
-/// Quản trị viên thấy mọi phòng, mọi ca (kể cả ô trống) để xếp, sửa, xóa; bác sĩ chỉ thấy các ca của mình.
+/// Lịch làm việc dạng lưới tuần, xem từng khoa một: cột Phòng, cột Ca, rồi 7 ngày (Thứ 2 → Chủ nhật).
+/// Tên phòng chỉ ghi ở dòng đầu của phòng, các phòng tô xen kẽ để dễ dò.
+/// Quản trị viên thấy mọi phòng, mọi ca của khoa (kể cả ô trống) để xếp, sửa, xóa; bác sĩ chỉ thấy các ca của mình.
 /// </summary>
 public partial class ucLichLamViec : UserControl
 {
@@ -27,12 +28,11 @@ public partial class ucLichLamViec : UserControl
         _laQuanTri = laQuanTri;
         GiaoDien.Luoi(dgvLich);
         dgvLich.SelectionMode = DataGridViewSelectionMode.CellSelect;
-        dgvLich.RowTemplate.Height = 44;
-        dgvLich.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+        dgvLich.RowTemplate.Height = 30;
         dgvLich.CellFormatting += dgvLich_CellFormatting;
         cboKhoa.Visible = btnXepLich.Visible = btnSua.Visible = btnXoa.Visible = laQuanTri;
         lblGhiChu.Text = laQuanTri
-            ? "Bấm đúp ô trống để xếp, ô có tên để sửa; phím Delete để xóa. Chỉ xếp từ ngày mai; một phòng một ca một ngày một bác sĩ (RB12), bác sĩ không trực hai nơi cùng ca (RB13)."
+            ? "Xem từng khoa. Bấm đúp ô trống để xếp, ô có tên để sửa; phím Delete để xóa. Chỉ xếp từ ngày mai; một phòng một ca một ngày một bác sĩ (RB12), bác sĩ không trực hai nơi cùng ca (RB13)."
             : "Các ca trực của bạn trong tuần. Lịch do quản trị viên xếp; số trong ngoặc là lịch hẹn còn hiệu lực.";
         _ghiChu = lblGhiChu.Text;
         _thu2 = LichLamViecBUS.DauTuan(DateTime.Today);
@@ -48,9 +48,8 @@ public partial class ucLichLamViec : UserControl
             if (_laQuanTri)
             {
                 _phong = new PhongBUS().DanhSach().OrderBy(p => p.TenKhoa).ThenBy(p => p.TenPhong).ToList();
-                cboKhoa.Items.Add("Tất cả khoa");
                 foreach (var k in new KhoaBUS().DanhSach()) cboKhoa.Items.Add(k);
-                cboKhoa.SelectedIndex = 0;
+                if (cboKhoa.Items.Count > 0) cboKhoa.SelectedIndex = 0;
             }
         });
         _dangNap = false;
@@ -68,8 +67,11 @@ public partial class ucLichLamViec : UserControl
 
         dgvLich.Rows.Clear();
         dgvLich.Columns.Clear();
-        dgvLich.Columns.Add("colPhong", "Phòng / Ca");
-        dgvLich.Columns[0].FillWeight = 150;
+        dgvLich.Columns.Add("colPhong", "Phòng");
+        dgvLich.Columns.Add("colCa", "Ca");
+        dgvLich.Columns[0].FillWeight = 80;
+        dgvLich.Columns[1].FillWeight = 110;
+        dgvLich.Columns[0].SortMode = dgvLich.Columns[1].SortMode = DataGridViewColumnSortMode.NotSortable;
         string[] thu = ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "CN"];
         for (int i = 0; i < 7; i++)
         {
@@ -78,23 +80,33 @@ public partial class ucLichLamViec : UserControl
             dgvLich.Columns[c].SortMode = DataGridViewColumnSortMode.NotSortable;
         }
 
-        // Quản trị viên: mọi phòng × ca (ô trống để xếp). Bác sĩ: chỉ các dòng có ca của mình.
+        // Quản trị viên: mọi phòng × ca của khoa đang chọn (ô trống để xếp). Bác sĩ: chỉ các dòng có ca của mình.
         var dong = _laQuanTri
-            ? (from p in _phong where MaKhoaLoc is null || p.MaKhoa == MaKhoaLoc
-               from c in _ca select (p.MaPhong, p.TenPhong, p.TenKhoa, c.MaCa, Ca: c.ToString())).ToList()
-            : lich.Select(l => (l.MaPhong, l.TenPhong, l.TenKhoa, l.MaCa, Ca: $"{l.TenCa} ({l.GioBatDau:hh\\:mm} – {l.GioKetThuc:hh\\:mm})"))
+            ? (from p in _phong where p.MaKhoa == MaKhoaLoc
+               from c in _ca select (p.MaPhong, p.TenPhong, c.MaCa, Ca: c.ToString())).ToList()
+            : lich.Select(l => (l.MaPhong, l.TenPhong, l.MaCa, Ca: $"{l.TenCa} ({l.GioBatDau:hh\\:mm} – {l.GioKetThuc:hh\\:mm})"))
                   .Distinct().ToList();
         var thuTuCa = _ca.Select((c, i) => (c.MaCa, i)).ToDictionary(x => x.MaCa, x => x.i);
         if (!_laQuanTri) dong = dong.OrderBy(d => d.TenPhong).ThenBy(d => thuTuCa.GetValueOrDefault(d.MaCa)).ToList();
 
+        string? phongTruoc = null;
+        var nen = SystemColors.Window;
         foreach (var d in dong)
         {
             var r = dgvLich.Rows[dgvLich.Rows.Add()];
             r.Tag = (d.MaPhong, d.MaCa);
-            r.Cells[0].Value = $"{d.TenPhong} · {d.Ca}\r\n{d.TenKhoa}";
+            if (d.MaPhong != phongTruoc)
+            {
+                // Phòng mới: ghi tên phòng ở dòng đầu, đổi màu nền xen kẽ theo phòng.
+                r.Cells[0].Value = d.TenPhong;
+                nen = nen == SystemColors.Window ? Color.FromArgb(240, 240, 240) : SystemColors.Window;
+                phongTruoc = d.MaPhong;
+            }
+            r.DefaultCellStyle.BackColor = nen;
+            r.Cells[1].Value = d.Ca;
             foreach (var l in lich.Where(l => l.MaPhong == d.MaPhong && l.MaCa == d.MaCa))
             {
-                var o = r.Cells[(l.NgayLamViec.Date - _thu2).Days + 1];
+                var o = r.Cells[(l.NgayLamViec.Date - _thu2).Days + 2];
                 o.Tag = l;
                 o.Value = l.SoLichHenConHieuLuc > 0 ? $"{l.TenBacSi} ({l.SoLichHenConHieuLuc})" : l.TenBacSi;
             }
@@ -104,7 +116,7 @@ public partial class ucLichLamViec : UserControl
 
     private void dgvLich_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
     {
-        if (e.RowIndex < 0 || e.ColumnIndex < 1) return;
+        if (e.RowIndex < 0 || e.ColumnIndex < 2) return;
         var ngay = (DateTime)dgvLich.Columns[e.ColumnIndex].Tag!;
         if (ngay == DateTime.Today) e.CellStyle!.BackColor = Color.LightYellow;
         else if (ngay < DateTime.Today) e.CellStyle!.ForeColor = SystemColors.GrayText;
@@ -114,7 +126,7 @@ public partial class ucLichLamViec : UserControl
 
     private void dgvLich_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
     {
-        if (!_laQuanTri || e.RowIndex < 0 || e.ColumnIndex < 1) return;
+        if (!_laQuanTri || e.RowIndex < 0 || e.ColumnIndex < 2) return;
         var o = dgvLich.Rows[e.RowIndex].Cells[e.ColumnIndex];
         if (o.Tag is LichLamViecDTO l) { SuaLich(l); return; }
         var (maPhong, maCa) = ((string, string))dgvLich.Rows[e.RowIndex].Tag!;

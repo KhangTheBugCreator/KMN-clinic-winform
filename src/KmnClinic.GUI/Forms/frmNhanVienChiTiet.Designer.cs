@@ -79,7 +79,7 @@ partial class frmNhanVienChiTiet
         //
         dtpNgaySinh.Location = new Point(130, 80);
         dtpNgaySinh.Name = "dtpNgaySinh";
-        dtpNgaySinh.Size = new Size(130, 23);
+        dtpNgaySinh.Size = new Size(170, 23);
         dtpNgaySinh.TabIndex = 2;
         dtpNgaySinh.CustomFormat = "dd/MM/yyyy";
         dtpNgaySinh.Format = DateTimePickerFormat.Custom;
