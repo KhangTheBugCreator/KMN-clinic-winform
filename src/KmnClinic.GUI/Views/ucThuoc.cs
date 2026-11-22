@@ -1,14 +1,14 @@
+using KmnClinic.BUS;
 using KmnClinic.DTO;
-using KmnClinic.GUI.DuLieuGia;
 using KmnClinic.GUI.Forms;
 using KmnClinic.GUI.Theme;
 
 namespace KmnClinic.GUI.Views;
 
-/// <summary>Danh mục thuốc (Quản trị viên). Module W1 thay dữ liệu giả bằng ThuocBUS.</summary>
+/// <summary>Danh mục thuốc (Quản trị viên). Không có nút xóa: thuốc đã kê trong đơn cũ phải giữ lại.</summary>
 public partial class ucThuoc : UserControl
 {
-    private const int NguongSapHet = 20;
+    private readonly ThuocBUS _bus = new();
 
     public ucThuoc()
     {
@@ -17,18 +17,15 @@ public partial class ucThuoc : UserControl
         NapLai();
     }
 
-    private void NapLai()
+    private void NapLai(string? chonMa = null)
     {
-        var tk = txtTim.Text.Trim();
-        var ds = Gia.Thuoc.Where(t =>
-                (tk.Length == 0
-                 || t.MaThuoc.Contains(tk, StringComparison.OrdinalIgnoreCase)
-                 || t.TenThuoc.Contains(tk, StringComparison.OrdinalIgnoreCase)
-                 || (t.Nsx ?? "").Contains(tk, StringComparison.OrdinalIgnoreCase))
-                && (!chkSapHet.Checked || t.SoLuongTon < NguongSapHet))
-            .ToList();
-        dgvThuoc.DataSource = ds;
-        lblDem.Text = $"{ds.Count} thuốc · {Gia.Thuoc.Count(t => t.SoLuongTon < NguongSapHet)} thuốc sắp hết";
+        ThongBaoLoi.Chay(this, () =>
+        {
+            var ds = _bus.DanhSach(txtTim.Text, chkSapHet.Checked);
+            dgvThuoc.DataSource = ds;
+            lblDem.Text = $"{ds.Count} thuốc · {_bus.DemSapHet()} thuốc sắp hết (tồn ≤ {ThuocDTO.NguongSapHet})";
+            GiaoDien.ChonDong(dgvThuoc, chonMa is null ? null : (object o) => ((ThuocDTO)o).MaThuoc == chonMa);
+        });
     }
 
     private ThuocDTO? DangChon => dgvThuoc.CurrentRow?.DataBoundItem as ThuocDTO;
@@ -38,14 +35,14 @@ public partial class ucThuoc : UserControl
     private void btnThem_Click(object? sender, EventArgs e)
     {
         using var f = new frmThuocChiTiet(null);
-        if (f.ShowDialog(this) == DialogResult.OK) NapLai();
+        if (f.ShowDialog(this) == DialogResult.OK) NapLai(f.MaDaLuu);
     }
 
     private void btnSua_Click(object? sender, EventArgs e)
     {
-        if (DangChon is null) { MessageBox.Show("Hãy chọn một thuốc.", "Thuốc"); return; }
+        if (DangChon is null) { MessageBox.Show(this, "Hãy chọn một thuốc.", "Thuốc"); return; }
         using var f = new frmThuocChiTiet(DangChon);
-        if (f.ShowDialog(this) == DialogResult.OK) NapLai();
+        if (f.ShowDialog(this) == DialogResult.OK) NapLai(f.MaDaLuu);
     }
 
     private void dgvThuoc_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
@@ -58,9 +55,7 @@ public partial class ucThuoc : UserControl
         if (e.RowIndex < 0) return;
         var col = dgvThuoc.Columns[e.ColumnIndex].Name;
         if (col == "colDonGia" && e.Value is decimal gia) { e.Value = GiaoDien.Tien(gia); e.FormattingApplied = true; }
-        if (col == "colTon" && e.Value is int ton && ton < NguongSapHet)
-        {
+        if (col == "colTon" && e.Value is int ton && ton <= ThuocDTO.NguongSapHet)
             e.CellStyle!.ForeColor = Color.Red;
-        }
     }
 }

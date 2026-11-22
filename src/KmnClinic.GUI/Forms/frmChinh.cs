@@ -29,9 +29,9 @@ public partial class frmChinh : Form
     {
         ChucVu.QuanTriVien =>
         [
-            new("&Danh mục", "Khoa", () => new ucChuaLam("Khoa", "W1")),
-            new("&Danh mục", "Phòng làm việc", () => new ucChuaLam("Phòng làm việc", "W1")),
-            new("&Danh mục", "Ca làm việc", () => new ucChuaLam("Ca làm việc", "W1")),
+            new("&Danh mục", "Khoa", () => new ucKhoa()),
+            new("&Danh mục", "Phòng làm việc", () => new ucPhong()),
+            new("&Danh mục", "Ca làm việc", () => new ucCa()),
             new("&Danh mục", "Thuốc", () => new ucThuoc()),
             new("&Nhân sự", "Nhân viên", () => new ucChuaLam("Nhân viên", "W2")),
             new("&Nhân sự", "Khách hàng", () => new ucChuaLam("Khách hàng", "W2")),

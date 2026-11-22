@@ -19,4 +19,19 @@ public static class ThongBaoLoi
         MessageBox.Show(chu, CauThongBao(ex), nghiepVu ? "Thông báo" : "Có lỗi xảy ra",
             MessageBoxButtons.OK, nghiepVu ? MessageBoxIcon.Warning : MessageBoxIcon.Error);
     }
+
+    /// <summary>Chạy một thao tác; có lỗi thì hiện thông báo và trả về false.</summary>
+    public static bool Chay(IWin32Window chu, Action thaoTac)
+    {
+        try
+        {
+            thaoTac();
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Hien(ex, chu);
+            return false;
+        }
+    }
 }

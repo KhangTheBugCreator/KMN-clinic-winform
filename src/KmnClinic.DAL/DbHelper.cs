@@ -117,3 +117,11 @@ public static class DbHelper
         return r.IsDBNull(i) ? null : r.GetDateTime(i);
     }
 }
+
+/// <summary>Hàm chung cho câu tìm kiếm LIKE.</summary>
+public static class TimKiem
+{
+    /// <summary>Đổi từ khóa thành mẫu LIKE "%...%", thoát ký tự đặc biệt [ % _; rỗng thì null (không lọc).</summary>
+    public static string? MauLike(string? tuKhoa) => string.IsNullOrWhiteSpace(tuKhoa) ? null
+        : "%" + tuKhoa.Trim().Replace("[", "[[]").Replace("%", "[%]").Replace("_", "[_]") + "%";
+}
