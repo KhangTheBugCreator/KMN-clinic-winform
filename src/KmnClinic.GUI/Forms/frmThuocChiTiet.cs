@@ -1,15 +1,19 @@
+using KmnClinic.BUS;
 using KmnClinic.DTO;
-using KmnClinic.GUI.DuLieuGia;
-using KmnClinic.GUI.Theme;
 
 namespace KmnClinic.GUI.Forms;
 
 /// <summary>
-/// Thêm / sửa thuốc. Quyết định Q8 của bản web: sửa tồn trực tiếp phải tick ô xác nhận; không có chức năng xóa thuốc.
+/// Thêm / sửa thuốc. Quyết định Q8 của bản web: sửa tồn trực tiếp phải tick ô xác nhận
+/// (không tick thì số tồn trong CSDL giữ nguyên); không có chức năng xóa thuốc.
 /// </summary>
 public partial class frmThuocChiTiet : Form
 {
+    private readonly ThuocBUS _bus = new();
     private readonly ThuocDTO? _thuoc;
+
+    /// <summary>Mã thuốc vừa thêm/sửa, để danh sách chọn lại đúng dòng.</summary>
+    public string? MaDaLuu { get; private set; }
 
     public frmThuocChiTiet(ThuocDTO? thuoc)
     {
@@ -18,7 +22,7 @@ public partial class frmThuocChiTiet : Form
         if (thuoc is null)
         {
             Text = "Thêm thuốc";
-            txtMa.Text = $"TH{Gia.Thuoc.Count + 18:0000} (tự sinh)";
+            txtMa.Text = "(tự sinh)";
             cboDvt.SelectedIndex = 0;
             chkXacNhanTon.Visible = false;
         }
@@ -28,10 +32,10 @@ public partial class frmThuocChiTiet : Form
             txtMa.Text = thuoc.MaThuoc;
             txtTen.Text = thuoc.TenThuoc;
             txtNsx.Text = thuoc.Nsx;
-            numHamLuong.Value = thuoc.HamLuong ?? 0;
+            numHamLuong.Value = Math.Min(numHamLuong.Maximum, thuoc.HamLuong ?? 0);
             cboDvt.Text = thuoc.DonViTinh;
-            numDonGia.Value = thuoc.DonGiaThuoc;
-            numTon.Value = thuoc.SoLuongTon;
+            numDonGia.Value = Math.Min(numDonGia.Maximum, thuoc.DonGiaThuoc);
+            numTon.Value = Math.Min(numTon.Maximum, thuoc.SoLuongTon);
             numTon.Enabled = false;
             txtMoTa.Text = thuoc.MoTa;
         }
@@ -41,20 +45,22 @@ public partial class frmThuocChiTiet : Form
 
     private void btnLuu_Click(object? sender, EventArgs e)
     {
-        if (string.IsNullOrWhiteSpace(txtTen.Text)) { MessageBox.Show(this, "Tên thuốc không được để trống.", Text); txtTen.Focus(); return; }
-        if (string.IsNullOrWhiteSpace(cboDvt.Text)) { MessageBox.Show(this, "Hãy chọn đơn vị tính.", Text); return; }
-        if (numDonGia.Value <= 0) { MessageBox.Show(this, "Đơn giá phải lớn hơn 0.", Text); return; }
-
-        // Giai đoạn 2: chỉ sửa trong bộ nhớ để xem luồng thao tác. W1 sẽ gọi ThuocBUS.Them / ThuocBUS.Sua.
-        var t = _thuoc ?? new ThuocDTO { MaThuoc = $"TH{Gia.Thuoc.Count + 18:0000}" };
-        t.TenThuoc = txtTen.Text.Trim();
-        t.Nsx = txtNsx.Text.Trim();
-        t.HamLuong = numHamLuong.Value;
-        t.DonViTinh = cboDvt.Text;
-        t.DonGiaThuoc = numDonGia.Value;
-        t.SoLuongTon = (int)numTon.Value;
-        t.MoTa = txtMoTa.Text.Trim();
-        if (_thuoc is null) Gia.Thuoc.Add(t);
-        DialogResult = DialogResult.OK;
+        var t = new ThuocDTO
+        {
+            MaThuoc = _thuoc?.MaThuoc ?? "",
+            TenThuoc = txtTen.Text,
+            Nsx = txtNsx.Text,
+            HamLuong = numHamLuong.Value,
+            DonViTinh = cboDvt.Text,
+            DonGiaThuoc = numDonGia.Value,
+            SoLuongTon = (int)numTon.Value,
+            MoTa = txtMoTa.Text,
+        };
+        var ok = ThongBaoLoi.Chay(this, () =>
+        {
+            if (_thuoc is null) MaDaLuu = _bus.Them(t);
+            else { _bus.Sua(t, chkXacNhanTon.Checked); MaDaLuu = t.MaThuoc; }
+        });
+        if (ok) DialogResult = DialogResult.OK;
     }
 }

@@ -14,6 +14,7 @@ namespace KmnClinic.Tests;
 public sealed class CsdlThu : IDisposable
 {
     private readonly List<string> _maDaThem = [];
+    private readonly List<(string Bang, string Cot, string Ma)> _canXoa = [];
 
     public CsdlThu()
     {
@@ -28,9 +29,11 @@ public sealed class CsdlThu : IDisposable
         var ma = DbHelper.TrongGiaoDich((c, t) =>
         {
             var ma = MaSoGenerator.TaoMa(c, t, LoaiMa.NhanVien);
+            // CK_Nhan_vien_khoa: chỉ Bác sĩ có khoa
             using var cmd = c.Lenh(@"INSERT INTO Nhan_vien (ma_nv, ho_ten_nv, sdt_nv, mat_khau_nv, chuc_vu, ma_khoa)
-                                     VALUES (@ma, N'Nhân viên kiểm thử', @sdt, @mk, @cv, NULL)", t)
-                .P("@ma", ma).P("@sdt", sdt).P("@mk", matKhauLuu).P("@cv", chucVu);
+                                     VALUES (@ma, N'Nhân viên kiểm thử', @sdt, @mk, @cv, @khoa)", t)
+                .P("@ma", ma).P("@sdt", sdt).P("@mk", matKhauLuu).P("@cv", chucVu)
+                .P("@khoa", chucVu == "Bác sĩ" ? "K0001" : null);
             cmd.ExecuteNonQuery();
             return ma;
         });
@@ -46,12 +49,40 @@ public sealed class CsdlThu : IDisposable
                  VALUES (@ma, N'Trùng SĐT', @sdt, 'x', N'Lễ tân', NULL)", t).P("@ma", ma).P("@sdt", sdt).ExecuteNonQuery();
     });
 
+    /// <summary>Thêm nhân viên thử có vai trò cho trước rồi đăng nhập bằng tài khoản đó.</summary>
+    public void DangNhap(string chucVu)
+    {
+        var (_, sdt) = ThemNhanVien(KmnClinic.BUS.MatKhau.Bam("matkhau123"), chucVu);
+        new KmnClinic.BUS.NhanVienBUS().DangNhap(sdt, "matkhau123");
+    }
+
+    /// <summary>Ghi nhận một dòng do test thêm để xóa khi xong (xóa theo thứ tự ngược lại).</summary>
+    public string Xoa(string bang, string cot, string ma)
+    {
+        _canXoa.Add((bang, cot, ma));
+        return ma;
+    }
+
+    /// <summary>Chạy một câu SELECT trả về một giá trị.</summary>
+    public object? GiaTri(string sql)
+    {
+        using var conn = DbHelper.MoKetNoi();
+        using var cmd = conn.Lenh(sql);
+        return cmd.ExecuteScalar();
+    }
+
     public string LayMatKhauLuu(string ma) => new NhanVienDAL().LayMatKhau(ma)!;
 
     public void Dispose()
     {
         KmnClinic.BUS.PhienDangNhap.DangXuat();
         using var conn = DbHelper.MoKetNoi();
+        for (var i = _canXoa.Count - 1; i >= 0; i--)
+        {
+            var (bang, cot, ma) = _canXoa[i];
+            using var cmd = conn.Lenh($"DELETE FROM {bang} WHERE {cot} = @ma").P("@ma", ma);
+            cmd.ExecuteNonQuery();
+        }
         foreach (var ma in _maDaThem)
         {
             using var cmd = conn.Lenh("DELETE FROM Nhan_vien WHERE ma_nv = @ma").P("@ma", ma);

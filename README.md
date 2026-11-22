@@ -7,7 +7,8 @@ với website (repo `kmn-clinic`). Không đổi schema: 11 bảng, CHECK, UNIQU
 
 - **Giai đoạn 2 – Khung giao diện:** xong. Giao diện kiểu WinForms cổ điển: menu trên cùng, thanh trạng thái, control mặc định.
 - **W0 – Nền tảng:** kết nối CSDL bằng ADO.NET, đăng nhập thật (mật khẩu băm PBKDF2), đổi mật khẩu, phân quyền ở tầng BUS.
-- Các màn hình nghiệp vụ vẫn dùng dữ liệu giả (`DuLieuGia/`), sẽ nối CSDL lần lượt ở W1–W9.
+- **W1 – Danh mục:** Khoa, Phòng làm việc, Ca làm việc, Thuốc đọc/ghi CSDL thật (menu Danh mục của Quản trị viên).
+- Các màn hình nghiệp vụ khác vẫn dùng dữ liệu giả (`DuLieuGia/`), sẽ nối CSDL lần lượt ở W2–W9.
 
 ## Chạy trên Windows
 
@@ -76,8 +77,10 @@ src/KmnClinic.DAL/        ADO.NET: SqlConnection, SqlCommand có tham số, SqlT
   DbHelper.cs             mở kết nối, chạy trong transaction (thử lại khi deadlock 1205), đổ DataTable
   MaSoGenerator.cs        sinh mã KH0001, NV0012... (UPDLOCK + HOLDLOCK để không trùng)
   NhanVienDAL.cs          tìm nhân viên theo SĐT, đổi mật khẩu
+  KhoaDAL, PhongDAL, CaDAL, ThuocDAL   danh mục (W1); kiểm tra "đang được dùng" và ghi trong cùng transaction
 src/KmnClinic.BUS/        quy tắc nghiệp vụ
   NhanVienBUS.cs          đăng nhập, đổi mật khẩu
+  KhoaBUS, PhongBUS, CaBUS, ThuocBUS   quy tắc danh mục (RB3, RB11, Q8), quyền xem/ghi theo vai trò
   MatKhau.cs              băm PBKDF2-SHA256 (cùng định dạng với website)
   PhienDangNhap.cs        nhân viên đang đăng nhập
   PhanQuyen.cs            kiểm tra vai trò trước mỗi thao tác ghi
@@ -86,7 +89,7 @@ src/KmnClinic.BUS/        quy tắc nghiệp vụ
 src/KmnClinic.GUI/        Windows Forms
   appsettings.json        chuỗi kết nối
   Forms/                  frmDangNhap, frmDoiMatKhau, frmChinh, frmThuocChiTiet, frmDatLichHo, frmKhamBenh, frmThuTien
-  Views/                  các UserControl hiện trong form chính (uc...)
+  Views/                  các UserControl hiện trong form chính (ucKhoa, ucPhong, ucCa, ucThuoc...)
   Controls/               TheThongKe (ô số liệu), BieuDoCot (biểu đồ cột vẽ bằng GDI+)
   Theme/                  hàm dùng chung (cấu hình lưới, định dạng tiền)
   DuLieuGia/              dữ liệu giả cho các màn hình chưa nối CSDL (bỏ dần ở W1–W9)

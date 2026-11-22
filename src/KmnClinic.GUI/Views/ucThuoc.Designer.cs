@@ -65,7 +65,7 @@ partial class ucThuoc
         chkSapHet.AutoSize = true;
                 chkSapHet.Margin = new Padding(0, 8, 0, 0);
         chkSapHet.Name = "chkSapHet";
-        chkSapHet.Text = "Chỉ thuốc sắp hết (tồn dưới 20)";
+        chkSapHet.Text = "Chỉ thuốc sắp hết (tồn ≤ 20)";
         chkSapHet.CheckedChanged += BoLoc_Changed;
         //
         // btnSua
