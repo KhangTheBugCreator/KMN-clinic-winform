@@ -11,7 +11,15 @@ public class LichLamViecDTO
     public string TenPhong { get; set; } = "";
     public string MaCa { get; set; } = "";
     public string TenCa { get; set; } = "";
+    public TimeSpan GioBatDau { get; set; }
+    public TimeSpan GioKetThuc { get; set; }
+    public string MaKhoa { get; set; } = "";
     public string TenKhoa { get; set; } = "";
+    /// <summary>Số lịch hẹn gắn với lịch này (mọi trạng thái) và số lịch hẹn còn hiệu lực (Đã đặt, Đã xác nhận).</summary>
+    public int SoLichHen { get; set; }
+    public int SoLichHenConHieuLuc { get; set; }
+    /// <summary>Ngày làm việc đã qua (không sửa/xóa được).</summary>
+    public bool DaQua => NgayLamViec.Date < DateTime.Today;
 }
 
 /// <summary>Bảng Lich_hen, kèm tên để hiển thị.</summary>

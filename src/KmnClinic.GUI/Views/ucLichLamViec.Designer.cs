@@ -20,6 +20,8 @@ partial class ucLichLamViec
         btnHomNay = new Button();
         cboKhoa = new ComboBox();
         btnXepLich = new Button();
+        btnSua = new Button();
+        btnXoa = new Button();
         khung = new Panel();
         dgvLich = new DataGridView();
         lblGhiChu = new Label();
@@ -45,6 +47,8 @@ partial class ucLichLamViec
         flpLoc.Controls.Add(btnHomNay);
         flpLoc.Controls.Add(cboKhoa);
         flpLoc.Controls.Add(btnXepLich);
+        flpLoc.Controls.Add(btnSua);
+        flpLoc.Controls.Add(btnXoa);
         flpLoc.Dock = DockStyle.Fill;
         flpLoc.Name = "flpLoc";
         flpLoc.WrapContents = false;
@@ -55,8 +59,10 @@ partial class ucLichLamViec
         btnHomNay.Margin = new Padding(8, 0, 16, 0); btnHomNay.Name = "btnHomNay"; btnHomNay.Size = new Size(100, 30); btnHomNay.Text = "Tuần này"; btnHomNay.Click += btnHomNay_Click;
         cboKhoa.DropDownStyle = ComboBoxStyle.DropDownList; cboKhoa.Margin = new Padding(0, 4, 0, 0); cboKhoa.Name = "cboKhoa"; cboKhoa.Size = new Size(200, 30);
         cboKhoa.SelectedIndexChanged += cboKhoa_SelectedIndexChanged;
-        btnXepLich.Margin = new Padding(8, 2, 0, 0); btnXepLich.Name = "btnXepLich"; btnXepLich.Size = new Size(200, 30); btnXepLich.Text = "+ Xếp lịch hàng loạt";
+        btnXepLich.Margin = new Padding(8, 2, 0, 0); btnXepLich.Name = "btnXepLich"; btnXepLich.Size = new Size(110, 30); btnXepLich.Text = "Xếp lịch...";
         btnXepLich.Click += btnXepLich_Click;
+        btnSua.Margin = new Padding(4, 2, 0, 0); btnSua.Name = "btnSua"; btnSua.Size = new Size(80, 30); btnSua.Text = "Sửa"; btnSua.Click += btnSua_Click;
+        btnXoa.Margin = new Padding(4, 2, 0, 0); btnXoa.Name = "btnXoa"; btnXoa.Size = new Size(80, 30); btnXoa.Text = "Xóa"; btnXoa.Click += btnXoa_Click;
         //
         // khung
         //
@@ -66,6 +72,8 @@ partial class ucLichLamViec
         khung.Name = "khung";
         dgvLich.Dock = DockStyle.Fill;
         dgvLich.Name = "dgvLich";
+        dgvLich.CellDoubleClick += dgvLich_CellDoubleClick;
+        dgvLich.KeyDown += dgvLich_KeyDown;
         lblGhiChu.Dock = DockStyle.Bottom; lblGhiChu.Name = "lblGhiChu";
         lblGhiChu.Size = new Size(900, 30); lblGhiChu.TextAlign = ContentAlignment.BottomLeft;
         //
@@ -92,6 +100,8 @@ partial class ucLichLamViec
     private Button btnHomNay;
     private ComboBox cboKhoa;
     private Button btnXepLich;
+    private Button btnSua;
+    private Button btnXoa;
     private Panel khung;
     private DataGridView dgvLich;
     private Label lblGhiChu;
