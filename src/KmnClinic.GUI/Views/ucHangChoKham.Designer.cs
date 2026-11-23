@@ -16,17 +16,21 @@ partial class ucHangChoKham
         theCho = new KmnClinic.GUI.Controls.TheThongKe();
         theDang = new KmnClinic.GUI.Controls.TheThongKe();
         theXong = new KmnClinic.GUI.Controls.TheThongKe();
+        theCa = new KmnClinic.GUI.Controls.TheThongKe();
         khung = new Panel();
         dgvHangCho = new DataGridView();
         colMa = new DataGridViewTextBoxColumn();
         colGio = new DataGridViewTextBoxColumn();
         colKhach = new DataGridViewTextBoxColumn();
+        colGioiTinh = new DataGridViewTextBoxColumn();
         colTuoi = new DataGridViewTextBoxColumn();
         colNguon = new DataGridViewTextBoxColumn();
         colTrieuChung = new DataGridViewTextBoxColumn();
         colTrangThai = new DataGridViewTextBoxColumn();
         pnlDau = new Panel();
         btnKham = new Button();
+        btnLamMoi = new Button();
+        cboLoc = new ComboBox();
         lblTieuDe = new Label();
         flpThe.SuspendLayout();
         khung.SuspendLayout();
@@ -39,12 +43,15 @@ partial class ucHangChoKham
         flpThe.Controls.Add(theCho);
         flpThe.Controls.Add(theDang);
         flpThe.Controls.Add(theXong);
+        flpThe.Controls.Add(theCa);
         flpThe.Dock = DockStyle.Top;
         flpThe.Name = "flpThe";
         flpThe.Size = new Size(1000, 90);
         flpThe.Padding = new Padding(0, 0, 0, 8);
         flpThe.WrapContents = false;
-        theCho.Name = "theCho"; theCho.TieuDe = "Đang chờ khám";         theDang.Name = "theDang"; theDang.TieuDe = "Đang khám";         theXong.Name = "theXong"; theXong.TieuDe = "Đã hoàn tất hôm nay";         //
+        theCho.Name = "theCho"; theCho.TieuDe = "Đang chờ khám";         theDang.Name = "theDang"; theDang.TieuDe = "Đang khám";         theXong.Name = "theXong"; theXong.TieuDe = "Đã hoàn tất hôm nay";
+        theCa.Name = "theCa"; theCa.TieuDe = "Ca trực hôm nay";
+                //
         // khung
         //
         khung.Controls.Add(dgvHangCho);
@@ -52,18 +59,25 @@ partial class ucHangChoKham
         khung.Dock = DockStyle.Fill;
         khung.Name = "khung";
         pnlDau.Controls.Add(lblTieuDe);
+        pnlDau.Controls.Add(cboLoc);
+        pnlDau.Controls.Add(btnLamMoi);
         pnlDau.Controls.Add(btnKham);
         pnlDau.Dock = DockStyle.Top; pnlDau.Name = "pnlDau"; pnlDau.Size = new Size(900, 52);
-        lblTieuDe.AutoSize = true; lblTieuDe.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         lblTieuDe.Location = new Point(0, 6); lblTieuDe.Name = "lblTieuDe"; lblTieuDe.Text = "Hàng chờ hôm nay (theo thứ tự tiếp nhận)";
+        lblTieuDe.AutoSize = true; lblTieuDe.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         lblTieuDe.Location = new Point(0, 6); lblTieuDe.Name = "lblTieuDe"; lblTieuDe.Text = "Hàng chờ khám";
+        cboLoc.DropDownStyle = ComboBoxStyle.DropDownList; cboLoc.Location = new Point(150, 2); cboLoc.Name = "cboLoc"; cboLoc.Size = new Size(150, 30);
+        cboLoc.Items.AddRange(new object[] { "Tất cả", "Chờ khám", "Đang khám" }); cboLoc.SelectedIndexChanged += cboLoc_SelectedIndexChanged;
+        btnLamMoi.Anchor = AnchorStyles.Top | AnchorStyles.Right; btnLamMoi.Location = new Point(620, 0); btnLamMoi.Name = "btnLamMoi"; btnLamMoi.Size = new Size(110, 30);
+        btnLamMoi.Text = "Làm mới"; btnLamMoi.Click += btnLamMoi_Click;
         btnKham.Anchor = AnchorStyles.Top | AnchorStyles.Right; btnKham.Location = new Point(740, 0); btnKham.Name = "btnKham"; btnKham.Size = new Size(160, 30);
         btnKham.Text = "Khám bệnh"; btnKham.Click += btnKham_Click;
-        dgvHangCho.Columns.AddRange(new DataGridViewColumn[] { colMa, colGio, colKhach, colTuoi, colNguon, colTrieuChung, colTrangThai });
+        dgvHangCho.Columns.AddRange(new DataGridViewColumn[] { colMa, colGio, colKhach, colGioiTinh, colTuoi, colNguon, colTrieuChung, colTrangThai });
         dgvHangCho.Dock = DockStyle.Fill; dgvHangCho.Name = "dgvHangCho";
         dgvHangCho.CellDoubleClick += dgvHangCho_CellDoubleClick;
         dgvHangCho.SelectionChanged += dgvHangCho_SelectionChanged;
         colMa.DataPropertyName = "MaHoSo"; colMa.HeaderText = "Mã hồ sơ"; colMa.Name = "colMa"; colMa.FillWeight = 70;
-        colGio.DataPropertyName = "NgayGioKham"; colGio.HeaderText = "Tiếp nhận"; colGio.Name = "colGio"; colGio.FillWeight = 60; colGio.DefaultCellStyle.Format = "HH:mm";
+        colGio.DataPropertyName = "NgayGioKham"; colGio.HeaderText = "Tiếp nhận"; colGio.Name = "colGio"; colGio.FillWeight = 75; colGio.DefaultCellStyle.Format = "dd/MM HH:mm";
         colKhach.DataPropertyName = "TenKhachHang"; colKhach.HeaderText = "Bệnh nhân"; colKhach.Name = "colKhach"; colKhach.FillWeight = 130;
+        colGioiTinh.DataPropertyName = "GioiTinh"; colGioiTinh.HeaderText = "Giới tính"; colGioiTinh.Name = "colGioiTinh"; colGioiTinh.FillWeight = 50;
         colTuoi.DataPropertyName = "Tuoi"; colTuoi.HeaderText = "Tuổi"; colTuoi.Name = "colTuoi"; colTuoi.FillWeight = 45;
         colNguon.DataPropertyName = "Nguon"; colNguon.HeaderText = "Nguồn"; colNguon.Name = "colNguon"; colNguon.FillWeight = 60;
         colTrieuChung.DataPropertyName = "TrieuChung"; colTrieuChung.HeaderText = "Triệu chứng"; colTrieuChung.Name = "colTrieuChung"; colTrieuChung.FillWeight = 160;
@@ -89,16 +103,20 @@ partial class ucHangChoKham
     private KmnClinic.GUI.Controls.TheThongKe theCho;
     private KmnClinic.GUI.Controls.TheThongKe theDang;
     private KmnClinic.GUI.Controls.TheThongKe theXong;
+    private KmnClinic.GUI.Controls.TheThongKe theCa;
     private Panel khung;
     private DataGridView dgvHangCho;
     private DataGridViewTextBoxColumn colMa;
     private DataGridViewTextBoxColumn colGio;
     private DataGridViewTextBoxColumn colKhach;
+    private DataGridViewTextBoxColumn colGioiTinh;
     private DataGridViewTextBoxColumn colTuoi;
     private DataGridViewTextBoxColumn colNguon;
     private DataGridViewTextBoxColumn colTrieuChung;
     private DataGridViewTextBoxColumn colTrangThai;
     private Panel pnlDau;
     private Button btnKham;
+    private Button btnLamMoi;
+    private ComboBox cboLoc;
     private Label lblTieuDe;
 }

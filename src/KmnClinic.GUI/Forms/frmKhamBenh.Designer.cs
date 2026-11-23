@@ -20,8 +20,9 @@ partial class frmKhamBenh
         colLtChanDoan = new DataGridViewTextBoxColumn();
         colLtBacSi = new DataGridViewTextBoxColumn();
         lblLanTruoc = new Label();
+        lblLanTruocChiTiet = new Label();
         khungBenhNhan = new Panel();
-        lblTrieuChung = new Label();
+        txtTrieuChung = new TextBox();
         lblTrieuChungTieuDe = new Label();
         lblThongTin = new Label();
         lblTen = new Label();
@@ -88,7 +89,7 @@ partial class frmKhamBenh
         //
         // khungBenhNhan
         //
-        khungBenhNhan.Controls.Add(lblTrieuChung);
+        khungBenhNhan.Controls.Add(txtTrieuChung);
         khungBenhNhan.Controls.Add(lblTrieuChungTieuDe);
         khungBenhNhan.Controls.Add(lblThongTin);
         khungBenhNhan.Controls.Add(lblTen);
@@ -97,21 +98,25 @@ partial class frmKhamBenh
         khungBenhNhan.Size = new Size(340, 230);
         lblTen.Dock = DockStyle.Top; lblTen.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         lblTen.Name = "lblTen"; lblTen.Size = new Size(300, 36);
         lblThongTin.Dock = DockStyle.Top; lblThongTin.Name = "lblThongTin"; lblThongTin.Size = new Size(300, 66);
-        lblTrieuChungTieuDe.Dock = DockStyle.Top; lblTrieuChungTieuDe.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         lblTrieuChungTieuDe.Name = "lblTrieuChungTieuDe"; lblTrieuChungTieuDe.Size = new Size(300, 26); lblTrieuChungTieuDe.Text = "Triệu chứng lễ tân ghi nhận";
-        lblTrieuChung.Dock = DockStyle.Fill; lblTrieuChung.Name = "lblTrieuChung";
+        lblTrieuChungTieuDe.Dock = DockStyle.Top; lblTrieuChungTieuDe.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         lblTrieuChungTieuDe.Name = "lblTrieuChungTieuDe"; lblTrieuChungTieuDe.Size = new Size(300, 26); lblTrieuChungTieuDe.Text = "Triệu chứng *";
+        txtTrieuChung.Dock = DockStyle.Fill; txtTrieuChung.MaxLength = 255; txtTrieuChung.Multiline = true; txtTrieuChung.Name = "txtTrieuChung";
+        txtTrieuChung.ScrollBars = ScrollBars.Vertical; txtTrieuChung.TextChanged += ODuLieu_Changed;
         //
         // khungLanTruoc
         //
         khungLanTruoc.Controls.Add(dgvLanTruoc);
+        khungLanTruoc.Controls.Add(lblLanTruocChiTiet);
         khungLanTruoc.Controls.Add(lblLanTruoc);
         khungLanTruoc.Dock = DockStyle.Fill;
         khungLanTruoc.Name = "khungLanTruoc";
         lblLanTruoc.Dock = DockStyle.Top; lblLanTruoc.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         lblLanTruoc.Name = "lblLanTruoc"; lblLanTruoc.Padding = new Padding(0, 12, 0, 0); lblLanTruoc.Size = new Size(300, 44); lblLanTruoc.Text = "Các lần khám trước";
         dgvLanTruoc.Columns.AddRange(new DataGridViewColumn[] { colLtNgay, colLtChanDoan, colLtBacSi });
-        dgvLanTruoc.Dock = DockStyle.Fill; dgvLanTruoc.Name = "dgvLanTruoc";
-        colLtNgay.HeaderText = "Ngày"; colLtNgay.Name = "colLtNgay"; colLtNgay.FillWeight = 70;
-        colLtChanDoan.HeaderText = "Chẩn đoán"; colLtChanDoan.Name = "colLtChanDoan"; colLtChanDoan.FillWeight = 140;
-        colLtBacSi.HeaderText = "Bác sĩ"; colLtBacSi.Name = "colLtBacSi"; colLtBacSi.FillWeight = 100;
+        dgvLanTruoc.Dock = DockStyle.Fill; dgvLanTruoc.Name = "dgvLanTruoc"; dgvLanTruoc.SelectionChanged += dgvLanTruoc_SelectionChanged;
+        lblLanTruocChiTiet.BorderStyle = BorderStyle.FixedSingle; lblLanTruocChiTiet.Dock = DockStyle.Bottom; lblLanTruocChiTiet.Name = "lblLanTruocChiTiet";
+        lblLanTruocChiTiet.Padding = new Padding(4); lblLanTruocChiTiet.Size = new Size(300, 170);
+        colLtNgay.DataPropertyName = "NgayGioKham"; colLtNgay.DefaultCellStyle.Format = "dd/MM/yyyy"; colLtNgay.HeaderText = "Ngày"; colLtNgay.Name = "colLtNgay"; colLtNgay.FillWeight = 70;
+        colLtChanDoan.DataPropertyName = "ChanDoanBenh"; colLtChanDoan.HeaderText = "Chẩn đoán"; colLtChanDoan.Name = "colLtChanDoan"; colLtChanDoan.FillWeight = 140;
+        colLtBacSi.DataPropertyName = "TenBacSi"; colLtBacSi.HeaderText = "Bác sĩ"; colLtBacSi.Name = "colLtBacSi"; colLtBacSi.FillWeight = 100;
         //
         // khungKham
         //
@@ -150,10 +155,10 @@ partial class frmKhamBenh
         lblLoiDan.AutoSize = true; lblLoiDan.Font = new Font("Segoe UI", 9F, FontStyle.Bold); lblLoiDan.Margin = new Padding(0, 8, 0, 0); lblLoiDan.Text = "Lời dặn";
         lblTienCong.Anchor = AnchorStyles.Left; lblTienCong.AutoSize = true; lblTienCong.Font = new Font("Segoe UI", 9F, FontStyle.Bold); lblTienCong.Text = "Tiền công khám";
         lblKeThuoc.Anchor = AnchorStyles.Left; lblKeThuoc.AutoSize = true; lblKeThuoc.Font = new Font("Segoe UI", 9F, FontStyle.Bold); lblKeThuoc.Text = "Kê thuốc";
-        txtChanDoan.Dock = DockStyle.Fill; txtChanDoan.Margin = new Padding(0, 4, 0, 4); txtChanDoan.Multiline = true; txtChanDoan.Name = "txtChanDoan";
-        txtLoiDan.Dock = DockStyle.Fill; txtLoiDan.Margin = new Padding(0, 4, 0, 4); txtLoiDan.Multiline = true; txtLoiDan.Name = "txtLoiDan";
-        numTienCong.Anchor = AnchorStyles.Left; numTienCong.Increment = 10000; numTienCong.Maximum = 10000000; numTienCong.Name = "numTienCong";
-        numTienCong.Size = new Size(160, 30); numTienCong.ThousandsSeparator = true; numTienCong.ValueChanged += numTienCong_ValueChanged;
+        txtChanDoan.Dock = DockStyle.Fill; txtChanDoan.Margin = new Padding(0, 4, 0, 4); txtChanDoan.MaxLength = 255; txtChanDoan.Multiline = true; txtChanDoan.Name = "txtChanDoan"; txtChanDoan.TextChanged += ODuLieu_Changed;
+        txtLoiDan.Dock = DockStyle.Fill; txtLoiDan.Margin = new Padding(0, 4, 0, 4); txtLoiDan.MaxLength = 255; txtLoiDan.Multiline = true; txtLoiDan.Name = "txtLoiDan"; txtLoiDan.TextChanged += ODuLieu_Changed;
+        numTienCong.Anchor = AnchorStyles.Left; numTienCong.Increment = 10000; numTienCong.Maximum = 999999999999; numTienCong.Name = "numTienCong";
+        numTienCong.Size = new Size(160, 30); numTienCong.ThousandsSeparator = true; numTienCong.TextChanged += ODuLieu_Changed; numTienCong.ValueChanged += numTienCong_ValueChanged;
         //
         // flpKeThuoc
         //
@@ -165,10 +170,11 @@ partial class frmKhamBenh
         flpKeThuoc.Margin = new Padding(0);
         flpKeThuoc.Name = "flpKeThuoc";
         flpKeThuoc.WrapContents = false;
-        cboThuoc.DropDownStyle = ComboBoxStyle.DropDownList; cboThuoc.Margin = new Padding(0, 8, 8, 0); cboThuoc.Name = "cboThuoc"; cboThuoc.Size = new Size(230, 30);
-        numSoLuong.Margin = new Padding(0, 8, 8, 0); numSoLuong.Maximum = 1000; numSoLuong.Minimum = 1; numSoLuong.Name = "numSoLuong"; numSoLuong.Size = new Size(70, 30); numSoLuong.Value = 10;
-        txtLieuDung.Margin = new Padding(0, 8, 8, 0); txtLieuDung.Name = "txtLieuDung"; txtLieuDung.PlaceholderText = "Liều dùng"; txtLieuDung.Size = new Size(220, 30);
-        btnThemThuoc.Margin = new Padding(0, 6, 0, 0); btnThemThuoc.Name = "btnThemThuoc"; btnThemThuoc.Size = new Size(90, 36); btnThemThuoc.Text = "Thêm";
+        cboThuoc.DropDownStyle = ComboBoxStyle.DropDownList; cboThuoc.FormattingEnabled = true; cboThuoc.Format += cboThuoc_Format;
+        cboThuoc.SelectedIndexChanged += cboThuoc_SelectedIndexChanged; cboThuoc.Margin = new Padding(0, 8, 8, 0); cboThuoc.Name = "cboThuoc"; cboThuoc.Size = new Size(300, 30);
+        numSoLuong.Margin = new Padding(0, 8, 8, 0); numSoLuong.Maximum = 100000; numSoLuong.Minimum = 1; numSoLuong.Name = "numSoLuong"; numSoLuong.Size = new Size(70, 30); numSoLuong.Value = 10;
+        txtLieuDung.Margin = new Padding(0, 8, 8, 0); txtLieuDung.Name = "txtLieuDung"; txtLieuDung.MaxLength = 255; txtLieuDung.PlaceholderText = "Liều dùng (VD: sáng 1 viên, tối 1 viên)"; txtLieuDung.Size = new Size(260, 30);
+        btnThemThuoc.Margin = new Padding(0, 6, 0, 0); btnThemThuoc.Name = "btnThemThuoc"; btnThemThuoc.Size = new Size(100, 36); btnThemThuoc.Text = "Thêm";
         btnThemThuoc.Click += btnThemThuoc_Click;
         //
         // dgvDonThuoc
@@ -176,6 +182,7 @@ partial class frmKhamBenh
         dgvDonThuoc.Columns.AddRange(new DataGridViewColumn[] { colTenThuoc, colSoLuong, colDvt, colLieuDung, colDonGia, colThanhTien, colXoa });
         dgvDonThuoc.Dock = DockStyle.Fill; dgvDonThuoc.Margin = new Padding(0, 8, 0, 0); dgvDonThuoc.Name = "dgvDonThuoc";
         dgvDonThuoc.CellContentClick += dgvDonThuoc_CellContentClick;
+        dgvDonThuoc.CellDoubleClick += dgvDonThuoc_CellDoubleClick;
         colTenThuoc.DataPropertyName = "TenThuoc"; colTenThuoc.HeaderText = "Thuốc"; colTenThuoc.Name = "colTenThuoc"; colTenThuoc.FillWeight = 130;
         colSoLuong.DataPropertyName = "SoLuongThuoc"; colSoLuong.HeaderText = "SL"; colSoLuong.Name = "colSoLuong"; colSoLuong.FillWeight = 40;
         colDvt.DataPropertyName = "DonViTinh"; colDvt.HeaderText = "ĐVT"; colDvt.Name = "colDvt"; colDvt.FillWeight = 45;
@@ -211,6 +218,7 @@ partial class frmKhamBenh
         MinimumSize = new Size(1100, 700);
         Name = "frmKhamBenh";
         ShowInTaskbar = false;
+        FormClosing += frmKhamBenh_FormClosing;
         StartPosition = FormStartPosition.CenterParent;
         Text = "Khám bệnh";
         tlpNen.ResumeLayout(false);
@@ -237,10 +245,11 @@ partial class frmKhamBenh
     private Label lblTen;
     private Label lblThongTin;
     private Label lblTrieuChungTieuDe;
-    private Label lblTrieuChung;
+    private TextBox txtTrieuChung;
     private Panel khungLanTruoc;
     private Label lblLanTruoc;
     private DataGridView dgvLanTruoc;
+    private Label lblLanTruocChiTiet;
     private DataGridViewTextBoxColumn colLtNgay;
     private DataGridViewTextBoxColumn colLtChanDoan;
     private DataGridViewTextBoxColumn colLtBacSi;

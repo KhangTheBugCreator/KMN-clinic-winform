@@ -96,6 +96,31 @@ public class HoSoKhamDTO
     public string TenKhoa { get; set; } = "";
     public string SdtKhachHang { get; set; } = "";
     public string? TenLeTan { get; set; }
+    public string? MaHoaDon { get; set; }
+    public decimal? TongTien { get; set; }
+    /// <summary>Đã có hóa đơn: hồ sơ bị khóa, chỉ xem (Q4).</summary>
+    public bool DaHoanTat => MaHoaDon is not null;
+}
+
+/// <summary>Một lần khám đã hoàn tất trước đó của bệnh nhân (mọi bác sĩ), chỉ đọc (Q13).</summary>
+public class LanKhamTruocDTO
+{
+    public string MaHoSo { get; set; } = "";
+    public DateTime NgayGioKham { get; set; }
+    public string TenBacSi { get; set; } = "";
+    public string TenKhoa { get; set; } = "";
+    public string TrieuChung { get; set; } = "";
+    public string? ChanDoanBenh { get; set; }
+    public string? LoiDan { get; set; }
+    public List<string> Thuoc { get; set; } = [];
+}
+
+/// <summary>Số liệu của bác sĩ đang đăng nhập.</summary>
+public class TongQuanBacSiDTO
+{
+    public int ChoKham { get; set; }
+    public int DangKham { get; set; }
+    public int HoanTatHomNay { get; set; }
 }
 
 /// <summary>Bảng Chi_tiet_don_thuoc, kèm tên thuốc.</summary>
@@ -108,6 +133,9 @@ public class ChiTietDonThuocDTO
     public string? LieuDung { get; set; }
     public decimal DonGiaThuoc { get; set; }
     public decimal ThanhTien => SoLuongThuoc * DonGiaThuoc;
+    public decimal? HamLuong { get; set; }
+    /// <summary>Tồn kho hiện tại (để báo thiếu khi hoàn tất).</summary>
+    public int SoLuongTon { get; set; }
 }
 
 /// <summary>Bảng Hoa_don, kèm thông tin hồ sơ.</summary>
