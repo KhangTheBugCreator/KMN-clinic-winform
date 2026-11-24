@@ -52,9 +52,9 @@ public partial class frmChinh : Form
         ChucVu.BacSi =>
         [
             new("&Khám bệnh", "Hàng chờ khám", () => new ucHangChoKham()),
-            new("&Khám bệnh", "Hồ sơ đã khám", () => new ucChuaLam("Hồ sơ đã khám", "W6")),
+            new("&Khám bệnh", "Hồ sơ đã khám", () => new ucHoSoCuaToi()),
             new("&Lịch", "Lịch trực của tôi", () => new ucLichLamViec(false)),
-            new("&Lịch", "Lịch hẹn của tôi", () => new ucChuaLam("Lịch hẹn của tôi", "W6")),
+            new("&Lịch", "Lịch hẹn của tôi", () => new ucLichHenCuaToi()),
         ],
         ChucVu.ThuNgan =>
         [
