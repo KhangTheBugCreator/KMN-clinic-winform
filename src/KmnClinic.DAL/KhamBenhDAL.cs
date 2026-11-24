@@ -72,11 +72,11 @@ ORDER BY hs.ngay_gio_kham DESC, hs.ma_ho_so DESC")
         return Doc(cmd);
     }
 
-    /// <summary>Một hồ sơ của bác sĩ; null nếu không có hoặc của bác sĩ khác.</summary>
-    public HoSoKhamDTO? Tim(string ma, string maBs)
+    /// <summary>Một hồ sơ; maBs khác null thì chỉ lấy hồ sơ của bác sĩ đó (null nếu không có hoặc của bác sĩ khác).</summary>
+    public HoSoKhamDTO? Tim(string ma, string? maBs)
     {
         using var conn = DbHelper.MoKetNoi();
-        using var cmd = conn.Lenh(SqlHoSo + " WHERE hs.ma_ho_so = @ma AND hs.ma_nv_kham = @bs")
+        using var cmd = conn.Lenh(SqlHoSo + " WHERE hs.ma_ho_so = @ma AND (@bs IS NULL OR hs.ma_nv_kham = @bs)")
             .P("@ma", SqlDbType.VarChar, 10, ma).P("@bs", SqlDbType.VarChar, 10, maBs);
         return Doc(cmd).FirstOrDefault();
     }
