@@ -39,8 +39,9 @@ public class BieuDoCot : Control
         var g = e.Graphics;
         if (_giaTri.Length == 0) return;
         var v = VungVe;
-        var buoc = BuocChia(_giaTri.Max());
-        var tran = Math.Ceiling(_giaTri.Max() / buoc) * buoc;
+        var max = Math.Max(_giaTri.Max(), 1); // toàn số 0 (chưa có doanh thu) vẫn vẽ được trục
+        var buoc = BuocChia(max);
+        var tran = Math.Ceiling(max / buoc) * buoc;
 
         using var luoi = new Pen(Color.Gainsboro);
         for (double m = 0; m <= tran + 1e-9; m += buoc)

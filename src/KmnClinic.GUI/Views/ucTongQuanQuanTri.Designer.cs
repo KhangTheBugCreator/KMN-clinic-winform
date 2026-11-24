@@ -69,7 +69,7 @@ partial class ucTongQuanQuanTri
         khungBieuDo.Name = "khungBieuDo";
         bieuDo.Dock = DockStyle.Fill;
         bieuDo.Name = "bieuDo";
-        lblBieuDo.Dock = DockStyle.Top; lblBieuDo.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         lblBieuDo.Name = "lblBieuDo"; lblBieuDo.Size = new Size(500, 32); lblBieuDo.Text = "Doanh thu 14 ngày gần nhất (triệu đồng)";
+        lblBieuDo.Dock = DockStyle.Top; lblBieuDo.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         lblBieuDo.Name = "lblBieuDo"; lblBieuDo.Size = new Size(500, 32); lblBieuDo.Text = "Doanh thu 14 ngày gần nhất (nghìn đồng)";
         //
         // khungThuoc
         //
