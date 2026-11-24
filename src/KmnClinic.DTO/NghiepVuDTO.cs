@@ -152,6 +152,31 @@ public class HoaDonDTO
     public string TrangThaiThanhToan { get; set; } = "";
     public DateTime? NgayGioThanhToan { get; set; }
     public string? ThuNgan { get; set; }
+    public string? MaThuNgan { get; set; }
+    public string MaKh { get; set; } = "";
+    public string TenKhoa { get; set; } = "";
+    public int SoThuoc { get; set; }
+    public bool DaThanhToan => TrangThaiThanhToan == TrangThai.DaThanhToan;
+
+    // Chi tiết (chỉ có khi đọc một hóa đơn)
+    public string? TrieuChung { get; set; }
+    public string? ChanDoanBenh { get; set; }
+    public string? LoiDan { get; set; }
+    public string? GioiTinh { get; set; }
+    public DateTime? NgaySinh { get; set; }
+    public string? DiaChi { get; set; }
+    public List<ChiTietDonThuocDTO> Thuoc { get; set; } = [];
+    public decimal TienThuoc => Thuoc.Sum(t => t.ThanhTien);
+}
+
+/// <summary>Số liệu cho thu ngân.</summary>
+public class TongQuanThuNganDTO
+{
+    public int ChoThu { get; set; }
+    public decimal TienChoThu { get; set; }
+    public int DaThuHomNay { get; set; }
+    public decimal DoanhThuHomNay { get; set; }
+    public int CuaToiHomNay { get; set; }
 }
 
 /// <summary>Các giá trị trạng thái dùng trong CSDL (RB14, RB15, CHECK của Hoa_don).</summary>

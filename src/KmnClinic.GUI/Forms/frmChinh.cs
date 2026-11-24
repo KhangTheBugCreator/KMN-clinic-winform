@@ -59,7 +59,7 @@ public partial class frmChinh : Form
         ChucVu.ThuNgan =>
         [
             new("&Thu ngân", "Hóa đơn chờ thu", () => new ucHoaDonChoThu()),
-            new("&Thu ngân", "Lịch sử thanh toán", () => new ucChuaLam("Lịch sử thanh toán", "W7")),
+            new("&Thu ngân", "Lịch sử thanh toán", () => new ucLichSuThanhToan()),
         ],
         _ => []
     };
