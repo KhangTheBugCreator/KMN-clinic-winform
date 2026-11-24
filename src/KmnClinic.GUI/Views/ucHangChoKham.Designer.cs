@@ -30,6 +30,7 @@ partial class ucHangChoKham
         pnlDau = new Panel();
         btnKham = new Button();
         btnLamMoi = new Button();
+        pnlKhoang = new Panel();
         cboLoc = new ComboBox();
         lblTieuDe = new Label();
         flpThe.SuspendLayout();
@@ -58,17 +59,20 @@ partial class ucHangChoKham
         khung.Controls.Add(pnlDau);
         khung.Dock = DockStyle.Fill;
         khung.Name = "khung";
+        // nút dock phải (thêm sau dock trước): Khám bệnh sát phải, rồi Làm mới
         pnlDau.Controls.Add(lblTieuDe);
         pnlDau.Controls.Add(cboLoc);
         pnlDau.Controls.Add(btnLamMoi);
+        pnlDau.Controls.Add(pnlKhoang);
         pnlDau.Controls.Add(btnKham);
-        pnlDau.Dock = DockStyle.Top; pnlDau.Name = "pnlDau"; pnlDau.Size = new Size(900, 52);
+        pnlDau.Dock = DockStyle.Top; pnlDau.Name = "pnlDau"; pnlDau.Size = new Size(900, 52); pnlDau.Padding = new Padding(0, 0, 0, 20);
+        pnlKhoang.Dock = DockStyle.Right; pnlKhoang.Name = "pnlKhoang"; pnlKhoang.Size = new Size(8, 32);
         lblTieuDe.AutoSize = true; lblTieuDe.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         lblTieuDe.Location = new Point(0, 6); lblTieuDe.Name = "lblTieuDe"; lblTieuDe.Text = "Hàng chờ khám";
         cboLoc.DropDownStyle = ComboBoxStyle.DropDownList; cboLoc.Location = new Point(150, 2); cboLoc.Name = "cboLoc"; cboLoc.Size = new Size(150, 30);
         cboLoc.Items.AddRange(new object[] { "Tất cả", "Chờ khám", "Đang khám" }); cboLoc.SelectedIndexChanged += cboLoc_SelectedIndexChanged;
-        btnLamMoi.Anchor = AnchorStyles.Top | AnchorStyles.Right; btnLamMoi.Location = new Point(620, 0); btnLamMoi.Name = "btnLamMoi"; btnLamMoi.Size = new Size(110, 30);
+        btnLamMoi.Dock = DockStyle.Right; btnLamMoi.Name = "btnLamMoi"; btnLamMoi.Size = new Size(110, 30);
         btnLamMoi.Text = "Làm mới"; btnLamMoi.Click += btnLamMoi_Click;
-        btnKham.Anchor = AnchorStyles.Top | AnchorStyles.Right; btnKham.Location = new Point(740, 0); btnKham.Name = "btnKham"; btnKham.Size = new Size(160, 30);
+        btnKham.Dock = DockStyle.Right; btnKham.Name = "btnKham"; btnKham.Size = new Size(160, 30);
         btnKham.Text = "Khám bệnh"; btnKham.Click += btnKham_Click;
         dgvHangCho.Columns.AddRange(new DataGridViewColumn[] { colMa, colGio, colKhach, colGioiTinh, colTuoi, colNguon, colTrieuChung, colTrangThai });
         dgvHangCho.Dock = DockStyle.Fill; dgvHangCho.Name = "dgvHangCho";
@@ -117,6 +121,7 @@ partial class ucHangChoKham
     private Panel pnlDau;
     private Button btnKham;
     private Button btnLamMoi;
+    private Panel pnlKhoang;
     private ComboBox cboLoc;
     private Label lblTieuDe;
 }
