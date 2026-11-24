@@ -52,6 +52,7 @@ partial class frmKhamBenh
         lblTong = new Label();
         btnHoanTat = new Button();
         btnLuuNhap = new Button();
+        pnlKhoangCach = new Panel();
         tlpNen.SuspendLayout();
         pnlTrai.SuspendLayout();
         khungLanTruoc.SuspendLayout();
@@ -195,18 +196,23 @@ partial class frmKhamBenh
         //
         // pnlDuoi
         //
+        // Dock thay cho Anchor: nút neo phải bị đẩy ra ngoài khi DPI/kích thước thật khác lúc thiết kế.
+        // Control thêm sau được dock trước: Hoàn tất sát phải, rồi khoảng cách, Lưu nháp, nhãn tổng chiếm phần còn lại.
         pnlDuoi.Controls.Add(lblTong);
         pnlDuoi.Controls.Add(btnLuuNhap);
+        pnlDuoi.Controls.Add(pnlKhoangCach);
         pnlDuoi.Controls.Add(btnHoanTat);
         pnlDuoi.Dock = DockStyle.Fill;
         pnlDuoi.Margin = new Padding(0);
+        pnlDuoi.Padding = new Padding(0, 12, 0, 12);
         pnlDuoi.Name = "pnlDuoi";
         pnlDuoi.Size = new Size(720, 60);
-        lblTong.AutoSize = true; lblTong.Font = new Font("Segoe UI", 9F, FontStyle.Bold);         lblTong.Location = new Point(0, 18); lblTong.Name = "lblTong";
-        btnLuuNhap.Anchor = AnchorStyles.Top | AnchorStyles.Right; btnLuuNhap.Location = new Point(420, 12); btnLuuNhap.Name = "btnLuuNhap"; btnLuuNhap.Size = new Size(120, 30);
+        lblTong.Dock = DockStyle.Fill; lblTong.Font = new Font("Segoe UI", 9F, FontStyle.Bold); lblTong.Name = "lblTong"; lblTong.TextAlign = ContentAlignment.MiddleLeft;
+        btnLuuNhap.Dock = DockStyle.Right; btnLuuNhap.Name = "btnLuuNhap"; btnLuuNhap.Size = new Size(120, 30);
         btnLuuNhap.Text = "Lưu nháp"; btnLuuNhap.Click += btnLuuNhap_Click;
-        btnHoanTat.Anchor = AnchorStyles.Top | AnchorStyles.Right; btnHoanTat.Location = new Point(550, 12); btnHoanTat.Name = "btnHoanTat"; btnHoanTat.Size = new Size(170, 30);
+        btnHoanTat.Dock = DockStyle.Right; btnHoanTat.Name = "btnHoanTat"; btnHoanTat.Size = new Size(170, 30);
         btnHoanTat.Text = "Hoàn tất khám"; btnHoanTat.Click += btnHoanTat_Click;
+        pnlKhoangCach.Dock = DockStyle.Right; pnlKhoangCach.Name = "pnlKhoangCach"; pnlKhoangCach.Size = new Size(10, 36);
         //
         // frmKhamBenh
         //
@@ -279,4 +285,5 @@ partial class frmKhamBenh
     private Label lblTong;
     private Button btnLuuNhap;
     private Button btnHoanTat;
+    private Panel pnlKhoangCach;
 }
