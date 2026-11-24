@@ -40,7 +40,7 @@ public partial class frmChinh : Form
             new("&Tra cứu", "Hồ sơ khám", () => new ucChuaLam("Tra cứu hồ sơ khám", "W9")),
             new("&Tra cứu", "Hóa đơn", () => new ucChuaLam("Tra cứu hóa đơn", "W9")),
             new("&Báo cáo", "Tổng quan", () => new ucTongQuanQuanTri()),
-            new("&Báo cáo", "Báo cáo thống kê", () => new ucChuaLam("Báo cáo, xuất Excel", "W8")),
+            new("&Báo cáo", "Báo cáo thống kê", () => new ucBaoCao()),
         ],
         ChucVu.LeTan =>
         [

@@ -194,3 +194,17 @@ public static class TrangThai
     public const string DangKham = "Đang khám";
     public const string HoanTat = "Hoàn tất";
 }
+
+/// <summary>Số liệu tổng quan của quản trị viên (W8).</summary>
+public class TongQuanQuanTriDTO
+{
+    public decimal DoanhThuHomNay { get; set; }
+    public decimal DoanhThuHomQua { get; set; }
+    public int HoaDonHomNay { get; set; }
+    public int LuotKhamHomNay { get; set; }
+    public int VangLaiHomNay { get; set; }
+    public int LichHenChoXacNhan { get; set; }
+    public int HoaDonChoThu { get; set; }
+    /// <summary>Doanh thu từng ngày trong 14 ngày gần nhất (kể cả hôm nay), ngày không có thu = 0.</summary>
+    public List<(DateTime Ngay, decimal Tien)> DoanhThu14Ngay { get; set; } = [];
+}

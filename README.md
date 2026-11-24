@@ -14,7 +14,8 @@ với website (repo `kmn-clinic`). Không đổi schema: 11 bảng, CHECK, UNIQU
 - **W5 – Lễ tân:** Tổng quan hôm nay; Lịch hẹn (xác nhận lịch khách tự đặt trên web, hủy, đặt hộ); Tiếp nhận khách có hẹn đúng ngày (Q10, Đã đặt thì xác nhận và tiếp nhận một lần, Q3) và khách vãng lai với bác sĩ đang trực (RB41).
 - **W6 – Bác sĩ:** Hàng chờ khám (hồ sơ của mình chưa có hóa đơn, Đang khám lên trước, tự làm mới 30 giây); Khám bệnh (triệu chứng, chẩn đoán, lời dặn, tiền công; kê đơn ghi thẳng vào CSDL, không vượt tồn RB27, giữ đơn giá lúc kê RB28; xem các lần khám trước); Hoàn tất khám bắt buộc chẩn đoán (RB22), kiểm tra lại tồn, lập hóa đơn "Chưa thanh toán" và khóa hồ sơ (Q4); Hồ sơ đã khám; Lịch hẹn của tôi.
 - **W7 – Thu ngân:** Hóa đơn chờ thu (khám sớm nhất lên đầu, số liệu trong ngày, tự làm mới 30 giây); Thu tiền khóa dòng hóa đơn để không thu hai lần, kiểm tra tồn kho, ghi giờ thu và thu ngân (RB31, RB32), trigger trừ kho (RB33); in hóa đơn A4 (PrintDocument, chọn "Microsoft Print to PDF" để lưu PDF); Lịch sử thanh toán, xem và in lại.
-- Tổng quan và tra cứu của quản trị viên vẫn dùng dữ liệu giả (`DuLieuGia/`), sẽ nối CSDL ở W8–W9.
+- **W8 – Thống kê, báo cáo:** Tổng quan quản trị (doanh thu hôm nay so với hôm qua, lượt khám, lịch hẹn chờ xác nhận, thuốc sắp hết, biểu đồ doanh thu 14 ngày); Báo cáo theo kỳ (doanh thu theo hóa đơn, lượt khám và doanh thu theo bác sĩ, thuốc đã xuất, tồn kho) xem trên lưới bằng SqlDataAdapter + DataTable, xuất CSV UTF-8 mở bằng Excel.
+- Tra cứu của quản trị viên vẫn dùng dữ liệu giả (`DuLieuGia/`), sẽ nối CSDL ở W9.
 
 ## Chạy trên Windows
 
@@ -90,6 +91,7 @@ src/KmnClinic.DAL/        ADO.NET: SqlConnection, SqlCommand có tham số, SqlT
   TiepNhanDAL.cs          tiếp nhận có hẹn, vãng lai, bác sĩ đang trực, hồ sơ trong ngày, tổng quan (W5)
   KhamBenhDAL.cs          hàng chờ, hồ sơ của bác sĩ, lần khám trước, lưu, kê/sửa/xóa thuốc, hoàn tất lập hóa đơn (W6); khóa dòng hồ sơ trước mỗi lần ghi
   ThanhToanDAL.cs         hóa đơn chờ thu, lịch sử, chi tiết, thu tiền (W7); khóa hóa đơn và dòng thuốc trước khi ghi
+  ThongKeDAL.cs           tổng quan quản trị, báo cáo trả DataTable (W8)
   LichLamViecDAL.cs       lịch làm việc (W3): kiểm tra RB10–RB13 có khóa rồi ghi cả lô trong một transaction
 src/KmnClinic.BUS/        quy tắc nghiệp vụ
   NhanVienBUS.cs          đăng nhập, đổi mật khẩu, quản lý nhân viên (RB5, RB6)
@@ -99,6 +101,7 @@ src/KmnClinic.BUS/        quy tắc nghiệp vụ
   TiepNhanBUS.cs          tiếp nhận (Q3, Q10, RB41), tổng quan lễ tân
   KhamBenhBUS.cs          bác sĩ khám (RB22, RB27, RB28, Q4); mã bác sĩ luôn lấy từ phiên đăng nhập
   ThanhToanBUS.cs         thu ngân (RB31–RB33); mã thu ngân luôn lấy từ phiên đăng nhập
+  ThongKeBUS.cs           báo cáo theo kỳ (tối đa 1 năm), xuất CSV cho Excel
   LichLamViecBUS.cs       xếp lịch từ ngày mai, hàng loạt theo thứ, câu báo trùng lịch; bác sĩ chỉ xem lịch mình
   MatKhau.cs              băm PBKDF2-SHA256 (cùng định dạng với website)
   PhienDangNhap.cs        nhân viên đang đăng nhập
