@@ -16,6 +16,8 @@ public partial class ucBaoCao : UserControl
     {
         InitializeComponent();
         GiaoDien.Luoi(dgvBaoCao);
+        // Mỗi loại báo cáo có cột khác nhau: để lưới tự sinh cột từ DataTable (GiaoDien.Luoi tắt mặc định này)
+        dgvBaoCao.AutoGenerateColumns = true;
         cboLoai.Items.AddRange(ThongKeBUS.CacBaoCao);
         dtpDen.Value = DateTime.Today;
         dtpTu.Value = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
@@ -31,6 +33,7 @@ public partial class ucBaoCao : UserControl
         DataTable bang = new();
         if (!ThongBaoLoi.Chay(this, () => bang = _bus.LapBaoCao(cboLoai.SelectedIndex, dtpTu.Value, dtpDen.Value))) return;
         _bang = bang;
+        dgvBaoCao.DataSource = null; // xóa cột của báo cáo trước
         dgvBaoCao.DataSource = bang;
         var tien = bang.Columns.Cast<DataColumn>().LastOrDefault(c => c.ColumnName is "Tổng tiền" or "Doanh thu" or "Thành tiền");
         lblTong.Text = $"{bang.Rows.Count} dòng" +
